@@ -12,6 +12,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./packages/*/tsconfig.json"],
   },
+  ignorePatterns: ["packages/shopify-graphql-types/**/*"],
   rules: {
     "prettier/prettier": [
       "error",
