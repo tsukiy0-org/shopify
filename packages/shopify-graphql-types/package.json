@@ -1,0 +1,20 @@
+{
+  "name": "@tsukiy0/shopify-graphql-types",
+  "version": "0.0.0",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.2",
+    "@graphql-codegen/typescript": "^1.21.1",
+    "graphql": "^15.5.0",
+    "graphql-introspection-json-to-sdl": "^1.0.3"
+  },
+  "scripts": {
+    "sdl": "graphql-introspection-json-to-sdl graphql.schema.json > schema.graphql",
+    "generate": "graphql-codegen --config configs/2020-04/codegen.yml",
+    "clean": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json"
+  }
+}
