@@ -1,0 +1,16 @@
+{
+  "name": "import-test",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@tsukiy0/shopify-graphql-types": "*"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json"
+  }
+}
