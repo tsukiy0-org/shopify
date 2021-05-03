@@ -15,7 +15,7 @@
   },
   "scripts": {
     "sdl": "graphql-introspection-json-to-sdl graphql.schema.json > schema.graphql",
-    "generate": "graphql-codegen --config configs/2020-04/codegen.yml",
+    "generate": "node generate.js",
     "clean": "rimraf dist",
     "build": "tsc -p tsconfig.build.json"
   }
