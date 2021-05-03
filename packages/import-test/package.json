@@ -1,13 +1,13 @@
 {
   "name": "import-test",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "license": "MIT",
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@tsukiy0/shopify-graphql-types": "*"
+    "@tsukiy0/shopify-graphql-types": "^0.1.0-alpha.0"
   },
   "scripts": {
     "clean": "rimraf dist",
