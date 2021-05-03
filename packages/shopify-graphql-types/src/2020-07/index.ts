@@ -10,7 +10,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   /** Amazon Web Services ARN. */
-  ARN: any;
+  ARN: string;
   /**
    * An [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) encoded UTC date string. Example value: `"2019-07-16"`.
    *
