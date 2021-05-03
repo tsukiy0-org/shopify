@@ -10,6 +10,7 @@ const execP = promisify(exec);
         "2020-07",
         "2020-10",
         "2021-01",
+        "2021-04",
     ];
 
     await Promise.all(versions.map(async version => {
