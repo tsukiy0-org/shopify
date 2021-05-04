@@ -6,3 +6,4 @@ export * from "./services/IOAuthService";
 export * from "./services/IAppInstallationService";
 
 export * from "./handlers/StartInstallHandler";
+export * from "./handlers/CompleteInstallHandler";

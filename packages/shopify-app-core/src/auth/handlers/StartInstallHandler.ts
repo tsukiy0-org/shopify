@@ -8,7 +8,7 @@ import { IOAuthService } from "../services/IOAuthService";
 export class StartInstallHandler {
   constructor(
     private readonly accessTokenRepository: IAccessTokenRepository,
-    private readonly oauthService: IOAuthService,
+    private readonly oAuthService: IOAuthService,
     private readonly appInstallationService: IAppInstallationService,
   ) {}
 
@@ -19,7 +19,7 @@ export class StartInstallHandler {
     onInstall: (authorizeUrl: URL) => Promise<void>,
     onInstalled: () => Promise<void>,
   ): Promise<void> => {
-    const authorizeUrl = this.oauthService.buildAuthorizeUrl(
+    const authorizeUrl = this.oAuthService.buildAuthorizeUrl(
       shopId,
       requiredScopes,
       redirectUrl,
@@ -40,7 +40,6 @@ export class StartInstallHandler {
     }
 
     await onInstalled();
-    return;
   };
 
   private getToken = async (

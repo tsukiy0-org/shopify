@@ -3,7 +3,7 @@ import { ShopifyAppError } from "../../shared/models/ShopifyAppError";
 import { AccessToken } from "../models/AccessToken";
 
 export interface IAccessTokenRepository {
-  set(shopId: ShopId, token: AccessToken): Promise<void>;
+  put(shopId: ShopId, token: AccessToken): Promise<void>;
   get(shopId: ShopId): Promise<AccessToken>;
 }
 
