@@ -1,5 +1,5 @@
 {
-  "name": "@stukiy0/shopify-app-core",
+  "name": "@tsukiy0/shopify-app-core",
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.1",
     "runtypes": "^5.2.0"
   }
 }
