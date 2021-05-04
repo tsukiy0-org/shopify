@@ -3,9 +3,31 @@ import {
   IAppInstallationService,
   ShopId,
 } from "@tsukiy0/shopify-app-core";
+import { gql } from "graphql-request";
+import { AppInstallation } from "@tsukiy0/shopify-admin-graphql-types/dist/2021-04";
+import { ShopifyGraphQlClient } from "../../shared/services/ShopifyGraphQlClient";
 
 export class GqlAppInstallationService implements IAppInstallationService {
+  constructor(private readonly client: ShopifyGraphQlClient) {}
+
   listAccessScopes = async (shopId: ShopId): Promise<AccessScope[]> => {
-    throw new Error("Method not implemented.");
+    const result = await this.client.request<{
+      appInstallation: AppInstallation;
+    }>(
+      shopId,
+      gql`
+        query Task {
+          appInstallation {
+            accessScopes {
+              handle
+            }
+          }
+        }
+      `,
+    );
+
+    return result.appInstallation.accessScopes
+      .map((_) => _.handle)
+      .map(AccessScope.check);
   };
 }
