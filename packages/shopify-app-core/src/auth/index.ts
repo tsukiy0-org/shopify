@@ -1,3 +1,3 @@
-export * from "./models/AuthToken";
+export * from "./models/AccessToken";
 
-export * from "./services/IAuthTokenService";
+export * from "./services/IAccessTokenRepository";
