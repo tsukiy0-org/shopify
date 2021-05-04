@@ -7,6 +7,6 @@ export interface IOAuthService {
     shopId: ShopId,
     scopes: AccessScope[],
     redirectUrl: URL,
-  ): string;
+  ): URL;
   getAccessToken(shopId: ShopId, code: string): Promise<AccessToken>;
 }
