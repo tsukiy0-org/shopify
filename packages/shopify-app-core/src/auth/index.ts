@@ -1,5 +1,7 @@
 export * from "./models/AccessToken";
 export * from "./models/AccessScope";
+export * from "./models/ApiKey";
+export * from "./models/ApiSecretKey";
 
 export * from "./services/IAccessTokenRepository";
 export * from "./services/IOAuthService";

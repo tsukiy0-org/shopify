@@ -1,6 +1,7 @@
 import { ShopId } from "../../shared";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
+import { ApiKey } from "../models/ApiKey";
 import {
   AccessTokenNotFoundError,
   IAccessTokenRepository,
@@ -14,6 +15,7 @@ describe("StartInstallHandler", () => {
   const requiredScopes = ["read_orders", "write_orders"].map(AccessScope.check);
   const redirectUrl = new URL("https://success.com");
   const installUrl = new URL("https://install.com");
+  const apiKey = ApiKey.check("apiKey");
   let accessTokenRepository: IAccessTokenRepository;
   let oAuthService: IOAuthService;
   let appInstallationService: IAppInstallationService;
@@ -31,6 +33,9 @@ describe("StartInstallHandler", () => {
       accessTokenRepository,
       oAuthService,
       appInstallationService,
+      {
+        apiKey,
+      },
     );
   });
 
@@ -51,6 +56,12 @@ describe("StartInstallHandler", () => {
       onInstalled,
     );
 
+    expect(oAuthService.buildAuthorizeUrl).toHaveBeenCalledWith(
+      shopId,
+      requiredScopes,
+      redirectUrl,
+      apiKey,
+    );
     expect(onInstall).toHaveBeenCalledWith(installUrl);
   });
 

@@ -1,6 +1,7 @@
 import { ShopId } from "../../shared";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
+import { ApiKey } from "../models/ApiKey";
 import { IAccessTokenRepository } from "../services/IAccessTokenRepository";
 import { IAppInstallationService } from "../services/IAppInstallationService";
 import { IOAuthService } from "../services/IOAuthService";
@@ -10,6 +11,9 @@ export class StartInstallHandler {
     private readonly accessTokenRepository: IAccessTokenRepository,
     private readonly oAuthService: IOAuthService,
     private readonly appInstallationService: IAppInstallationService,
+    private readonly config: {
+      apiKey: ApiKey;
+    },
   ) {}
 
   handle = async (
@@ -23,6 +27,7 @@ export class StartInstallHandler {
       shopId,
       requiredScopes,
       redirectUrl,
+      this.config.apiKey,
     );
 
     const token = await this.getToken(shopId);
