@@ -3,6 +3,9 @@ import {
   AccessToken,
   IOAuthService,
   ShopId,
+  ApiKey,
+  ApiSecretKey,
+  ShopifyAppError,
 } from "@tsukiy0/shopify-app-core";
 
 export class HttpOAuthService implements IOAuthService {
@@ -10,14 +13,43 @@ export class HttpOAuthService implements IOAuthService {
     shopId: ShopId,
     scopes: AccessScope[],
     redirectUrl: URL,
+    apiKey: ApiKey,
   ): URL => {
-    throw new Error("Method not implemented.");
+    const url = new URL(`https://${shopId}/admin/oauth/authorize`);
+    url.searchParams.append("client_id", apiKey);
+    url.searchParams.append("scope", scopes.sort().join(","));
+    url.searchParams.append("redirect_uri", redirectUrl.toString());
+    return url;
   };
 
   getAccessToken = async (
     shopId: ShopId,
     code: string,
+    apiKey: ApiKey,
+    apiSecretKey: ApiSecretKey,
   ): Promise<AccessToken> => {
-    throw new Error("Method not implemented.");
+    const res = await fetch(`https://${shopId}/admin/oauth/access_token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        client_id: apiKey,
+        client_secret: apiSecretKey,
+        code: code,
+      }),
+    });
+
+    if (res.status !== 200) {
+      throw new GetTokenRequestError();
+    }
+
+    const body: {
+      access_token?: string;
+    } = await res.json();
+
+    return AccessToken.check(body.access_token);
   };
 }
+
+export class GetTokenRequestError extends ShopifyAppError {}
