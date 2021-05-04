@@ -7,7 +7,7 @@
     "dist"
   ],
   "dependencies": {
-    "@tsukiy0/shopify-graphql-types": "^0.1.0-alpha.0"
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.0"
   },
   "scripts": {
     "clean": "rimraf dist",

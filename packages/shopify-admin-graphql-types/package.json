@@ -1,5 +1,5 @@
 {
-  "name": "@tsukiy0/shopify-graphql-types",
+  "name": "@tsukiy0/shopify-admin-graphql-types",
   "version": "0.1.0-alpha.0",
   "license": "MIT",
   "main": "dist/index.js",
