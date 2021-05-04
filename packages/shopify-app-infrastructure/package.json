@@ -1,0 +1,17 @@
+{
+  "name": "@tsukiy0/shopify-app-infrastructure",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "UNLICENSED",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.1",
+    "@tsukiy0/shopify-app-core": "^0.0.0",
+    "runtypes": "^5.2.0"
+  }
+}
