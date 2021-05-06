@@ -1,5 +1,4 @@
 import { ShopId } from "../../shared";
-import { AppSubscriptionId } from "../models/AppSubscriptionId";
 import { AppUsageRecordId } from "../models/AppUsageRecordId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";
