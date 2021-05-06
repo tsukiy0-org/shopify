@@ -3,5 +3,5 @@
 set -euxo pipefail
 
 yarn install --silent
-yarn lint
 yarn build
+yarn lint

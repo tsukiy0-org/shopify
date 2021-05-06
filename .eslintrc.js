@@ -10,9 +10,9 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ["./packages/*/tsconfig.json"],
+    project: ["packages/*/tsconfig.json"],
   },
-  ignorePatterns: ["packages/shopify-admin-graphql-types/**/*"],
+  ignorePatterns: ["packages/shopify-admin-graphql-types/**/*", "**/*.d.ts"],
   rules: {
     "prettier/prettier": [
       "error",
