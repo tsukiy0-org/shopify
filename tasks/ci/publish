@@ -4,4 +4,4 @@ set -euxo pipefail
 
 echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} >> .npmrc
 
-yarn run publish
+yarn run publish:prerelease
