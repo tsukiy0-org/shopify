@@ -9,17 +9,13 @@ export interface IAppUsageSubscriptionService {
     shopId: ShopId,
     name: string,
     terms: string,
-    test: boolean,
     cappedAmount: BillingMoney,
     returnUrl: URL,
-  ): Promise<{
-    appSubscriptionId: AppSubscriptionId;
-    confirmationUrl: URL;
-  }>;
+  ): Promise<URL>;
 
   get(shopId: ShopId): Promise<UsageSubscription>;
 
-  createCharge(shopId: ShopId): Promise<AppUsageRecordId>;
+  createCharge(shopId: ShopId, amount: BillingMoney): Promise<AppUsageRecordId>;
 
   updateCappedAmount(shopId: ShopId, cappedAmount: BillingMoney): Promise<URL>;
 }
