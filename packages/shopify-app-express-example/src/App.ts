@@ -8,7 +8,7 @@ import {
 } from "@tsukiy0/shopify-app-infrastructure";
 import { MemoryAccessTokenRepository } from "./utils/MemoryAccessTokenRepository";
 import { AuthRouter } from "@tsukiy0/shopify-app-express";
-import { ApiKey, ApiSecretKey } from "@tsukiy0/shopify-app-core";
+import { AccessScope, ApiKey, ApiSecretKey } from "@tsukiy0/shopify-app-core";
 
 export class App {
   static build = (config: { hostUrl: URL }): Application => {
@@ -40,7 +40,7 @@ export class App {
         accessTokenRepository,
         appInstallationService,
         {
-          requiredScopes: [],
+          requiredScopes: [AccessScope.check("read_orders")],
           apiKey: ApiKey.check(process.env.API_KEY),
           apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
           hostUrl: config.hostUrl,
