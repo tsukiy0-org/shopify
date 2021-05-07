@@ -7,6 +7,7 @@ import {
   ApiSecretKey,
   ShopifyAppError,
 } from "@tsukiy0/shopify-app-core";
+import fetch from "cross-fetch";
 
 export class HttpOAuthService implements IOAuthService {
   buildAuthorizeUrl = (
