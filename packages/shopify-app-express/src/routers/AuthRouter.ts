@@ -1,8 +1,6 @@
-import { Router } from "express";
+import { Router, Response } from "express";
 import {
   AccessScope,
-  AccessToken,
-  AccessTokenNotFoundError,
   ApiKey,
   ApiSecretKey,
   CompleteInstallHandler,
@@ -23,9 +21,9 @@ export class AuthRouter {
     private readonly config: {
       requiredScopes: AccessScope[];
       apiKey: ApiKey;
-      apiSecret: ApiSecretKey;
+      apiSecretKey: ApiSecretKey;
       hostUrl: URL;
-      onSuccess: () => Promise<void>;
+      onSuccess: (res: Response) => Promise<void>;
     },
   ) {}
 
@@ -61,7 +59,7 @@ export class AuthRouter {
           async (authorizeUrl) => {
             res.redirect(authorizeUrl.toString());
           },
-          this.config.onSuccess,
+          () => this.config.onSuccess(res),
         );
       }),
     );
@@ -76,16 +74,14 @@ export class AuthRouter {
           this.oAuthService,
           {
             apiKey: this.config.apiKey,
-            apiSecretKey: this.config.apiSecret,
+            apiSecretKey: this.config.apiSecretKey,
           },
         );
 
         const shopId = ShopId.check(req.query.shopId);
 
-        await handler.handle(
-          shopId,
-          req.query.code as string,
-          this.config.onSuccess,
+        await handler.handle(shopId, req.query.code as string, () =>
+          this.config.onSuccess(res),
         );
       }),
     );
