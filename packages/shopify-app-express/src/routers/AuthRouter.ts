@@ -78,7 +78,7 @@ export class AuthRouter {
           },
         );
 
-        const shopId = ShopId.check(req.query.shopId);
+        const shopId = ShopId.check(req.query.shop);
 
         await handler.handle(shopId, req.query.code as string, () =>
           this.config.onSuccess(res),
