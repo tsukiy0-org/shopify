@@ -1,10 +1,18 @@
 import { App } from "./App";
 import dotenv from "dotenv-flow";
+import ngrok from "ngrok";
 
 dotenv.config();
 
-const app = App.build();
+void (async () => {
+  const port = 8000;
+  const url = await ngrok.connect(port);
 
-app.listen(8000, () => {
-  console.log("listening on port 8000");
-});
+  const app = App.build({
+    hostUrl: new URL(url),
+  });
+
+  app.listen(port, () => {
+    console.log(url);
+  });
+})();

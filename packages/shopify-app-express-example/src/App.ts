@@ -11,7 +11,7 @@ import { AuthRouter } from "@tsukiy0/shopify-app-express";
 import { ApiKey, ApiSecretKey } from "@tsukiy0/shopify-app-core";
 
 export class App {
-  static build = (): Application => {
+  static build = (config: { hostUrl: URL }): Application => {
     const app = express();
 
     const accessTokenRepository = new MemoryAccessTokenRepository();
@@ -43,7 +43,7 @@ export class App {
           requiredScopes: [],
           apiKey: ApiKey.check(process.env.API_KEY),
           apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
-          hostUrl: new URL(""),
+          hostUrl: config.hostUrl,
           onSuccess: async (res) => {
             res.status(200).end();
           },
@@ -52,7 +52,6 @@ export class App {
     );
 
     app.get("/health", (_, res) => {
-      console.log("hello");
       res.status(200);
       res.end();
     });
