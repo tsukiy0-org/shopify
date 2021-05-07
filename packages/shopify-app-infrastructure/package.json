@@ -9,7 +9,8 @@
   ],
   "publishConfig": {
     "access": "public"
-  },  "scripts": {
+  },
+  "scripts": {
     "clean": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
     "test": "jest"
