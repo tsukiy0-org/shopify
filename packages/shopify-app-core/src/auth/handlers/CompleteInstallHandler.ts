@@ -1,4 +1,3 @@
-import { ShopId } from "../../shared";
 import { ApiKey } from "../models/ApiKey";
 import { ApiSecretKey } from "../models/ApiSecretKey";
 import { IAccessTokenRepository } from "../services/IAccessTokenRepository";
