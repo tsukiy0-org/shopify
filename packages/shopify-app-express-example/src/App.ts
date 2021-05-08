@@ -33,6 +33,12 @@ export class App {
       }),
     );
 
+    app.use("/success", (req, res) => {
+      res.status(200).json({
+        success: true,
+      });
+    });
+
     app.use(
       "/",
       new AuthRouter(
@@ -45,16 +51,11 @@ export class App {
           apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
           hostUrl: new URL(process.env.HOST_URL!),
           onSuccess: async (res) => {
-            res.status(200).end();
+            res.redirect("/success");
           },
         },
       ).build(),
     );
-
-    app.get("/health", (_, res) => {
-      res.status(200);
-      res.end();
-    });
 
     return app;
   };
