@@ -12,6 +12,7 @@ import {
 } from "@tsukiy0/shopify-app-core";
 import path from "path";
 import { promisifyHandler } from "./utils/promisifyHandler";
+import { RequestVerifier } from "../utils/RequestVerifier";
 
 export class AuthRouter {
   constructor(
@@ -29,11 +30,14 @@ export class AuthRouter {
 
   build = (): Router => {
     const router = Router();
+    const requestVerifier = new RequestVerifier({
+      apiSecretKey: this.config.apiSecretKey,
+    });
 
     router.get(
       "/shopify/auth/start",
       promisifyHandler(async (req, res) => {
-        // @TODO validate request
+        requestVerifier.verifyAuth(req.query);
 
         const handler = new StartInstallHandler(
           this.accessTokenRepository,
@@ -67,7 +71,7 @@ export class AuthRouter {
     router.get(
       "/shopify/auth/complete",
       promisifyHandler(async (req, res) => {
-        // @TODO validate request
+        requestVerifier.verifyAuth(req.query);
 
         const handler = new CompleteInstallHandler(
           this.accessTokenRepository,
