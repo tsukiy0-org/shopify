@@ -5,6 +5,7 @@ import { ApiKey } from "../models/ApiKey";
 import { IAccessTokenRepository } from "../services/IAccessTokenRepository";
 import { IAppInstallationService } from "../services/IAppInstallationService";
 import { IOAuthService } from "../services/IOAuthService";
+import { StartInstallRequest } from "./models/StartInstallRequest";
 
 export class StartInstallHandler {
   constructor(
@@ -17,29 +18,29 @@ export class StartInstallHandler {
   ) {}
 
   handle = async (
-    shopId: ShopId,
-    requiredScopes: AccessScope[],
-    redirectUrl: URL,
+    request: StartInstallRequest,
     onInstall: (authorizeUrl: URL) => Promise<void>,
     onInstalled: () => Promise<void>,
   ): Promise<void> => {
     const authorizeUrl = this.oAuthService.buildAuthorizeUrl(
-      shopId,
-      requiredScopes,
-      redirectUrl,
+      request.shopId,
+      request.requiredScopes,
+      request.redirectUrl,
       this.config.apiKey,
     );
 
-    const token = await this.getToken(shopId);
+    const token = await this.getToken(request.shopId);
 
     if (!token) {
       await onInstall(authorizeUrl);
       return;
     }
 
-    const scopes = await this.appInstallationService.listAccessScopes(shopId);
+    const scopes = await this.appInstallationService.listAccessScopes(
+      request.shopId,
+    );
 
-    if (!this.hasRequiredScopes(requiredScopes, scopes)) {
+    if (!this.hasRequiredScopes(request.requiredScopes, scopes)) {
       await onInstall(authorizeUrl);
       return;
     }

@@ -9,6 +9,7 @@ import {
   IOAuthService,
   ShopId,
   StartInstallHandler,
+  StartInstallRequest,
 } from "@tsukiy0/shopify-app-core";
 import path from "path";
 import { promisifyHandler } from "./utils/promisifyHandler";
@@ -49,7 +50,6 @@ export class AuthRouter {
         );
 
         const shopId = ShopId.check(req.query.shop);
-
         const redirectUrl = new URL(this.config.hostUrl.toString());
         redirectUrl.pathname = path.join(
           this.config.hostUrl.pathname,
@@ -57,9 +57,11 @@ export class AuthRouter {
         );
 
         await handler.handle(
-          shopId,
-          this.config.requiredScopes,
-          redirectUrl,
+          StartInstallRequest.check({
+            shopId,
+            requiredScopes: this.config.requiredScopes,
+            redirectUrl,
+          }),
           async (authorizeUrl) => {
             res.redirect(authorizeUrl.toString());
           },

@@ -8,12 +8,15 @@ import {
 } from "../services/IAccessTokenRepository";
 import { IAppInstallationService } from "../services/IAppInstallationService";
 import { IOAuthService } from "../services/IOAuthService";
+import { StartInstallRequest } from "./models/StartInstallRequest";
 import { StartInstallHandler } from "./StartInstallHandler";
 
 describe("StartInstallHandler", () => {
-  const shopId = ShopId.check("test.myshopify.com");
-  const requiredScopes = ["read_orders", "write_orders"].map(AccessScope.check);
-  const redirectUrl = new URL("https://success.com");
+  const request = StartInstallRequest.check({
+    shopId: ShopId.check("test.myshopify.com"),
+    requiredScopes: ["read_orders", "write_orders"].map(AccessScope.check),
+    redirectUrl: new URL("https://success.com"),
+  });
   const installUrl = new URL("https://install.com");
   const apiKey = ApiKey.check("apiKey");
   let accessTokenRepository: IAccessTokenRepository;
@@ -48,18 +51,12 @@ describe("StartInstallHandler", () => {
       .fn()
       .mockRejectedValue(new AccessTokenNotFoundError());
 
-    await sut.handle(
-      shopId,
-      requiredScopes,
-      redirectUrl,
-      onInstall,
-      onInstalled,
-    );
+    await sut.handle(request, onInstall, onInstalled);
 
     expect(oAuthService.buildAuthorizeUrl).toHaveBeenCalledWith(
-      shopId,
-      requiredScopes,
-      redirectUrl,
+      request.shopId,
+      request.requiredScopes,
+      request.redirectUrl,
       apiKey,
     );
     expect(onInstall).toHaveBeenCalledWith(installUrl);
@@ -77,13 +74,7 @@ describe("StartInstallHandler", () => {
         .fn()
         .mockResolvedValue(["read_orders"].map(AccessScope.check));
 
-      await sut.handle(
-        shopId,
-        requiredScopes,
-        redirectUrl,
-        onInstall,
-        onInstalled,
-      );
+      await sut.handle(request, onInstall, onInstalled);
 
       expect(onInstall).toHaveBeenCalledWith(installUrl);
     });
@@ -97,13 +88,7 @@ describe("StartInstallHandler", () => {
           .fn()
           .mockResolvedValue(scopes.map(AccessScope.check));
 
-        await sut.handle(
-          shopId,
-          requiredScopes,
-          redirectUrl,
-          onInstall,
-          onInstalled,
-        );
+        await sut.handle(request, onInstall, onInstalled);
 
         expect(onInstalled).toHaveBeenCalled();
       });
