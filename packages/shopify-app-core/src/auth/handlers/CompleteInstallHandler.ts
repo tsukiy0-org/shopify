@@ -3,6 +3,7 @@ import { ApiKey } from "../models/ApiKey";
 import { ApiSecretKey } from "../models/ApiSecretKey";
 import { IAccessTokenRepository } from "../services/IAccessTokenRepository";
 import { IOAuthService } from "../services/IOAuthService";
+import { CompleteInstallRequest } from "./models/CompleteInstallRequest";
 
 export class CompleteInstallHandler {
   constructor(
@@ -15,17 +16,16 @@ export class CompleteInstallHandler {
   ) {}
 
   handle = async (
-    shopId: ShopId,
-    code: string,
+    request: CompleteInstallRequest,
     onInstalled: () => Promise<void>,
   ): Promise<void> => {
     const token = await this.oAuthService.getAccessToken(
-      shopId,
-      code,
+      request.shopId,
+      request.accessCode,
       this.config.apiKey,
       this.config.apiSecretKey,
     );
-    await this.accessTokenRepository.put(shopId, token);
+    await this.accessTokenRepository.put(request.shopId, token);
 
     await onInstalled();
   };

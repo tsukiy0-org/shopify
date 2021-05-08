@@ -9,4 +9,5 @@ export * from "./services/IAppInstallationService";
 
 export * from "./handlers/models/StartInstallRequest";
 export * from "./handlers/StartInstallHandler";
+export * from "./handlers/models/CompleteInstallRequest";
 export * from "./handlers/CompleteInstallHandler";

@@ -5,9 +5,13 @@ import { ApiSecretKey } from "../models/ApiSecretKey";
 import { IAccessTokenRepository } from "../services/IAccessTokenRepository";
 import { IOAuthService } from "../services/IOAuthService";
 import { CompleteInstallHandler } from "./CompleteInstallHandler";
+import { CompleteInstallRequest } from "./models/CompleteInstallRequest";
 
 describe("CompleteInstallHandler", () => {
-  const shopId = ShopId.check("test.myshopify.com");
+  const request = CompleteInstallRequest.check({
+    shopId: ShopId.check("test.myshopify.com"),
+    accessCode: "accessCode",
+  });
   const apiKey = ApiKey.check("apiKey");
   const apiSecretKey = ApiSecretKey.check("apiSecretKey");
   let accessTokenRepository: IAccessTokenRepository;
@@ -26,20 +30,22 @@ describe("CompleteInstallHandler", () => {
   });
 
   it("puts token into repository and calls onInstalled", async () => {
-    const code = "code";
     const accessToken = AccessToken.check("accessToken");
     oAuthService.getAccessToken = jest.fn().mockResolvedValue(accessToken);
     accessTokenRepository.put = jest.fn();
 
-    await sut.handle(shopId, code, onInstalled);
+    await sut.handle(request, onInstalled);
 
     expect(oAuthService.getAccessToken).toHaveBeenCalledWith(
-      shopId,
-      code,
+      request.shopId,
+      request.accessCode,
       apiKey,
       apiSecretKey,
     );
-    expect(accessTokenRepository.put).toHaveBeenCalledWith(shopId, accessToken);
+    expect(accessTokenRepository.put).toHaveBeenCalledWith(
+      request.shopId,
+      accessToken,
+    );
     expect(onInstalled).toHaveBeenCalled();
   });
 });

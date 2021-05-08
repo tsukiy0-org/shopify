@@ -4,6 +4,7 @@ import {
   ApiKey,
   ApiSecretKey,
   CompleteInstallHandler,
+  CompleteInstallRequest,
   IAccessTokenRepository,
   IAppInstallationService,
   IOAuthService,
@@ -86,8 +87,12 @@ export class AuthRouter {
 
         const shopId = ShopId.check(req.query.shop);
 
-        await handler.handle(shopId, req.query.code as string, () =>
-          this.config.onSuccess(res),
+        await handler.handle(
+          CompleteInstallRequest.check({
+            shopId,
+            accessCode: req.query.code as string,
+          }),
+          () => this.config.onSuccess(res),
         );
       }),
     );
