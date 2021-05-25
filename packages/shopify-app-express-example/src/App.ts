@@ -7,13 +7,14 @@ import {
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
 import { MemoryAccessTokenRepository } from "./utils/MemoryAccessTokenRepository";
-import { AuthRouter, RequestVerifier } from "@tsukiy0/shopify-app-express";
+import { AuthRouter } from "@tsukiy0/shopify-app-express";
 import {
   AccessScope,
   ApiKey,
   ApiSecretKey,
   AuthHandler,
 } from "@tsukiy0/shopify-app-core";
+import { RequestVerifier } from "packages/shopify-app-express/src/utils/RequestVerifier";
 
 export class App {
   static build = (): Application => {
@@ -52,12 +53,18 @@ export class App {
       }),
     );
 
+    app.use("/success", (req, res) => {
+      res.status(200).json({
+        success: true,
+      });
+    });
+
     app.use(
       "/",
       new AuthRouter(authHandler, requestVerifier, {
         requiredScopes: [AccessScope.check("read_orders")],
         hostUrl: new URL(process.env.HOST_URL!),
-        appUrl: new URL(process.env.APP_URL!),
+        onSuccess: async (res) => res.redirect("/success"),
       }).build(),
     );
 

@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Response, Router } from "express";
 import {
   AccessScope,
   ShopId,
@@ -17,7 +17,7 @@ export class AuthRouter {
     private readonly config: {
       requiredScopes: AccessScope[];
       hostUrl: URL;
-      appUrl: URL;
+      onSuccess: (res: Response) => Promise<void>;
     },
   ) {}
 
@@ -48,7 +48,7 @@ export class AuthRouter {
           return res.redirect(response.authorizeUrl.toString());
         }
 
-        return res.redirect(this.config.appUrl.toString());
+        await this.config.onSuccess(res);
       }),
     );
 
@@ -66,7 +66,7 @@ export class AuthRouter {
           }),
         );
 
-        return res.redirect(this.config.appUrl.toString());
+        await this.config.onSuccess(res);
       }),
     );
 
