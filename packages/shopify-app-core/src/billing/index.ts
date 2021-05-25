@@ -12,3 +12,4 @@ export * from "./handlers/models/GetUsageSubscriptionRequest";
 export * from "./handlers/models/UpdateUsageSubscriptionCappedAmountRequest";
 export * from "./handlers/models/UpdateUsageSubscriptionCappedAmountResponse";
 export * from "./handlers/UsageSubscriptionHandler";
+export * from "./handlers/IUsageSubscriptionHandler";

@@ -12,6 +12,10 @@ import { UpdateUsageSubscriptionCappedAmountResponse } from "./models/UpdateUsag
 export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
   constructor(
     private readonly appUsageSubscriptionService: IAppUsageSubscriptionService,
+    private readonly config: {
+      terms: string;
+      returnUrl: URL;
+    },
   ) {}
 
   create = async (
@@ -20,9 +24,9 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
     const authorizeUrl = await this.appUsageSubscriptionService.create(
       request.shopId,
       request.name,
-      request.terms,
+      this.config.terms,
       request.cappedAmount,
-      request.returnUrl,
+      this.config.returnUrl,
     );
 
     return CreateUsageSubscriptionResponse.check({
