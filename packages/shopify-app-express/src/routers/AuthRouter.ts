@@ -1,16 +1,10 @@
-import { Router, Response } from "express";
+import { Router } from "express";
 import {
   AccessScope,
-  ApiKey,
-  ApiSecretKey,
-  CompleteInstallHandler,
-  CompleteInstallRequest,
-  IAccessTokenRepository,
-  IAppInstallationService,
-  IOAuthService,
   ShopId,
-  StartInstallHandler,
+  IAuthHandler,
   StartInstallRequest,
+  CompleteInstallRequest,
 } from "@tsukiy0/shopify-app-core";
 import path from "path";
 import { promisifyHandler } from "./utils/promisifyHandler";
@@ -18,37 +12,22 @@ import { RequestVerifier } from "../utils/RequestVerifier";
 
 export class AuthRouter {
   constructor(
-    private readonly oAuthService: IOAuthService,
-    private readonly accessTokenRepository: IAccessTokenRepository,
-    private readonly appInstallationService: IAppInstallationService,
+    private readonly authHandler: IAuthHandler,
+    private readonly requestVerifier: RequestVerifier,
     private readonly config: {
       requiredScopes: AccessScope[];
-      apiKey: ApiKey;
-      apiSecretKey: ApiSecretKey;
       hostUrl: URL;
-      onSuccess: (res: Response) => Promise<void>;
+      appUrl: URL;
     },
   ) {}
 
   build = (): Router => {
     const router = Router();
-    const requestVerifier = new RequestVerifier({
-      apiSecretKey: this.config.apiSecretKey,
-    });
 
     router.get(
       "/shopify/auth/start",
       promisifyHandler(async (req, res) => {
-        requestVerifier.verifyAuth(req.query);
-
-        const handler = new StartInstallHandler(
-          this.accessTokenRepository,
-          this.oAuthService,
-          this.appInstallationService,
-          {
-            apiKey: this.config.apiKey,
-          },
-        );
+        this.requestVerifier.verifyAuth(req.query);
 
         const shopId = ShopId.check(req.query.shop);
         const redirectUrl = new URL(this.config.hostUrl.toString());
@@ -57,43 +36,37 @@ export class AuthRouter {
           "/shopify/auth/complete",
         );
 
-        await handler.handle(
+        const response = await this.authHandler.startInstall(
           StartInstallRequest.check({
             shopId,
             requiredScopes: this.config.requiredScopes,
             redirectUrl,
           }),
-          async (authorizeUrl) => {
-            res.redirect(authorizeUrl.toString());
-          },
-          () => this.config.onSuccess(res),
         );
+
+        if (response.authorizeUrl) {
+          return res.redirect(response.authorizeUrl.toString());
+        }
+
+        return res.redirect(this.config.appUrl.toString());
       }),
     );
 
     router.get(
       "/shopify/auth/complete",
       promisifyHandler(async (req, res) => {
-        requestVerifier.verifyAuth(req.query);
-
-        const handler = new CompleteInstallHandler(
-          this.accessTokenRepository,
-          this.oAuthService,
-          {
-            apiKey: this.config.apiKey,
-            apiSecretKey: this.config.apiSecretKey,
-          },
-        );
+        this.requestVerifier.verifyAuth(req.query);
 
         const shopId = ShopId.check(req.query.shop);
 
-        await handler.handle(
+        await this.authHandler.completeInstall(
           CompleteInstallRequest.check({
             shopId,
             accessCode: req.query.code as string,
           }),
-          () => this.config.onSuccess(res),
         );
+
+        return res.redirect(this.config.appUrl.toString());
       }),
     );
 

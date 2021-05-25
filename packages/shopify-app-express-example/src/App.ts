@@ -7,8 +7,13 @@ import {
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
 import { MemoryAccessTokenRepository } from "./utils/MemoryAccessTokenRepository";
-import { AuthRouter } from "@tsukiy0/shopify-app-express";
-import { AccessScope, ApiKey, ApiSecretKey } from "@tsukiy0/shopify-app-core";
+import { AuthRouter, RequestVerifier } from "@tsukiy0/shopify-app-express";
+import {
+  AccessScope,
+  ApiKey,
+  ApiSecretKey,
+  AuthHandler,
+} from "@tsukiy0/shopify-app-core";
 
 export class App {
   static build = (): Application => {
@@ -23,6 +28,20 @@ export class App {
       shopifyGraphQlClient,
     );
 
+    const authHandler = new AuthHandler(
+      accessTokenRepository,
+      oAuthService,
+      appInstallationService,
+      {
+        apiKey: ApiKey.check(process.env.API_KEY),
+        apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
+      },
+    );
+
+    const requestVerifier = new RequestVerifier({
+      apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
+    });
+
     app.use(cors());
     app.use(
       json({
@@ -33,28 +52,13 @@ export class App {
       }),
     );
 
-    app.use("/success", (req, res) => {
-      res.status(200).json({
-        success: true,
-      });
-    });
-
     app.use(
       "/",
-      new AuthRouter(
-        oAuthService,
-        accessTokenRepository,
-        appInstallationService,
-        {
-          requiredScopes: [AccessScope.check("read_orders")],
-          apiKey: ApiKey.check(process.env.API_KEY),
-          apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
-          hostUrl: new URL(process.env.HOST_URL!),
-          onSuccess: async (res) => {
-            res.redirect("/success");
-          },
-        },
-      ).build(),
+      new AuthRouter(authHandler, requestVerifier, {
+        requiredScopes: [AccessScope.check("read_orders")],
+        hostUrl: new URL(process.env.HOST_URL!),
+        appUrl: new URL(process.env.APP_URL!),
+      }).build(),
     );
 
     return app;
