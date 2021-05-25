@@ -4,7 +4,7 @@ import { BillingMoney } from "../../models/BillingMoney";
 
 export const UpdateUsageSubscriptionCappedAmountRequest = Record({
   shopId: ShopId,
-  cappedAmount: BillingMoney,
+  addAmount: BillingMoney,
 }).withBrand("UpdateUsageSubscriptionCappedAmountRequest");
 
 export type UpdateUsageSubscriptionCappedAmountRequest = Static<

@@ -1,3 +1,4 @@
+import { BillingMoneyExtensions } from "../extensions/BillingMoneyExtensions";
 import { UsageSubscription } from "../models/UsageSubscription";
 import { IAppUsageSubscriptionService } from "../services/IAppUsageSubscriptionService";
 import { IUsageSubscriptionHandler } from "./IUsageSubscriptionHandler";
@@ -13,25 +14,49 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
     private readonly appUsageSubscriptionService: IAppUsageSubscriptionService,
   ) {}
 
-  create = (
+  create = async (
     request: CreateUsageSubscriptionRequest,
   ): Promise<CreateUsageSubscriptionResponse> => {
-    throw new Error();
+    const authorizeUrl = await this.appUsageSubscriptionService.create(
+      request.shopId,
+      request.name,
+      request.terms,
+      request.cappedAmount,
+      request.returnUrl,
+    );
+
+    return CreateUsageSubscriptionResponse.check({
+      authorizeUrl,
+    });
   };
 
-  get = (request: GetUsageSubscriptionRequest): Promise<UsageSubscription> => {
-    throw new Error();
+  get = async (
+    request: GetUsageSubscriptionRequest,
+  ): Promise<UsageSubscription> => {
+    return await this.appUsageSubscriptionService.get(request.shopId);
   };
 
-  createCharge = (
+  createCharge = async (
     request: CreateUsageSubscriptionChargeRequest,
   ): Promise<void> => {
-    throw new Error();
+    await this.appUsageSubscriptionService.createCharge(
+      request.shopId,
+      request.amount,
+    );
   };
 
-  updateCappedAmount = (
+  updateCappedAmount = async (
     request: UpdateUsageSubscriptionCappedAmountRequest,
   ): Promise<UpdateUsageSubscriptionCappedAmountResponse> => {
-    throw new Error();
+    const sub = await this.appUsageSubscriptionService.get(request.shopId);
+
+    const authorizeUrl = await this.appUsageSubscriptionService.updateCappedAmount(
+      request.shopId,
+      BillingMoneyExtensions.add(sub.cappedAmount, request.addAmount),
+    );
+
+    return UpdateUsageSubscriptionCappedAmountResponse.check({
+      authorizeUrl,
+    });
   };
 }

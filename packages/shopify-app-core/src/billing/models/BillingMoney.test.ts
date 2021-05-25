@@ -6,6 +6,6 @@ describe("BillingMoney", () => {
   });
 
   it("when less than 0 then throw", () => {
-    expect(() => BillingMoney.check(0)).toThrowError();
+    expect(() => BillingMoney.check(-1)).toThrowError();
   });
 });
