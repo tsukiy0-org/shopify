@@ -5,7 +5,10 @@ export * from "./models/UsageSubscription";
 
 export * from "./services/IAppUsageSubscriptionService";
 
-export * from "./handlers/CreateUsageSubscriptionChargeHandler";
-export * from "./handlers/CreateUsageSubscriptionChargeHandler";
-export * from "./handlers/GetUsageSubscriptionHandler";
-export * from "./handlers/IncreaseUsageSubscriptionCappedAmountHandler";
+export * from "./handlers/models/CreateUsageSubscriptionRequest";
+export * from "./handlers/models/CreateUsageSubscriptionResponse";
+export * from "./handlers/models/CreateUsageSubscriptionChargeRequest";
+export * from "./handlers/models/GetUsageSubscriptionRequest";
+export * from "./handlers/models/UpdateUsageSubscriptionCappedAmountRequest";
+export * from "./handlers/models/UpdateUsageSubscriptionCappedAmountResponse";
+export * from "./handlers/UsageSubscriptionHandler";
