@@ -6,7 +6,7 @@ import {
 import { ShopifyGraphQlClientSetup } from "../../testing/ShopifyGraphQlClientSetup";
 import { GqlAppInstallationService } from "./GqlAppInstallationService";
 
-describe("GqlAppService", () => {
+describe("GqlAppInstallationService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);
   let sut: IAppInstallationService;
 
