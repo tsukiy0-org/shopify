@@ -46,6 +46,7 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
     await this.appUsageSubscriptionService.createCharge(
       request.shopId,
       request.amount,
+      request.description,
     );
   };
 

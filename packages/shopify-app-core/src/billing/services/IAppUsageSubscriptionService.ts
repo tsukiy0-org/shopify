@@ -14,7 +14,11 @@ export interface IAppUsageSubscriptionService {
 
   get(shopId: ShopId): Promise<UsageSubscription>;
 
-  createCharge(shopId: ShopId, amount: BillingMoney): Promise<AppUsageRecordId>;
+  createCharge(
+    shopId: ShopId,
+    amount: BillingMoney,
+    description: string,
+  ): Promise<AppUsageRecordId>;
 
   updateCappedAmount(shopId: ShopId, cappedAmount: BillingMoney): Promise<URL>;
 }
