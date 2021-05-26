@@ -15,6 +15,7 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
     private readonly config: {
       terms: string;
       returnUrl: URL;
+      test: boolean;
     },
   ) {}
 
@@ -27,6 +28,7 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
       this.config.terms,
       request.cappedAmount,
       this.config.returnUrl,
+      this.config.test,
     );
 
     return CreateUsageSubscriptionResponse.check({

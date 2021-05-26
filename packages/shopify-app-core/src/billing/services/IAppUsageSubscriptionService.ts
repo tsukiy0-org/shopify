@@ -10,6 +10,7 @@ export interface IAppUsageSubscriptionService {
     terms: string,
     cappedAmount: BillingMoney,
     returnUrl: URL,
+    test: boolean,
   ): Promise<URL>;
 
   get(shopId: ShopId): Promise<UsageSubscription>;

@@ -1,5 +1,5 @@
 import { ShopId } from "../../shared";
-import { Record, Static } from "runtypes";
+import { Boolean, Record, Static } from "runtypes";
 import { AppSubscriptionId } from "./AppSubscriptionId";
 import { BillingMoney } from "./BillingMoney";
 
@@ -8,6 +8,7 @@ export const UsageSubscription = Record({
   appSubscriptionId: AppSubscriptionId,
   balanceAmount: BillingMoney,
   cappedAmount: BillingMoney,
+  test: Boolean,
 })
   .withConstraint((_) => _.cappedAmount >= _.balanceAmount)
   .withBrand("UsageSubscription");

@@ -34,6 +34,7 @@ export class GqlSubscriptionService implements IAppUsageSubscriptionService {
     terms: string,
     cappedAmount: BillingMoney,
     returnUrl: URL,
+    test: boolean,
   ): Promise<URL> => {
     const result = await this.client.request<
       {
@@ -85,7 +86,7 @@ export class GqlSubscriptionService implements IAppUsageSubscriptionService {
       {
         name,
         terms,
-        test: false,
+        test,
         cappedAmount: {
           amount: cappedAmount.toString(),
           currencyCode: CurrencyCode.Usd,
@@ -115,6 +116,7 @@ export class GqlSubscriptionService implements IAppUsageSubscriptionService {
       appSubscriptionId: appSubscription.id,
       balanceAmount: pricingDetails.balanceUsed.amount,
       cappedAmount: pricingDetails.cappedAmount.amount,
+      test: appSubscription.test,
     });
   };
 
