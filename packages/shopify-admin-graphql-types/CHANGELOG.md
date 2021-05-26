@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.2](https://github.com/tsukiy0-org/shopify/compare/@tsukiy0/shopify-admin-graphql-types@0.1.0-alpha.1...@tsukiy0/shopify-admin-graphql-types@0.1.0-alpha.2) (2021-05-26)
+
+
+### Features
+
+* index has only most recent api version ([ec11132](https://github.com/tsukiy0-org/shopify/commit/ec11132d9e836f2113c16118e1cad7e7f5e0eab2))
+
+
+
+
+
 # 0.1.0-alpha.1 (2021-05-04)
 
 **Note:** Version bump only for package @tsukiy0/shopify-admin-graphql-types

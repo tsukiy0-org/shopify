@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.1](https://github.com/tsukiy0-org/shopify/compare/@tsukiy0/shopify-app-infrastructure@0.1.0-alpha.0...@tsukiy0/shopify-app-infrastructure@0.1.0-alpha.1) (2021-05-26)
+
+
+### Bug Fixes
+
+* fetch not found in HttpOAuthService ([846e593](https://github.com/tsukiy0-org/shopify/commit/846e5939e720ba3cfbd04266e3ae2b64e2c85c4e))
+
+
+### Features
+
+* add integration tests for GqlAppInstallationService ([bb28d2b](https://github.com/tsukiy0-org/shopify/commit/bb28d2bf121c2d1196859421aa9342fa16187bf7))
+* impl GqlAppUsageSubscriptionService ([96c1251](https://github.com/tsukiy0-org/shopify/commit/96c125195fdc2500638b40077e6e2a6ee80fdc25))
+* test can be provided at the service level ([5812ed0](https://github.com/tsukiy0-org/shopify/commit/5812ed0a1e7813daaeccc4d617f39a8fcae11eb3))
+
+
+
+
+
 # 0.1.0-alpha.0 (2021-05-06)
 
 
