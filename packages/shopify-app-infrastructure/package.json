@@ -13,7 +13,9 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest"
+    "test": "jest",
+    "test:integration": "jest --config jest.config.integration.js",
+    "test:integration:local": "jest --config jest.config.integration.js -t GqlAppInstallationService"
   },
   "dependencies": {
     "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.1",
