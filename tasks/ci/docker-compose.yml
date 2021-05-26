@@ -6,6 +6,15 @@ services:
       - ../../:/app
     working_dir: /app
     command: bash ./tasks/ci/build
+  integration:
+    image: node:12
+    volumes:
+      - ../../:/app
+    working_dir: /app
+    environment:
+      SHOP_ID_1: ${SHOP_ID_1}
+      SHOP_TOKEN_1: ${SHOP_TOKEN_1}
+    command: bash ./tasks/ci/integration
   publish:
     image: node:12
     volumes:
