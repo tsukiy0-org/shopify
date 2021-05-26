@@ -13,7 +13,11 @@ describe("UsageSubscriptionHandler", () => {
 
   beforeEach(() => {
     appUsageSubscriptionService = {} as IAppUsageSubscriptionService;
-    sut = new UsageSubscriptionHandler(appUsageSubscriptionService);
+    sut = new UsageSubscriptionHandler(appUsageSubscriptionService, {
+      terms: "hello",
+      test: false,
+      returnUrl: new URL("https://google.com"),
+    });
   });
 
   describe("updateCappedAmount", () => {
@@ -31,6 +35,7 @@ describe("UsageSubscriptionHandler", () => {
           ),
           balanceAmount: BillingMoney.check(0),
           cappedAmount: BillingMoney.check(200),
+          test: true,
         }),
       );
       appUsageSubscriptionService.updateCappedAmount = jest
