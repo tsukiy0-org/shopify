@@ -1,4 +1,4 @@
-import { ShopId } from "../../shared";
+import { ShopId, ShopifyAppError } from "../../shared";
 import { AppUsageRecordId } from "../models/AppUsageRecordId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";
@@ -22,3 +22,5 @@ export interface IAppUsageSubscriptionService {
 
   updateCappedAmount(shopId: ShopId, cappedAmount: BillingMoney): Promise<URL>;
 }
+
+export class SubscriptionNotFoundError extends ShopifyAppError {}
