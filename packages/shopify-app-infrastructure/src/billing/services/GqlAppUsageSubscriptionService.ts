@@ -9,7 +9,7 @@ import {
   MutationAppSubscriptionLineItemUpdateArgs,
   MutationAppUsageRecordCreateArgs,
   AppInstallation,
-} from "@tsukiy0/shopify-admin-graphql-types/dist/2021-04";
+} from "@tsukiy0/shopify-admin-graphql-types";
 import { gql } from "graphql-request";
 import {
   ShopId,
@@ -20,12 +20,10 @@ import {
   SubscriptionNotFoundError,
   ShopifyAppError,
 } from "@tsukiy0/shopify-app-core";
-import {
-  ShopifyGraphQlClient,
-  ShopifyUserError,
-} from "../../shared/services/ShopifyGraphQlClient";
+import { ShopifyGraphQlClient, ShopifyUserError } from "../../shared";
 
-export class GqlSubscriptionService implements IAppUsageSubscriptionService {
+export class GqlAppUsageSubscriptionService
+  implements IAppUsageSubscriptionService {
   constructor(private readonly client: ShopifyGraphQlClient) {}
 
   create = async (
@@ -114,8 +112,8 @@ export class GqlSubscriptionService implements IAppUsageSubscriptionService {
     return UsageSubscription.check({
       shopId,
       appSubscriptionId: appSubscription.id,
-      balanceAmount: pricingDetails.balanceUsed.amount,
-      cappedAmount: pricingDetails.cappedAmount.amount,
+      balanceAmount: Number(pricingDetails.balanceUsed.amount),
+      cappedAmount: Number(pricingDetails.cappedAmount.amount),
       test: appSubscription.test,
     });
   };

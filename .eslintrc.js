@@ -30,5 +30,6 @@ module.exports = {
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/restrict-plus-operands": "off"
   },
 };

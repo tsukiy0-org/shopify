@@ -4,8 +4,8 @@ import {
   ShopId,
 } from "@tsukiy0/shopify-app-core";
 import { gql } from "graphql-request";
-import { AppInstallation } from "@tsukiy0/shopify-admin-graphql-types/dist/2021-04";
-import { ShopifyGraphQlClient } from "../../shared/services/ShopifyGraphQlClient";
+import { AppInstallation } from "@tsukiy0/shopify-admin-graphql-types";
+import { ShopifyGraphQlClient } from "../../shared";
 
 export class GqlAppInstallationService implements IAppInstallationService {
   constructor(private readonly client: ShopifyGraphQlClient) {}

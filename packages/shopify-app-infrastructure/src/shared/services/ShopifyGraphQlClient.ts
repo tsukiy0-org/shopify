@@ -4,7 +4,7 @@ import {
   ShopId,
   ShopifyAppError,
 } from "@tsukiy0/shopify-app-core";
-import { UserError } from "@tsukiy0/shopify-admin-graphql-types/dist/2021-04";
+import { UserError } from "@tsukiy0/shopify-admin-graphql-types";
 
 export class ShopifyGraphQlClient {
   constructor(private readonly accessTokenRepository: IAccessTokenRepository) {}
