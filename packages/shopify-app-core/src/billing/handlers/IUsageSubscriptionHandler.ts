@@ -1,5 +1,4 @@
 import { UsageSubscription } from "../models/UsageSubscription";
-import { CreateUsageSubscriptionChargeRequest } from "./models/CreateUsageSubscriptionChargeRequest";
 import { CreateUsageSubscriptionRequest } from "./models/CreateUsageSubscriptionRequest";
 import { CreateUsageSubscriptionResponse } from "./models/CreateUsageSubscriptionResponse";
 import { GetUsageSubscriptionRequest } from "./models/GetUsageSubscriptionRequest";
@@ -12,8 +11,6 @@ export interface IUsageSubscriptionHandler {
   ): Promise<CreateUsageSubscriptionResponse>;
 
   get(request: GetUsageSubscriptionRequest): Promise<UsageSubscription>;
-
-  createCharge(request: CreateUsageSubscriptionChargeRequest): Promise<void>;
 
   updateCappedAmount(
     request: UpdateUsageSubscriptionCappedAmountRequest,

@@ -3,7 +3,6 @@ import { BillingMoneyExtensions } from "../extensions/BillingMoneyExtensions";
 import { UsageSubscription } from "../models/UsageSubscription";
 import { IAppUsageSubscriptionService } from "../services/IAppUsageSubscriptionService";
 import { IUsageSubscriptionHandler } from "./IUsageSubscriptionHandler";
-import { CreateUsageSubscriptionChargeRequest } from "./models/CreateUsageSubscriptionChargeRequest";
 import { CreateUsageSubscriptionRequest } from "./models/CreateUsageSubscriptionRequest";
 import { CreateUsageSubscriptionResponse } from "./models/CreateUsageSubscriptionResponse";
 import { GetUsageSubscriptionRequest } from "./models/GetUsageSubscriptionRequest";
@@ -43,16 +42,6 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
     request: GetUsageSubscriptionRequest,
   ): Promise<UsageSubscription> => {
     return await this.appUsageSubscriptionService.get(request.shopId);
-  };
-
-  createCharge = async (
-    request: CreateUsageSubscriptionChargeRequest,
-  ): Promise<void> => {
-    await this.appUsageSubscriptionService.createCharge(
-      request.shopId,
-      request.amount,
-      request.description,
-    );
   };
 
   updateCappedAmount = async (

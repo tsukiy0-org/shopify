@@ -1,31 +1,64 @@
 import {
-  CreateUsageSubscriptionChargeRequest,
+  ApiSecretKey,
   CreateUsageSubscriptionRequest,
   GetUsageSubscriptionRequest,
+  IAccessTokenRepository,
   UpdateUsageSubscriptionCappedAmountRequest,
+  UsageSubscriptionHandler,
 } from "@tsukiy0/shopify-app-core";
-import { IUsageSubscriptionHandler } from "@tsukiy0/shopify-app-core";
+import {
+  GqlAppInstallationService,
+  ShopifyGraphQlClient,
+} from "@tsukiy0/shopify-app-infrastructure";
 import { Router } from "express";
 import { JwtAuthMiddleware } from "../middlewares/JwtAuthMiddleware";
 import { promisifyHandler } from "./utils/promisifyHandler";
+import { GqlAppUsageSubscriptionService } from "@tsukiy0/shopify-app-infrastructure";
 
 export class UsageSubscriptionRouter {
   constructor(
-    private readonly authMiddleware: JwtAuthMiddleware,
-    private readonly usageSubscriptionHandler: IUsageSubscriptionHandler,
+    private readonly accessTokenRepository: IAccessTokenRepository,
+    private readonly config: {
+      apiSecretKey: ApiSecretKey;
+      name: string;
+      terms: string;
+      test: boolean;
+    },
   ) {}
 
   build = (): Router => {
     const router = Router();
 
-    router.use(this.authMiddleware.build());
+    const jwtAuthMiddleware = new JwtAuthMiddleware({
+      apiSecretKey: this.config.apiSecretKey,
+    }).build();
+
+    const shopifyGraphQlClient = new ShopifyGraphQlClient(
+      this.accessTokenRepository,
+    );
+    const appUsageSubscriptionService = new GqlAppUsageSubscriptionService(
+      shopifyGraphQlClient,
+    );
+    const appInstallationService = new GqlAppInstallationService(
+      shopifyGraphQlClient,
+    );
+    const handler = new UsageSubscriptionHandler(
+      appUsageSubscriptionService,
+      appInstallationService,
+      {
+        name: this.config.name,
+        terms: this.config.terms,
+        test: this.config.test,
+      },
+    );
 
     router.post(
       "/shopify/billing/usage-subscription/create",
+      jwtAuthMiddleware,
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const { authorizeUrl } = await this.usageSubscriptionHandler.create(
+        const { authorizeUrl } = await handler.create(
           CreateUsageSubscriptionRequest.check({
             ...req.body,
             shopId,
@@ -38,12 +71,11 @@ export class UsageSubscriptionRouter {
 
     router.post(
       "/shopify/billing/usage-subscription/update-capped-amount",
+      jwtAuthMiddleware,
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const {
-          authorizeUrl,
-        } = await this.usageSubscriptionHandler.updateCappedAmount(
+        const { authorizeUrl } = await handler.updateCappedAmount(
           UpdateUsageSubscriptionCappedAmountRequest.check({
             ...req.body,
             shopId,
@@ -56,10 +88,11 @@ export class UsageSubscriptionRouter {
 
     router.post(
       "/shopify/billing/usage-subscription/get",
+      jwtAuthMiddleware,
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const response = await this.usageSubscriptionHandler.get(
+        const response = await handler.get(
           GetUsageSubscriptionRequest.check({
             ...req.body,
             shopId,
@@ -67,22 +100,6 @@ export class UsageSubscriptionRouter {
         );
 
         return res.status(200).json(response);
-      }),
-    );
-
-    router.post(
-      "/shopify/billing/usage-subscription/create-charge",
-      promisifyHandler(async (req, res) => {
-        const shopId = res.locals.shopId;
-
-        await this.usageSubscriptionHandler.createCharge(
-          CreateUsageSubscriptionChargeRequest.check({
-            ...req.body,
-            shopId,
-          }),
-        );
-
-        return res.status(200);
       }),
     );
 
