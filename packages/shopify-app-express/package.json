@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-app-express",
-  "version": "0.1.0-alpha.7",
+  "version": "0.1.0-alpha.8",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,8 +16,8 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.7",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.7",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.8",
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.8",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1"
   },

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.8](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.7...v0.1.0-alpha.8) (2021-05-27)
+
+
+### Features
+
+* prefill return url with app url ([4e67077](https://github.com/tsukiy0-org/shopify/commit/4e670775eb77f644da5e25bee9a8f81449674393))
+
+
+
+
+
 # [0.1.0-alpha.7](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.6...v0.1.0-alpha.7) (2021-05-27)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-infrastructure
