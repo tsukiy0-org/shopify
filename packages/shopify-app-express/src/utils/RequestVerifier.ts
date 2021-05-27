@@ -13,7 +13,7 @@ export class RequestVerifier {
     },
   ) {}
 
-  verifyAuth = (query: any): void => {
+  verifyHmacQuery = (query: any): void => {
     const { hmac, ...rest } = query;
 
     const q = new URLSearchParams(rest);
@@ -25,7 +25,7 @@ export class RequestVerifier {
       .digest("hex");
 
     if (hmac !== localHmac) {
-      throw new InvalidAuthRequestError();
+      throw new InvalidHmacQueryError();
     }
   };
 
@@ -53,6 +53,6 @@ export class RequestVerifier {
   };
 }
 
-export class InvalidAuthRequestError extends ShopifyAppError {}
+export class InvalidHmacQueryError extends ShopifyAppError {}
 
 export class InvalidWebhookRequestError extends ShopifyAppError {}

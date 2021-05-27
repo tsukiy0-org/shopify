@@ -1,6 +1,6 @@
 import { ApiSecretKey } from "@tsukiy0/shopify-app-core";
 import {
-  InvalidAuthRequestError,
+  InvalidHmacQueryError,
   InvalidWebhookRequestError,
   RequestVerifier,
 } from "./RequestVerifier";
@@ -28,7 +28,7 @@ describe("RequestVerifier", () => {
     });
   });
 
-  describe("verifyAuth", () => {
+  describe("verifyHmacQuery", () => {
     const query = {
       hmac: "fd9b0fcffccd55768d79ddcb8cc4143d4ab800a4b175b1d5c68a493a450730a9",
       shop: "tsukiy0-org-dev-1.myshopify.com",
@@ -36,12 +36,12 @@ describe("RequestVerifier", () => {
     };
 
     it("when valid then return", () => {
-      expect(() => sut.verifyAuth(query)).not.toThrow();
+      expect(() => sut.verifyHmacQuery(query)).not.toThrow();
     });
 
     it("when unordered valid then return", () => {
       expect(() =>
-        sut.verifyAuth({
+        sut.verifyHmacQuery({
           shop: "tsukiy0-org-dev-1.myshopify.com",
           hmac:
             "fd9b0fcffccd55768d79ddcb8cc4143d4ab800a4b175b1d5c68a493a450730a9",
@@ -52,11 +52,11 @@ describe("RequestVerifier", () => {
 
     it("when bad query then throw", () => {
       expect(() =>
-        sut.verifyAuth({
+        sut.verifyHmacQuery({
           ...query,
           gibberish: "true",
         }),
-      ).toThrow(InvalidAuthRequestError);
+      ).toThrow(InvalidHmacQueryError);
     });
   });
 
