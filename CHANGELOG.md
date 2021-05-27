@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.5](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.4...v0.1.0-alpha.5) (2021-05-27)
+
+
+### Features
+
+* hide dependencies of router ([f899390](https://github.com/tsukiy0-org/shopify/commit/f899390f44cc7c9a46923c12e402abd5d7d93cd0))
+
+
+
+
+
 # 0.1.0-alpha.4 (2021-05-26)
 
 
