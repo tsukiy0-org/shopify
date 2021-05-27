@@ -21,7 +21,8 @@ export class App {
         hostUrl: new URL(process.env.HOST_URL!),
         apiKey: ApiKey.check(process.env.API_KEY),
         apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
-        onSuccess: async (res) => res.redirect("/success"),
+        onSuccess: async (_, res) => res.redirect("/success"),
+        onComplete: async (_, res) => res.redirect("/success"),
       }).build(),
     );
 

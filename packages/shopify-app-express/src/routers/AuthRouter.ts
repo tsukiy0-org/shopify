@@ -7,6 +7,7 @@ import {
   AuthHandler,
   ApiKey,
   ApiSecretKey,
+  ShopId,
 } from "@tsukiy0/shopify-app-core";
 import path from "path";
 import { promisifyHandler } from "./utils/promisifyHandler";
@@ -25,7 +26,8 @@ export class AuthRouter {
       hostUrl: URL;
       apiKey: ApiKey;
       apiSecretKey: ApiSecretKey;
-      onSuccess: (res: Response) => Promise<void>;
+      onSuccess: (shopId: ShopId, res: Response) => Promise<void>;
+      onComplete: (shopId: ShopId, res: Response) => Promise<void>;
     },
   ) {}
 
@@ -64,10 +66,11 @@ export class AuthRouter {
       verifyHmacQueryMiddleware,
       promisifyHandler(async (req, res) => {
         const redirectUrl = this.buildUrl("/shopify/auth/complete");
+        const shopId = ShopId.check(req.query.shopId);
 
         const response = await handler.startInstall(
           StartInstallRequest.check({
-            shopId: req.query.shop,
+            shopId,
             requiredScopes: this.config.requiredScopes,
             redirectUrl,
           }),
@@ -77,7 +80,7 @@ export class AuthRouter {
           return res.redirect(response.authorizeUrl.toString());
         }
 
-        await this.config.onSuccess(res);
+        await this.config.onSuccess(shopId, res);
       }),
     );
 
@@ -85,14 +88,16 @@ export class AuthRouter {
       "/shopify/auth/complete",
       verifyHmacQueryMiddleware,
       promisifyHandler(async (req, res) => {
+        const shopId = ShopId.check(req.query.shopId);
+
         await handler.completeInstall(
           CompleteInstallRequest.check({
-            shopId: req.query.shop,
+            shopId,
             accessCode: req.query.code,
           }),
         );
 
-        await this.config.onSuccess(res);
+        await this.config.onComplete(shopId, res);
       }),
     );
 
