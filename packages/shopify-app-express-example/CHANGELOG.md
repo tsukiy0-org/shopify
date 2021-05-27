@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.7](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.6...v0.1.0-alpha.7) (2021-05-27)
+
+
+### Bug Fixes
+
+* only check hmac query on relevant paths ([ec7c3e4](https://github.com/tsukiy0-org/shopify/commit/ec7c3e41ae2283e5a8ac299318e4c5ac204c2247))
+
+
+
+
+
 # [0.1.0-alpha.6](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.5...v0.1.0-alpha.6) (2021-05-27)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-express-example
