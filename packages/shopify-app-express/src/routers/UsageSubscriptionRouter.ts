@@ -58,14 +58,14 @@ export class UsageSubscriptionRouter {
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const { authorizeUrl } = await handler.create(
+        const response = await handler.create(
           CreateUsageSubscriptionRequest.check({
             ...req.body,
             shopId,
           }),
         );
 
-        return res.redirect(authorizeUrl.toString());
+        return res.status(200).json(response);
       }),
     );
 
@@ -75,14 +75,14 @@ export class UsageSubscriptionRouter {
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const { authorizeUrl } = await handler.updateCappedAmount(
+        const response = await handler.updateCappedAmount(
           UpdateUsageSubscriptionCappedAmountRequest.check({
             ...req.body,
             shopId,
           }),
         );
 
-        return res.redirect(authorizeUrl.toString());
+        return res.status(200).json(response);
       }),
     );
 
