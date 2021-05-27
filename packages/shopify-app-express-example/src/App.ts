@@ -16,7 +16,6 @@ export class App {
     });
 
     app.use(
-      "/",
       new AuthRouter(accessTokenRepository, {
         requiredScopes: [AccessScope.check("read_orders")],
         hostUrl: new URL(process.env.HOST_URL!),

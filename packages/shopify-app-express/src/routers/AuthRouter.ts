@@ -54,15 +54,14 @@ export class AuthRouter {
       apiSecretKey: this.config.apiSecretKey,
     });
 
-    router.use(
-      promisifyHandler(async (req, res) => {
-        const query = req.query;
-        requestVerifier.verifyHmacQuery(query);
-      }),
-    );
+    const verifyHmacQueryMiddleware = promisifyHandler(async (req, res) => {
+      const query = req.query;
+      requestVerifier.verifyHmacQuery(query);
+    });
 
     router.get(
       "/shopify/auth/start",
+      verifyHmacQueryMiddleware,
       promisifyHandler(async (req, res) => {
         const redirectUrl = this.buildUrl("/shopify/auth/complete");
 
@@ -84,6 +83,7 @@ export class AuthRouter {
 
     router.get(
       "/shopify/auth/complete",
+      verifyHmacQueryMiddleware,
       promisifyHandler(async (req, res) => {
         await handler.completeInstall(
           CompleteInstallRequest.check({
