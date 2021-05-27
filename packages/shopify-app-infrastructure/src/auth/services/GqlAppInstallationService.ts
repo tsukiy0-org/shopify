@@ -30,4 +30,21 @@ export class GqlAppInstallationService implements IAppInstallationService {
       .map((_) => _.handle)
       .map(AccessScope.check);
   };
+
+  getAppUrl = async (shopId: ShopId): Promise<URL> => {
+    const result = await this.client.request<{
+      appInstallation: AppInstallation;
+    }>(
+      shopId,
+      gql`
+        query Task {
+          appInstallation {
+            launchUrl
+          }
+        }
+      `,
+    );
+
+    return new URL(result.appInstallation.launchUrl);
+  };
 }

@@ -26,4 +26,12 @@ describe("GqlAppInstallationService", () => {
       expect(actual.length).toBeGreaterThan(0);
     });
   });
+
+  describe("getAppUrl", () => {
+    it("get app url for shop", async () => {
+      const actual = await sut.getAppUrl(shopId);
+
+      expect(actual).toBeDefined();
+    });
+  });
 });

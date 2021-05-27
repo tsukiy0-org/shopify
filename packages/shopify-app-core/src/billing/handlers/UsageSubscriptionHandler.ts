@@ -1,3 +1,4 @@
+import { IAppInstallationService } from "../../auth";
 import { BillingMoneyExtensions } from "../extensions/BillingMoneyExtensions";
 import { UsageSubscription } from "../models/UsageSubscription";
 import { IAppUsageSubscriptionService } from "../services/IAppUsageSubscriptionService";
@@ -12,9 +13,10 @@ import { UpdateUsageSubscriptionCappedAmountResponse } from "./models/UpdateUsag
 export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
   constructor(
     private readonly appUsageSubscriptionService: IAppUsageSubscriptionService,
+    private readonly appInstallationService: IAppInstallationService,
     private readonly config: {
+      name: string;
       terms: string;
-      returnUrl: URL;
       test: boolean;
     },
   ) {}
@@ -22,12 +24,13 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
   create = async (
     request: CreateUsageSubscriptionRequest,
   ): Promise<CreateUsageSubscriptionResponse> => {
+    const appUrl = await this.appInstallationService.getAppUrl(request.shopId);
     const authorizeUrl = await this.appUsageSubscriptionService.create(
       request.shopId,
-      request.name,
+      this.config.name,
       this.config.terms,
       request.cappedAmount,
-      this.config.returnUrl,
+      appUrl,
       this.config.test,
     );
 

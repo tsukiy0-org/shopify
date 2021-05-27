@@ -1,22 +1,59 @@
+import { IAppInstallationService } from "../../auth";
 import { ShopId } from "../../shared";
 import { AppSubscriptionId } from "../models/AppSubscriptionId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";
 import { IAppUsageSubscriptionService } from "../services/IAppUsageSubscriptionService";
+import { CreateUsageSubscriptionRequest } from "./models/CreateUsageSubscriptionRequest";
 import { UpdateUsageSubscriptionCappedAmountRequest } from "./models/UpdateUsageSubscriptionCappedAmountRequest";
 import { UsageSubscriptionHandler } from "./UsageSubscriptionHandler";
 
 describe("UsageSubscriptionHandler", () => {
   const shopId = ShopId.check("test.myshopify.com");
+  const config = {
+    name: "my app name",
+    terms: "my app terms",
+    test: false,
+  };
   let appUsageSubscriptionService: IAppUsageSubscriptionService;
+  let appInstallationService: IAppInstallationService;
   let sut: UsageSubscriptionHandler;
 
   beforeEach(() => {
     appUsageSubscriptionService = {} as IAppUsageSubscriptionService;
-    sut = new UsageSubscriptionHandler(appUsageSubscriptionService, {
-      terms: "hello",
-      test: false,
-      returnUrl: new URL("https://google.com"),
+    appInstallationService = {} as IAppInstallationService;
+    sut = new UsageSubscriptionHandler(
+      appUsageSubscriptionService,
+      appInstallationService,
+      config,
+    );
+  });
+
+  describe("create", () => {
+    it("returns authorization url", async () => {
+      const appUrl = new URL("https://google.com");
+      const authorizeUrl = new URL("https://apple.com");
+      appInstallationService.getAppUrl = jest.fn().mockResolvedValue(appUrl);
+      appUsageSubscriptionService.create = jest
+        .fn()
+        .mockResolvedValue(authorizeUrl);
+      const request = CreateUsageSubscriptionRequest.check({
+        shopId,
+        name: "my app name",
+        cappedAmount: 100,
+      });
+
+      const actual = await sut.create(request);
+
+      expect(actual.authorizeUrl).toEqual(authorizeUrl);
+      expect(appUsageSubscriptionService.create).toHaveBeenCalledWith(
+        shopId,
+        config.name,
+        config.terms,
+        request.cappedAmount,
+        appUrl,
+        config.test,
+      );
     });
   });
 

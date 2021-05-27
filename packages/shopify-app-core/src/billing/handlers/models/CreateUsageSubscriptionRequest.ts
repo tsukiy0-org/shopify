@@ -1,10 +1,9 @@
 import { ShopId } from "../../../shared";
-import { Record, Static, String } from "runtypes";
+import { Record, Static } from "runtypes";
 import { BillingMoney } from "../../models/BillingMoney";
 
 export const CreateUsageSubscriptionRequest = Record({
   shopId: ShopId,
-  name: String,
   cappedAmount: BillingMoney,
 }).withBrand("CreateUsageSubscriptionRequest");
 
