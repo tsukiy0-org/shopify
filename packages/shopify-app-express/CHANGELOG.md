@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.9](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.8...v0.1.0-alpha.9) (2021-05-28)
+
+
+### Features
+
+* add separate callback for complete ([dd20797](https://github.com/tsukiy0-org/shopify/commit/dd20797bef8c180666b667adeaa54329c6a817da))
+* replace URL with Url string type ([3b583fd](https://github.com/tsukiy0-org/shopify/commit/3b583fdc70639233ac5522006ee74ab4fa3964dc))
+
+
+
+
+
 # [0.1.0-alpha.8](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.7...v0.1.0-alpha.8) (2021-05-27)
 
 

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.9](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.8...v0.1.0-alpha.9) (2021-05-28)
+
+
+### Features
+
+* add ShopifyRestClient ([b9cc733](https://github.com/tsukiy0-org/shopify/commit/b9cc7331f7a482c94693150097349e08a482685a))
+* extract infrastructure testing to own package ([441cd99](https://github.com/tsukiy0-org/shopify/commit/441cd99f623163ed2d25f87a77c852fdc5bd5f63))
+* impl GqlScriptTagService ([a9b2f6e](https://github.com/tsukiy0-org/shopify/commit/a9b2f6e87b09b0098655c6202ab2c4d7d81d6705))
+* impl GqlWebhookService ([b6084c0](https://github.com/tsukiy0-org/shopify/commit/b6084c01a4fff6752d7fa8c8302c23c9fe9fa694))
+* replace URL with Url string type ([3b583fd](https://github.com/tsukiy0-org/shopify/commit/3b583fdc70639233ac5522006ee74ab4fa3964dc))
+
+
+
+
+
 # [0.1.0-alpha.8](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.7...v0.1.0-alpha.8) (2021-05-27)
 
 
