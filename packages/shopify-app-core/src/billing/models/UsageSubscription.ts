@@ -9,8 +9,6 @@ export const UsageSubscription = Record({
   balanceAmount: BillingMoney,
   cappedAmount: BillingMoney,
   test: Boolean,
-})
-  .withConstraint((_) => _.cappedAmount >= _.balanceAmount)
-  .withBrand("UsageSubscription");
+}).withConstraint((_) => _.cappedAmount >= _.balanceAmount);
 
 export type UsageSubscription = Static<typeof UsageSubscription>;

@@ -1,7 +1,8 @@
-import { Record, Static, InstanceOf } from "runtypes";
+import { Url } from "@tsukiy0/shopify-app-core";
+import { Record, Static } from "runtypes";
 
 export const StartInstallReponse = Record({
-  authorizeUrl: InstanceOf(URL).optional(),
-}).withBrand("StartInstallResponse");
+  authorizeUrl: Url.optional(),
+});
 
 export type StartInstallResponse = Static<typeof StartInstallReponse>;

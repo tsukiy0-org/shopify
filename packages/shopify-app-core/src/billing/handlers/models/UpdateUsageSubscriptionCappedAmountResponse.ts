@@ -1,8 +1,9 @@
-import { InstanceOf, Record, Static } from "runtypes";
+import { Url } from "@tsukiy0/shopify-app-core";
+import { Record, Static } from "runtypes";
 
 export const UpdateUsageSubscriptionCappedAmountResponse = Record({
-  authorizeUrl: InstanceOf(URL),
-}).withBrand("UpdateUsageSubscriptionCappedAmountResponse");
+  authorizeUrl: Url,
+});
 
 export type UpdateUsageSubscriptionCappedAmountResponse = Static<
   typeof UpdateUsageSubscriptionCappedAmountResponse
