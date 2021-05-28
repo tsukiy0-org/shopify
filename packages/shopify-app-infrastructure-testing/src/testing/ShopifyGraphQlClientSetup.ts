@@ -1,5 +1,5 @@
 import { AccessToken } from "@tsukiy0/shopify-app-core";
-import { ShopifyGraphQlClient } from "../shared/services/ShopifyGraphQlClient";
+import { ShopifyGraphQlClient } from "@tsukiy0/shopify-app-infrastructure";
 import { TestTokenRepository } from "./TestTokenRepository";
 
 export class ShopifyGraphQlClientSetup {

@@ -4,8 +4,8 @@ import {
   IAppUsageSubscriptionService,
   ShopId,
 } from "@tsukiy0/shopify-app-core";
+import { GqlAppUsageSubscriptionService } from "@tsukiy0/shopify-app-infrastructure";
 import { ShopifyGraphQlClientSetup } from "../../testing/ShopifyGraphQlClientSetup";
-import { GqlAppUsageSubscriptionService } from "./GqlAppUsageSubscriptionService";
 
 describe("GqlAppUsageSubscriptionService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);

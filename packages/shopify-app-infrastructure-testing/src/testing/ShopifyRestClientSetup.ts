@@ -1,5 +1,5 @@
 import { AccessToken } from "@tsukiy0/shopify-app-core";
-import { ShopifyRestClient } from "../shared";
+import { ShopifyRestClient } from "@tsukiy0/shopify-app-infrastructure";
 import { TestTokenRepository } from "./TestTokenRepository";
 
 export class ShopifyRestClientSetup {
