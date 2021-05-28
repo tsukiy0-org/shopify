@@ -8,6 +8,7 @@ import {
   ApiKey,
   ApiSecretKey,
   ShopId,
+  Url,
 } from "@tsukiy0/shopify-app-core";
 import path from "path";
 import { promisifyHandler } from "./utils/promisifyHandler";
@@ -23,7 +24,7 @@ export class AuthRouter {
     private readonly accessTokenRepository: IAccessTokenRepository,
     private readonly config: {
       requiredScopes: AccessScope[];
-      hostUrl: URL;
+      hostUrl: Url;
       apiKey: ApiKey;
       apiSecretKey: ApiSecretKey;
       onSuccess: (shopId: ShopId, res: Response) => Promise<void>;
@@ -77,7 +78,7 @@ export class AuthRouter {
         );
 
         if (response.authorizeUrl) {
-          return res.redirect(response.authorizeUrl.toString());
+          return res.redirect(response.authorizeUrl);
         }
 
         await this.config.onSuccess(shopId, res);
@@ -105,8 +106,8 @@ export class AuthRouter {
   };
 
   private buildUrl = (appendPath: string) => {
-    const newUrl = new URL(this.config.hostUrl.toString());
-    newUrl.pathname = path.join(this.config.hostUrl.pathname, appendPath);
+    const newUrl = new URL(this.config.hostUrl);
+    newUrl.pathname = path.join(newUrl.pathname, appendPath);
     return newUrl;
   };
 }

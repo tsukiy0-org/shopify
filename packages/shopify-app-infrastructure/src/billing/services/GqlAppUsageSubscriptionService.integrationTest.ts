@@ -26,13 +26,11 @@ describe("GqlAppUsageSubscriptionService", () => {
         "order verify",
         "terms",
         BillingMoney.check(120),
-        new URL("https://google.com"),
+        "https://google.com",
         true,
       );
 
-      expect(actual.toString()).toContain(
-        "confirm_recurring_application_charge",
-      );
+      expect(actual).toContain("confirm_recurring_application_charge");
     });
   });
 
@@ -76,7 +74,7 @@ describe("GqlAppUsageSubscriptionService", () => {
         BillingMoney.check(original.cappedAmount + amount),
       );
 
-      expect(actual.toString()).toContain("confirm_update_capped_amount");
+      expect(actual).toContain("confirm_update_capped_amount");
     });
   });
 });

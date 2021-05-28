@@ -1,5 +1,5 @@
-import { Url } from "@tsukiy0/shopify-app-core";
 import { Record, Static } from "runtypes";
+import { Url } from "../../../shared";
 
 export const StartInstallReponse = Record({
   authorizeUrl: Url.optional(),

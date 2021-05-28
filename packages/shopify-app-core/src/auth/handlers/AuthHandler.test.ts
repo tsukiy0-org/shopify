@@ -1,4 +1,4 @@
-import { ShopId } from "../../shared";
+import { ShopId, Url } from "../../shared";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
 import { ApiKey } from "../models/ApiKey";
@@ -38,12 +38,12 @@ describe("AuthHandler", () => {
   });
 
   describe("startInstall", () => {
-    const request = StartInstallRequest.check({
+    const request: StartInstallRequest = {
       shopId: ShopId.check("test.myshopify.com"),
       requiredScopes: ["read_orders", "write_orders"].map(AccessScope.check),
-      redirectUrl: new URL("https://success.com"),
-    });
-    const authorizeUrl = new URL("https://install.com");
+      redirectUrl: "https://success.com",
+    };
+    const authorizeUrl = Url.check("https://install.com");
 
     beforeEach(() => {
       oAuthService.buildAuthorizeUrl = jest.fn().mockReturnValue(authorizeUrl);
@@ -106,10 +106,10 @@ describe("AuthHandler", () => {
   });
 
   describe("completeInstall", () => {
-    const request = CompleteInstallRequest.check({
+    const request: CompleteInstallRequest = {
       shopId: ShopId.check("test.myshopify.com"),
       accessCode: "accessCode",
-    });
+    };
 
     it("puts token into repository and calls onInstalled", async () => {
       const accessToken = AccessToken.check("accessToken");

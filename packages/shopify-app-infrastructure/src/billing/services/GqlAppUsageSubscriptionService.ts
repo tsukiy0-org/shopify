@@ -19,6 +19,7 @@ import {
   AppUsageRecordId,
   SubscriptionNotFoundError,
   ShopifyAppError,
+  Url,
 } from "@tsukiy0/shopify-app-core";
 import { ShopifyGraphQlClient, ShopifyUserError } from "../../shared";
 
@@ -31,9 +32,9 @@ export class GqlAppUsageSubscriptionService
     name: string,
     terms: string,
     cappedAmount: BillingMoney,
-    returnUrl: URL,
+    returnUrl: Url,
     test: boolean,
-  ): Promise<URL> => {
+  ): Promise<Url> => {
     const result = await this.client.request<
       {
         appSubscriptionCreate: AppSubscriptionCreatePayload;
@@ -89,7 +90,7 @@ export class GqlAppUsageSubscriptionService
           amount: cappedAmount.toString(),
           currencyCode: CurrencyCode.Usd,
         },
-        returnUrl: returnUrl.toString(),
+        returnUrl: returnUrl,
       },
     );
 
@@ -97,7 +98,7 @@ export class GqlAppUsageSubscriptionService
       throw new ShopifyUserError(result.appSubscriptionCreate.userErrors);
     }
 
-    return new URL(result.appSubscriptionCreate.confirmationUrl!);
+    return Url.check(result.appSubscriptionCreate.confirmationUrl);
   };
 
   get = async (shopId: ShopId): Promise<UsageSubscription> => {
@@ -176,7 +177,7 @@ export class GqlAppUsageSubscriptionService
   updateCappedAmount = async (
     shopId: ShopId,
     cappedAmount: BillingMoney,
-  ): Promise<URL> => {
+  ): Promise<Url> => {
     const appSubscription = await this.getAppSubscription(shopId);
     const subscriptionLineItemId = appSubscription.lineItems[0].id;
 
@@ -216,7 +217,7 @@ export class GqlAppUsageSubscriptionService
       );
     }
 
-    return new URL(result.appSubscriptionLineItemUpdate.confirmationUrl!);
+    return Url.check(result.appSubscriptionLineItemUpdate.confirmationUrl);
   };
 
   private getAppSubscription = async (

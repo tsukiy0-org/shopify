@@ -9,10 +9,7 @@ import { IOAuthService } from "../services/IOAuthService";
 import { IAuthHandler } from "./IAuthHandler";
 import { CompleteInstallRequest } from "./models/CompleteInstallRequest";
 import { StartInstallRequest } from "./models/StartInstallRequest";
-import {
-  StartInstallReponse,
-  StartInstallResponse,
-} from "./models/StartInstallResponse";
+import { StartInstallResponse } from "./models/StartInstallResponse";
 
 export class AuthHandler implements IAuthHandler {
   constructor(
@@ -37,9 +34,9 @@ export class AuthHandler implements IAuthHandler {
     const token = await this.getToken(request.shopId);
 
     if (!token) {
-      return StartInstallReponse.check({
+      return {
         authorizeUrl,
-      });
+      };
     }
 
     const scopes = await this.appInstallationService.listAccessScopes(
@@ -47,14 +44,14 @@ export class AuthHandler implements IAuthHandler {
     );
 
     if (!this.hasRequiredScopes(request.requiredScopes, scopes)) {
-      return StartInstallReponse.check({
+      return {
         authorizeUrl,
-      });
+      };
     }
 
-    return StartInstallReponse.check({
+    return {
       authorizeUrl: undefined,
-    });
+    };
   };
 
   completeInstall = async (request: CompleteInstallRequest): Promise<void> => {

@@ -33,9 +33,9 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
       this.config.test,
     );
 
-    return CreateUsageSubscriptionResponse.check({
+    return {
       authorizeUrl,
-    });
+    };
   };
 
   get = async (
@@ -54,8 +54,8 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
       BillingMoneyExtensions.add(sub.cappedAmount, request.addAmount),
     );
 
-    return UpdateUsageSubscriptionCappedAmountResponse.check({
+    return {
       authorizeUrl,
-    });
+    };
   };
 }

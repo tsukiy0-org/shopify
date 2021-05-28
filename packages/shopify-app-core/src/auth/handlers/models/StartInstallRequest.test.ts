@@ -6,7 +6,7 @@ describe("StartInstallRequst", () => {
   const request = StartInstallRequest.check({
     shopId: ShopId.check("test.myshopify.com"),
     requiredScopes: [AccessScope.check("read_order")],
-    redirectUrl: new URL("https://google.com"),
+    redirectUrl: "https://google.com",
   });
 
   it("when has no required scopes then throw", () => {

@@ -1,7 +1,12 @@
 import express, { Application } from "express";
 import { MemoryAccessTokenRepository } from "./utils/MemoryAccessTokenRepository";
 import { AuthRouter } from "@tsukiy0/shopify-app-express";
-import { AccessScope, ApiKey, ApiSecretKey } from "@tsukiy0/shopify-app-core";
+import {
+  AccessScope,
+  ApiKey,
+  ApiSecretKey,
+  Url,
+} from "@tsukiy0/shopify-app-core";
 
 export class App {
   static build = (): Application => {
@@ -18,7 +23,7 @@ export class App {
     app.use(
       new AuthRouter(accessTokenRepository, {
         requiredScopes: [AccessScope.check("read_orders")],
-        hostUrl: new URL(process.env.HOST_URL!),
+        hostUrl: Url.check(process.env.HOST_URL),
         apiKey: ApiKey.check(process.env.API_KEY),
         apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
         onSuccess: async (_, res) => res.redirect("/success"),

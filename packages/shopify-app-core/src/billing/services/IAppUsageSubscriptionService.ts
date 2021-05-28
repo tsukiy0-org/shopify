@@ -1,4 +1,4 @@
-import { ShopId, ShopifyAppError } from "../../shared";
+import { ShopId, ShopifyAppError, Url } from "../../shared";
 import { AppUsageRecordId } from "../models/AppUsageRecordId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";
@@ -9,9 +9,9 @@ export interface IAppUsageSubscriptionService {
     name: string,
     terms: string,
     cappedAmount: BillingMoney,
-    returnUrl: URL,
+    returnUrl: Url,
     test: boolean,
-  ): Promise<URL>;
+  ): Promise<Url>;
 
   get(shopId: ShopId): Promise<UsageSubscription>;
 
@@ -21,7 +21,7 @@ export interface IAppUsageSubscriptionService {
     description: string,
   ): Promise<AppUsageRecordId>;
 
-  updateCappedAmount(shopId: ShopId, cappedAmount: BillingMoney): Promise<URL>;
+  updateCappedAmount(shopId: ShopId, cappedAmount: BillingMoney): Promise<Url>;
 }
 
 export class SubscriptionNotFoundError extends ShopifyAppError {}

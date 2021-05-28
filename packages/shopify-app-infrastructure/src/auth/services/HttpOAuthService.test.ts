@@ -18,11 +18,11 @@ describe("HttpOAuthService", () => {
       const actual = sut.buildAuthorizeUrl(
         shopId,
         requiredScopes,
-        new URL("https://google.com/auth/end"),
+        "https://google.com/auth/end",
         apiKey,
       );
 
-      expect(actual.toString()).toEqual(
+      expect(actual).toEqual(
         "https://test.myshopify.com/admin/oauth/authorize?client_id=apiKey&scope=read_customers%2Cread_orders&redirect_uri=https%3A%2F%2Fgoogle.com%2Fauth%2Fend",
       );
     });

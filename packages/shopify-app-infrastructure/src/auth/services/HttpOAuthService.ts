@@ -6,6 +6,7 @@ import {
   ApiKey,
   ApiSecretKey,
   ShopifyAppError,
+  Url,
 } from "@tsukiy0/shopify-app-core";
 import fetch from "cross-fetch";
 
@@ -13,14 +14,15 @@ export class HttpOAuthService implements IOAuthService {
   buildAuthorizeUrl = (
     shopId: ShopId,
     scopes: AccessScope[],
-    redirectUrl: URL,
+    redirectUrl: Url,
     apiKey: ApiKey,
-  ): URL => {
+  ): Url => {
     const url = new URL(`https://${shopId}/admin/oauth/authorize`);
     url.searchParams.append("client_id", apiKey);
     url.searchParams.append("scope", scopes.sort().join(","));
-    url.searchParams.append("redirect_uri", redirectUrl.toString());
-    return url;
+    url.searchParams.append("redirect_uri", redirectUrl);
+
+    return url.toString();
   };
 
   getAccessToken = async (

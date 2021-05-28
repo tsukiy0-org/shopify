@@ -1,5 +1,5 @@
 import { IAppInstallationService } from "../../auth";
-import { ShopId } from "../../shared";
+import { ShopId, Url } from "../../shared";
 import { AppSubscriptionId } from "../models/AppSubscriptionId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";
@@ -31,17 +31,16 @@ describe("UsageSubscriptionHandler", () => {
 
   describe("create", () => {
     it("returns authorization url", async () => {
-      const appUrl = new URL("https://google.com");
-      const authorizeUrl = new URL("https://apple.com");
+      const appUrl = Url.check("https://google.com");
+      const authorizeUrl = Url.check("https://apple.com");
       appInstallationService.getAppUrl = jest.fn().mockResolvedValue(appUrl);
       appUsageSubscriptionService.create = jest
         .fn()
         .mockResolvedValue(authorizeUrl);
-      const request = CreateUsageSubscriptionRequest.check({
+      const request: CreateUsageSubscriptionRequest = {
         shopId,
-        name: "my app name",
-        cappedAmount: 100,
-      });
+        cappedAmount: BillingMoney.check(100),
+      };
 
       const actual = await sut.create(request);
 
@@ -59,22 +58,23 @@ describe("UsageSubscriptionHandler", () => {
 
   describe("updateCappedAmount", () => {
     it("adds given amount to existing capped amount", async () => {
-      const request = UpdateUsageSubscriptionCappedAmountRequest.check({
+      const request: UpdateUsageSubscriptionCappedAmountRequest = {
         shopId,
-        addAmount: 100,
-      });
-      const confirmationUrl = new URL("https://confirm.com");
-      appUsageSubscriptionService.get = jest.fn().mockResolvedValue(
-        UsageSubscription.check({
-          shopId,
-          appSubscriptionId: AppSubscriptionId.check(
-            "gid://shopify/AppSubscription/123",
-          ),
-          balanceAmount: BillingMoney.check(0),
-          cappedAmount: BillingMoney.check(200),
-          test: true,
-        }),
-      );
+        addAmount: BillingMoney.check(100),
+      };
+      const usageSubscription: UsageSubscription = {
+        shopId,
+        appSubscriptionId: AppSubscriptionId.check(
+          "gid://shopify/AppSubscription/123",
+        ),
+        balanceAmount: BillingMoney.check(0),
+        cappedAmount: BillingMoney.check(200),
+        test: true,
+      };
+      const confirmationUrl = Url.check("https://confirm.com");
+      appUsageSubscriptionService.get = jest
+        .fn()
+        .mockResolvedValue(usageSubscription);
       appUsageSubscriptionService.updateCappedAmount = jest
         .fn()
         .mockResolvedValue(confirmationUrl);

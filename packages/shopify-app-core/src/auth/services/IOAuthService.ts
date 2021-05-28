@@ -1,4 +1,4 @@
-import { ShopId } from "../../shared";
+import { ShopId, Url } from "../../shared";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
 import { ApiKey } from "../models/ApiKey";
@@ -8,9 +8,9 @@ export interface IOAuthService {
   buildAuthorizeUrl(
     shopId: ShopId,
     scopes: AccessScope[],
-    redirectUrl: URL,
+    redirectUrl: Url,
     apiKey: ApiKey,
-  ): URL;
+  ): Url;
   getAccessToken(
     shopId: ShopId,
     code: string,

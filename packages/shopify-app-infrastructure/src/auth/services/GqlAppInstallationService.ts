@@ -2,6 +2,7 @@ import {
   AccessScope,
   IAppInstallationService,
   ShopId,
+  Url,
 } from "@tsukiy0/shopify-app-core";
 import { gql } from "graphql-request";
 import { AppInstallation } from "@tsukiy0/shopify-admin-graphql-types";
@@ -31,7 +32,7 @@ export class GqlAppInstallationService implements IAppInstallationService {
       .map(AccessScope.check);
   };
 
-  getAppUrl = async (shopId: ShopId): Promise<URL> => {
+  getAppUrl = async (shopId: ShopId): Promise<Url> => {
     const result = await this.client.request<{
       appInstallation: AppInstallation;
     }>(
@@ -45,6 +46,6 @@ export class GqlAppInstallationService implements IAppInstallationService {
       `,
     );
 
-    return new URL(result.appInstallation.launchUrl);
+    return Url.check(result.appInstallation.launchUrl);
   };
 }
