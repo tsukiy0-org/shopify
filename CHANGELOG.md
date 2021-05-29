@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.12](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.11...v0.1.0-alpha.12) (2021-05-29)
+
+
+### Features
+
+* handle when subscription not found ([762958f](https://github.com/tsukiy0-org/shopify/commit/762958fa92d4c745f2850b106c0167e6f0336abf))
+
+
+
+
+
 # [0.1.0-alpha.11](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.10...v0.1.0-alpha.11) (2021-05-29)
 
 
