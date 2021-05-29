@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import {
   AccessScope,
   StartInstallRequest,
@@ -9,8 +9,8 @@ import {
   ApiSecretKey,
   ShopId,
   Url,
+  UrlExtensions,
 } from "@tsukiy0/shopify-app-core";
-import path from "path";
 import { promisifyHandler } from "./utils/promisifyHandler";
 import {
   GqlAppInstallationService,
@@ -67,8 +67,14 @@ export class AuthRouter {
     router.get(
       "/shopify/auth/start",
       promisifyHandler(async (req, res) => {
-        const redirectUrl = this.buildUrl("/shopify/auth/complete");
-        const appUrl = this.buildAppUrl(this.config.appUrl, req.query);
+        const redirectUrl = UrlExtensions.appendPath(
+          this.config.hostUrl,
+          "/shopify/auth/complete",
+        );
+        const appUrl = UrlExtensions.appendQuery(
+          this.config.appUrl,
+          req.query as Record<string, string>,
+        );
         const shopId = ShopId.check(req.query.shop);
 
         const response = await handler.startInstall(
@@ -108,19 +114,5 @@ export class AuthRouter {
     );
 
     return router;
-  };
-
-  private buildUrl = (appendPath: string): Url => {
-    const newUrl = new URL(this.config.hostUrl);
-    newUrl.pathname = path.join(newUrl.pathname, appendPath);
-    return newUrl.toString();
-  };
-
-  private buildAppUrl = (appUrl: Url, query: Request["query"]): Url => {
-    const url = new URL(appUrl);
-    Object.entries(query).forEach(([key, value]) => {
-      url.searchParams.append(key, value as string);
-    });
-    return url.toString();
   };
 }
