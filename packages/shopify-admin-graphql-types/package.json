@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-admin-graphql-types",
-  "version": "0.1.0-alpha.16",
+  "version": "0.1.0-alpha.17",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

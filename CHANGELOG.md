@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.17](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.16...v0.1.0-alpha.17) (2021-05-29)
+
+
+### Features
+
+* update router construction ([1300098](https://github.com/tsukiy0-org/shopify/commit/1300098550229629207443d194088685c62584e5))
+
+
+
+
+
 # [0.1.0-alpha.16](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.15...v0.1.0-alpha.16) (2021-05-29)
 
 **Note:** Version bump only for package root
