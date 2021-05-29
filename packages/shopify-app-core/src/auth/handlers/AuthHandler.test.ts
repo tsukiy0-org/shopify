@@ -1,4 +1,4 @@
-import { ShopId, Url } from "../../shared";
+import { ShopId, UnauthorizedError, Url } from "../../shared";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
 import { ApiKey } from "../models/ApiKey";
@@ -74,7 +74,19 @@ describe("AuthHandler", () => {
         accessTokenRepository.get = jest.fn().mockResolvedValue(accessToken);
       });
 
-      it("when not have scopes then call onInstall", async () => {
+      it("when unauthorized to get scope then return authorize url", async () => {
+        appInstallationService.listAccessScopes = jest
+          .fn()
+          .mockRejectedValue(new UnauthorizedError());
+
+        const actual = await sut.startInstall(request);
+
+        expect(actual).toEqual({
+          authorizeUrl,
+        });
+      });
+
+      it("when not have scopes then return authorize url", async () => {
         appInstallationService.listAccessScopes = jest
           .fn()
           .mockResolvedValue(["read_orders"].map(AccessScope.check));
@@ -90,7 +102,7 @@ describe("AuthHandler", () => {
         ["read_orders", "write_orders"],
         ["read_orders", "write_orders", "other_access"],
       ].forEach((scopes) => {
-        it("when has scopes then call onInstalled", async () => {
+        it("when has scopes then return nothing", async () => {
           appInstallationService.listAccessScopes = jest
             .fn()
             .mockResolvedValue(scopes.map(AccessScope.check));

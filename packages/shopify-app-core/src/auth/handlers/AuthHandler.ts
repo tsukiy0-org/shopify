@@ -1,3 +1,4 @@
+import { UnauthorizedError } from "../../shared";
 import { ShopId } from "../../shared/models/ShopId";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
@@ -39,14 +40,24 @@ export class AuthHandler implements IAuthHandler {
       };
     }
 
-    const scopes = await this.appInstallationService.listAccessScopes(
-      request.shopId,
-    );
+    try {
+      const scopes = await this.appInstallationService.listAccessScopes(
+        request.shopId,
+      );
 
-    if (!this.hasRequiredScopes(request.requiredScopes, scopes)) {
-      return {
-        authorizeUrl,
-      };
+      if (!this.hasRequiredScopes(request.requiredScopes, scopes)) {
+        return {
+          authorizeUrl,
+        };
+      }
+    } catch (e) {
+      if (e instanceof UnauthorizedError) {
+        return {
+          authorizeUrl,
+        };
+      }
+
+      throw e;
     }
 
     return {

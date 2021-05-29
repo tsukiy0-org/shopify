@@ -3,6 +3,7 @@ import {
   IAccessTokenRepository,
   ShopId,
   ShopifyAppError,
+  UnauthorizedError,
 } from "@tsukiy0/shopify-app-core";
 import { UserError } from "@tsukiy0/shopify-admin-graphql-types";
 import { API_VERSION } from "./constants";
@@ -43,8 +44,6 @@ export class ShopifyGraphQlClient {
     );
   };
 }
-
-export class UnauthorizedError extends ShopifyAppError {}
 
 export class ShopifyUserError extends ShopifyAppError {
   public readonly errors: UserError[];
