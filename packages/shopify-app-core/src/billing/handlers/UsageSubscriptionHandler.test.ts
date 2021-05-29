@@ -3,8 +3,12 @@ import { ShopId, Url } from "../../shared";
 import { AppSubscriptionId } from "../models/AppSubscriptionId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";
-import { IAppUsageSubscriptionService } from "../services/IAppUsageSubscriptionService";
+import {
+  IAppUsageSubscriptionService,
+  SubscriptionNotFoundError,
+} from "../services/IAppUsageSubscriptionService";
 import { CreateUsageSubscriptionRequest } from "./models/CreateUsageSubscriptionRequest";
+import { GetUsageSubscriptionRequest } from "./models/GetUsageSubscriptionRequest";
 import { UpdateUsageSubscriptionCappedAmountRequest } from "./models/UpdateUsageSubscriptionCappedAmountRequest";
 import { UsageSubscriptionHandler } from "./UsageSubscriptionHandler";
 
@@ -14,6 +18,15 @@ describe("UsageSubscriptionHandler", () => {
     name: "my app name",
     terms: "my app terms",
     test: false,
+  };
+  const usageSubscription: UsageSubscription = {
+    shopId,
+    appSubscriptionId: AppSubscriptionId.check(
+      "gid://shopify/AppSubscription/123",
+    ),
+    balanceAmount: BillingMoney.check(0),
+    cappedAmount: BillingMoney.check(200),
+    test: true,
   };
   let appUsageSubscriptionService: IAppUsageSubscriptionService;
   let appInstallationService: IAppInstallationService;
@@ -56,20 +69,43 @@ describe("UsageSubscriptionHandler", () => {
     });
   });
 
+  describe("get", () => {
+    it("returns subscription", async () => {
+      appUsageSubscriptionService.get = jest
+        .fn()
+        .mockResolvedValue(usageSubscription);
+      const request: GetUsageSubscriptionRequest = {
+        shopId,
+      };
+
+      const actual = await sut.get(request);
+
+      expect(actual).toEqual({
+        usageSubscription,
+      });
+    });
+
+    it("when does not exist then return nothing", async () => {
+      appUsageSubscriptionService.get = jest
+        .fn()
+        .mockRejectedValue(new SubscriptionNotFoundError());
+      const request: GetUsageSubscriptionRequest = {
+        shopId,
+      };
+
+      const actual = await sut.get(request);
+
+      expect(actual).toEqual({
+        usageSubscription: undefined,
+      });
+    });
+  });
+
   describe("updateCappedAmount", () => {
     it("adds given amount to existing capped amount", async () => {
       const request: UpdateUsageSubscriptionCappedAmountRequest = {
         shopId,
         addAmount: BillingMoney.check(100),
-      };
-      const usageSubscription: UsageSubscription = {
-        shopId,
-        appSubscriptionId: AppSubscriptionId.check(
-          "gid://shopify/AppSubscription/123",
-        ),
-        balanceAmount: BillingMoney.check(0),
-        cappedAmount: BillingMoney.check(200),
-        test: true,
       };
       const confirmationUrl = Url.check("https://confirm.com");
       appUsageSubscriptionService.get = jest

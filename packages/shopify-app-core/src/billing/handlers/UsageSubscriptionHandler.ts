@@ -1,11 +1,14 @@
 import { IAppInstallationService } from "../../auth";
 import { BillingMoneyExtensions } from "../extensions/BillingMoneyExtensions";
-import { UsageSubscription } from "../models/UsageSubscription";
-import { IAppUsageSubscriptionService } from "../services/IAppUsageSubscriptionService";
+import {
+  IAppUsageSubscriptionService,
+  SubscriptionNotFoundError,
+} from "../services/IAppUsageSubscriptionService";
 import { IUsageSubscriptionHandler } from "./IUsageSubscriptionHandler";
 import { CreateUsageSubscriptionRequest } from "./models/CreateUsageSubscriptionRequest";
 import { CreateUsageSubscriptionResponse } from "./models/CreateUsageSubscriptionResponse";
 import { GetUsageSubscriptionRequest } from "./models/GetUsageSubscriptionRequest";
+import { GetUsageSubscriptionResponse } from "./models/GetUsageSubscriptionResponse";
 import { UpdateUsageSubscriptionCappedAmountRequest } from "./models/UpdateUsageSubscriptionCappedAmountRequest";
 import { UpdateUsageSubscriptionCappedAmountResponse } from "./models/UpdateUsageSubscriptionCappedAmountResponse";
 
@@ -40,8 +43,24 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
 
   get = async (
     request: GetUsageSubscriptionRequest,
-  ): Promise<UsageSubscription> => {
-    return await this.appUsageSubscriptionService.get(request.shopId);
+  ): Promise<GetUsageSubscriptionResponse> => {
+    try {
+      const usageSubscription = await this.appUsageSubscriptionService.get(
+        request.shopId,
+      );
+
+      return {
+        usageSubscription,
+      };
+    } catch (e) {
+      if (e instanceof SubscriptionNotFoundError) {
+        return {
+          usageSubscription: undefined,
+        };
+      }
+
+      throw e;
+    }
   };
 
   updateCappedAmount = async (
