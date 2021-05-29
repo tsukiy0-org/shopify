@@ -18,10 +18,12 @@
   "dependencies": {
     "@tsukiy0/shopify-app-core": "^0.1.0-alpha.9",
     "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.9",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.11"
   }
 }

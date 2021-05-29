@@ -11,54 +11,22 @@ describe("WebhookHandler", () => {
 
   describe("handle", () => {
     it("when no handler then call onError", async () => {
-      const onError = jest.fn();
-      const sut = new WebhookHandler({}, onError);
+      const sut = new WebhookHandler({});
 
-      await sut.handle(shopId, topic, data);
-
-      expect(onError).toHaveBeenCalledWith(
-        expect.any(NoHandlerError),
-        shopId,
-        topic,
-        data,
-      );
-    });
-
-    it("when handler throws then call onError", async () => {
-      const onError = jest.fn();
-      const sut = new WebhookHandler(
-        {
-          [topic]: async () => {
-            throw new RangeError();
-          },
-        },
-        onError,
-      );
-
-      await sut.handle(shopId, topic, data);
-
-      expect(onError).toHaveBeenCalledWith(
-        expect.any(RangeError),
-        shopId,
-        topic,
-        data,
+      await expect(sut.handle(shopId, topic, data)).rejects.toThrowError(
+        NoHandlerError,
       );
     });
 
     it("handle with matching handler", async () => {
-      const onError = jest.fn();
       const handler = jest.fn();
-      const sut = new WebhookHandler(
-        {
-          [topic]: handler,
-        },
-        onError,
-      );
+      const sut = new WebhookHandler({
+        [topic]: handler,
+      });
 
       await sut.handle(shopId, topic, data);
 
       expect(handler).toHaveBeenCalledWith(shopId, data);
-      expect(onError).not.toHaveBeenCalled();
     });
   });
 });
