@@ -62,9 +62,10 @@ export class AuthRouter {
       requestVerifier.verifyHmacQuery(query);
     });
 
+    router.use("/shopify/auth", verifyHmacQueryMiddleware);
+
     router.get(
       "/shopify/auth/start",
-      verifyHmacQueryMiddleware,
       promisifyHandler(async (req, res) => {
         const redirectUrl = this.buildUrl("/shopify/auth/complete");
         const shopId = ShopId.check(req.query.shopId);
@@ -87,7 +88,6 @@ export class AuthRouter {
 
     router.get(
       "/shopify/auth/complete",
-      verifyHmacQueryMiddleware,
       promisifyHandler(async (req, res) => {
         const shopId = ShopId.check(req.query.shopId);
 
