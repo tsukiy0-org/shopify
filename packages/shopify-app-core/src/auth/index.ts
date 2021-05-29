@@ -10,5 +10,6 @@ export * from "./services/IAppInstallationService";
 export * from "./handlers/models/StartInstallRequest";
 export * from "./handlers/models/StartInstallResponse";
 export * from "./handlers/models/CompleteInstallRequest";
+export * from "./handlers/models/CompleteInstallResponse";
 export * from "./handlers/AuthHandler";
 export * from "./handlers/IAuthHandler";

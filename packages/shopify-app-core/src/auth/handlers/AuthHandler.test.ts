@@ -17,15 +17,18 @@ import { StartInstallRequest } from "./models/StartInstallRequest";
 describe("AuthHandler", () => {
   const apiKey = ApiKey.check("apiKey");
   const apiSecretKey = ApiSecretKey.check("apiSecretKey");
+  const requiredScopes = ["read_orders", "write_orders"].map(AccessScope.check);
   let accessTokenRepository: IAccessTokenRepository;
   let oAuthService: IOAuthService;
   let appInstallationService: IAppInstallationService;
+  let onComplete: (shopId: ShopId) => Promise<void>;
   let sut: IAuthHandler;
 
   beforeEach(() => {
     accessTokenRepository = {} as IAccessTokenRepository;
     oAuthService = {} as IOAuthService;
     appInstallationService = {} as IAppInstallationService;
+    onComplete = jest.fn();
     sut = new AuthHandler(
       accessTokenRepository,
       oAuthService,
@@ -33,6 +36,8 @@ describe("AuthHandler", () => {
       {
         apiKey,
         apiSecretKey,
+        onComplete,
+        requiredScopes,
       },
     );
   });
@@ -40,7 +45,6 @@ describe("AuthHandler", () => {
   describe("startInstall", () => {
     const request: StartInstallRequest = {
       shopId: ShopId.check("test.myshopify.com"),
-      requiredScopes: ["read_orders", "write_orders"].map(AccessScope.check),
       redirectUrl: "https://success.com",
     };
     const authorizeUrl = Url.check("https://install.com");
@@ -58,7 +62,7 @@ describe("AuthHandler", () => {
 
       expect(oAuthService.buildAuthorizeUrl).toHaveBeenCalledWith(
         request.shopId,
-        request.requiredScopes,
+        requiredScopes,
         request.redirectUrl,
         apiKey,
       );
@@ -118,18 +122,24 @@ describe("AuthHandler", () => {
   });
 
   describe("completeInstall", () => {
-    const request: CompleteInstallRequest = {
-      shopId: ShopId.check("test.myshopify.com"),
-      accessCode: "accessCode",
-    };
-
     it("puts token into repository and calls onInstalled", async () => {
       const accessToken = AccessToken.check("accessToken");
+      const appUrl = Url.check("https://google.com");
+      const request: CompleteInstallRequest = {
+        shopId: ShopId.check("test.myshopify.com"),
+        accessCode: "accessCode",
+      };
+
       oAuthService.getAccessToken = jest.fn().mockResolvedValue(accessToken);
+      appInstallationService.getAppUrl = jest.fn().mockResolvedValue(appUrl);
       accessTokenRepository.put = jest.fn();
 
-      await sut.completeInstall(request);
+      const actual = await sut.completeInstall(request);
 
+      expect(actual).toEqual({
+        appUrl,
+      });
+      expect(onComplete).toHaveBeenCalledWith(request.shopId);
       expect(oAuthService.getAccessToken).toHaveBeenCalledWith(
         request.shopId,
         request.accessCode,

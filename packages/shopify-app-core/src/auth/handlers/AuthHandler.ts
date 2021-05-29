@@ -9,6 +9,7 @@ import { IAppInstallationService } from "../services/IAppInstallationService";
 import { IOAuthService } from "../services/IOAuthService";
 import { IAuthHandler } from "./IAuthHandler";
 import { CompleteInstallRequest } from "./models/CompleteInstallRequest";
+import { CompleteInstallResponse } from "./models/CompleteInstallResponse";
 import { StartInstallRequest } from "./models/StartInstallRequest";
 import { StartInstallResponse } from "./models/StartInstallResponse";
 
@@ -20,6 +21,8 @@ export class AuthHandler implements IAuthHandler {
     private readonly config: {
       apiKey: ApiKey;
       apiSecretKey: ApiSecretKey;
+      requiredScopes: AccessScope[];
+      onComplete: (shopId: ShopId) => Promise<void>;
     },
   ) {}
   startInstall = async (
@@ -27,7 +30,7 @@ export class AuthHandler implements IAuthHandler {
   ): Promise<StartInstallResponse> => {
     const authorizeUrl = this.oAuthService.buildAuthorizeUrl(
       request.shopId,
-      request.requiredScopes,
+      this.config.requiredScopes,
       request.redirectUrl,
       this.config.apiKey,
     );
@@ -45,7 +48,7 @@ export class AuthHandler implements IAuthHandler {
         request.shopId,
       );
 
-      if (!this.hasRequiredScopes(request.requiredScopes, scopes)) {
+      if (!this.hasRequiredScopes(this.config.requiredScopes, scopes)) {
         return {
           authorizeUrl,
         };
@@ -65,7 +68,9 @@ export class AuthHandler implements IAuthHandler {
     };
   };
 
-  completeInstall = async (request: CompleteInstallRequest): Promise<void> => {
+  completeInstall = async (
+    request: CompleteInstallRequest,
+  ): Promise<CompleteInstallResponse> => {
     const token = await this.oAuthService.getAccessToken(
       request.shopId,
       request.accessCode,
@@ -74,6 +79,12 @@ export class AuthHandler implements IAuthHandler {
     );
 
     await this.accessTokenRepository.put(request.shopId, token);
+
+    await this.config.onComplete(request.shopId);
+
+    return {
+      appUrl: await this.appInstallationService.getAppUrl(request.shopId),
+    };
   };
 
   private getToken = async (

@@ -2,27 +2,18 @@ import {
   ApiSecretKey,
   CreateUsageSubscriptionRequest,
   GetUsageSubscriptionRequest,
-  IAccessTokenRepository,
+  IUsageSubscriptionHandler,
   UpdateUsageSubscriptionCappedAmountRequest,
-  UsageSubscriptionHandler,
 } from "@tsukiy0/shopify-app-core";
-import {
-  GqlAppInstallationService,
-  ShopifyGraphQlClient,
-} from "@tsukiy0/shopify-app-infrastructure";
 import { Router } from "express";
 import { JwtAuthMiddleware } from "../middlewares/JwtAuthMiddleware";
 import { promisifyHandler } from "./utils/promisifyHandler";
-import { GqlAppUsageSubscriptionService } from "@tsukiy0/shopify-app-infrastructure";
 
 export class UsageSubscriptionRouter {
   constructor(
-    private readonly accessTokenRepository: IAccessTokenRepository,
+    private readonly usageSubscriptionHandler: IUsageSubscriptionHandler,
     private readonly config: {
       apiSecretKey: ApiSecretKey;
-      name: string;
-      terms: string;
-      test: boolean;
     },
   ) {}
 
@@ -33,25 +24,6 @@ export class UsageSubscriptionRouter {
       apiSecretKey: this.config.apiSecretKey,
     }).build();
 
-    const shopifyGraphQlClient = new ShopifyGraphQlClient(
-      this.accessTokenRepository,
-    );
-    const appUsageSubscriptionService = new GqlAppUsageSubscriptionService(
-      shopifyGraphQlClient,
-    );
-    const appInstallationService = new GqlAppInstallationService(
-      shopifyGraphQlClient,
-    );
-    const handler = new UsageSubscriptionHandler(
-      appUsageSubscriptionService,
-      appInstallationService,
-      {
-        name: this.config.name,
-        terms: this.config.terms,
-        test: this.config.test,
-      },
-    );
-
     router.use("/shopify/billing/usage-subscription", jwtAuthMiddleware);
 
     router.post(
@@ -59,7 +31,7 @@ export class UsageSubscriptionRouter {
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const response = await handler.create(
+        const response = await this.usageSubscriptionHandler.create(
           CreateUsageSubscriptionRequest.check({
             ...req.body,
             shopId,
@@ -75,7 +47,7 @@ export class UsageSubscriptionRouter {
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const response = await handler.updateCappedAmount(
+        const response = await this.usageSubscriptionHandler.updateCappedAmount(
           UpdateUsageSubscriptionCappedAmountRequest.check({
             ...req.body,
             shopId,
@@ -91,7 +63,7 @@ export class UsageSubscriptionRouter {
       promisifyHandler(async (req, res) => {
         const shopId = res.locals.shopId;
 
-        const response = await handler.get(
+        const response = await this.usageSubscriptionHandler.get(
           GetUsageSubscriptionRequest.check({
             ...req.body,
             shopId,

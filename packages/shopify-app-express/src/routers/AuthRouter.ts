@@ -1,57 +1,28 @@
 import { Router } from "express";
 import {
-  AccessScope,
   StartInstallRequest,
   CompleteInstallRequest,
-  IAccessTokenRepository,
-  AuthHandler,
-  ApiKey,
   ApiSecretKey,
   ShopId,
   Url,
   UrlExtensions,
+  IAuthHandler,
 } from "@tsukiy0/shopify-app-core";
 import { promisifyHandler } from "./utils/promisifyHandler";
-import {
-  GqlAppInstallationService,
-  HttpOAuthService,
-  ShopifyGraphQlClient,
-} from "@tsukiy0/shopify-app-infrastructure";
 import { RequestVerifier } from "../utils/RequestVerifier";
 
 export class AuthRouter {
   constructor(
-    private readonly accessTokenRepository: IAccessTokenRepository,
+    private readonly authHandler: IAuthHandler,
     private readonly config: {
-      requiredScopes: AccessScope[];
       hostUrl: Url;
       appUrl: Url;
-      apiKey: ApiKey;
       apiSecretKey: ApiSecretKey;
-      onComplete: (shopId: ShopId) => Promise<void>;
     },
   ) {}
 
   build = (): Router => {
     const router = Router();
-
-    const oAuthService = new HttpOAuthService();
-    const shopifyGraphQlClient = new ShopifyGraphQlClient(
-      this.accessTokenRepository,
-    );
-    const appInstallationService = new GqlAppInstallationService(
-      shopifyGraphQlClient,
-    );
-
-    const handler = new AuthHandler(
-      this.accessTokenRepository,
-      oAuthService,
-      appInstallationService,
-      {
-        apiKey: this.config.apiKey,
-        apiSecretKey: this.config.apiSecretKey,
-      },
-    );
 
     const requestVerifier = new RequestVerifier({
       apiSecretKey: this.config.apiSecretKey,
@@ -77,10 +48,9 @@ export class AuthRouter {
         );
         const shopId = ShopId.check(req.query.shop);
 
-        const response = await handler.startInstall(
+        const response = await this.authHandler.startInstall(
           StartInstallRequest.check({
             shopId,
-            requiredScopes: this.config.requiredScopes,
             redirectUrl,
           }),
         );
@@ -98,18 +68,14 @@ export class AuthRouter {
       promisifyHandler(async (req, res) => {
         const shopId = ShopId.check(req.query.shop);
 
-        await handler.completeInstall(
+        const response = await this.authHandler.completeInstall(
           CompleteInstallRequest.check({
             shopId,
             accessCode: req.query.code,
           }),
         );
 
-        const url = await appInstallationService.getAppUrl(shopId);
-
-        await this.config.onComplete(shopId);
-
-        res.redirect(url);
+        res.redirect(response.appUrl);
       }),
     );
 

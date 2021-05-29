@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   ApiSecretKey,
+  IWebhookHandler,
   ShopId,
-  WebhookHandler,
 } from "@tsukiy0/shopify-app-core";
 import { promisifyHandler } from "./utils/promisifyHandler";
 import { RequestVerifier } from "../utils/RequestVerifier";
@@ -10,14 +10,16 @@ import { json } from "body-parser";
 
 export class WebhookRouter {
   constructor(
+    private readonly webhookHandler: IWebhookHandler,
     private readonly config: {
       apiSecretKey: ApiSecretKey;
-      handlers: Record<string, (shopId: ShopId, data: any) => Promise<void>>;
       onError: (
-        error: Error,
+        req: Request,
+        res: Response,
         shopId: ShopId,
         topic: string,
         data: any,
+        error: Error,
       ) => Promise<void>;
     },
   ) {}
@@ -28,8 +30,6 @@ export class WebhookRouter {
     const requestVerifier = new RequestVerifier({
       apiSecretKey: this.config.apiSecretKey,
     });
-
-    const handler = new WebhookHandler(this.config.handlers);
 
     const bodyParser = json({
       verify: (req: any, res, buf) => {
@@ -56,9 +56,20 @@ export class WebhookRouter {
         const data = req.body;
 
         try {
-          await handler.handle(ShopId.check(shopId), topic as string, data);
+          await this.webhookHandler.handle(
+            ShopId.check(shopId),
+            topic as string,
+            data,
+          );
         } catch (e) {
-          await this.config.onError(e, shopId as ShopId, topic as string, data);
+          await this.config.onError(
+            req,
+            res,
+            shopId as ShopId,
+            topic as string,
+            data,
+            e,
+          );
         } finally {
           res.status(200);
         }
