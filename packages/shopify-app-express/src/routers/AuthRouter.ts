@@ -68,7 +68,7 @@ export class AuthRouter {
       "/shopify/auth/start",
       promisifyHandler(async (req, res) => {
         const redirectUrl = this.buildUrl("/shopify/auth/complete");
-        const shopId = ShopId.check(req.query.shopId);
+        const shopId = ShopId.check(req.query.shop);
 
         const response = await handler.startInstall(
           StartInstallRequest.check({
@@ -89,7 +89,7 @@ export class AuthRouter {
     router.get(
       "/shopify/auth/complete",
       promisifyHandler(async (req, res) => {
-        const shopId = ShopId.check(req.query.shopId);
+        const shopId = ShopId.check(req.query.shop);
 
         await handler.completeInstall(
           CompleteInstallRequest.check({
@@ -105,9 +105,9 @@ export class AuthRouter {
     return router;
   };
 
-  private buildUrl = (appendPath: string) => {
+  private buildUrl = (appendPath: string): Url => {
     const newUrl = new URL(this.config.hostUrl);
     newUrl.pathname = path.join(newUrl.pathname, appendPath);
-    return newUrl;
+    return newUrl.toString();
   };
 }
