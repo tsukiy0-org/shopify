@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.13](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.12...v0.1.0-alpha.13) (2021-05-29)
+
+
+### Features
+
+* export GetUsageSubscriptionResonse ([79a9d89](https://github.com/tsukiy0-org/shopify/commit/79a9d89e4967b48032bd7d7501fa22f6caf68a0e))
+
+
+
+
+
 # [0.1.0-alpha.12](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.11...v0.1.0-alpha.12) (2021-05-29)
 
 
