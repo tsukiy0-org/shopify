@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-app-core",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.10",
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.11",
     "runtypes": "^5.2.0"
   }
 }

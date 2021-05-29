@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.11](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.10...v0.1.0-alpha.11) (2021-05-29)
+
+
+### Bug Fixes
+
+* perform auth check when fetching scopes ([8b8076c](https://github.com/tsukiy0-org/shopify/commit/8b8076cfadd567a9b40b4bc40df814611d9b8542))
+
+
+
+
+
 # [0.1.0-alpha.10](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.9...v0.1.0-alpha.10) (2021-05-29)
 
 
