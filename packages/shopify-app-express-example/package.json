@@ -1,7 +1,7 @@
 {
   "name": "@tsukiy0/shopify-app-express-example",
   "private": true,
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "license": "MIT",
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -11,9 +11,9 @@
     "tsconfig-paths": "^3.9.0"
   },
   "dependencies": {
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.9",
-    "@tsukiy0/shopify-app-express": "^0.1.0-alpha.9",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.9",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.10",
+    "@tsukiy0/shopify-app-express": "^0.1.0-alpha.10",
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.10",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",

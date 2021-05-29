@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.10](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.9...v0.1.0-alpha.10) (2021-05-29)
+
+
+### Bug Fixes
+
+* AuthRouter parsing incrrect query param as shop ([f5d8e8d](https://github.com/tsukiy0-org/shopify/commit/f5d8e8de80edb1ef1b5a5963480843d28b477770))
+
+
+### Features
+
+* add more permissions to example app (used to tests) ([9c9afa8](https://github.com/tsukiy0-org/shopify/commit/9c9afa892b1419b54c637c33f9e7080e2228ad2f))
+* add WebhookRouter ([2f918f3](https://github.com/tsukiy0-org/shopify/commit/2f918f38229df59b102decdbab7ae2fc222addc7))
+* simplify AuthRouter to handle response ([3c15099](https://github.com/tsukiy0-org/shopify/commit/3c150992df1b933e39dcace3071b5f7966f904dd))
+
+
+
+
+
 # [0.1.0-alpha.9](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.8...v0.1.0-alpha.9) (2021-05-28)
 
 
