@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.14](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.13...v0.1.0-alpha.14) (2021-05-29)
+
+
+### Features
+
+* add UrlExtensions for appendPath and appendQuery ([bcaf580](https://github.com/tsukiy0-org/shopify/commit/bcaf5805357ef1dc785934ad7afc33a7c610c9a7))
+
+
+
+
+
 # [0.1.0-alpha.13](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.12...v0.1.0-alpha.13) (2021-05-29)
 
 
