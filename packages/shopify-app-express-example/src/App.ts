@@ -22,7 +22,11 @@ export class App {
 
     app.use(
       new AuthRouter(accessTokenRepository, {
-        requiredScopes: [AccessScope.check("read_orders")],
+        requiredScopes: [
+          "read_orders",
+          "read_script_tags",
+          "write_script_tags",
+        ].map(AccessScope.check),
         hostUrl: Url.check(process.env.HOST_URL),
         apiKey: ApiKey.check(process.env.API_KEY),
         apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),

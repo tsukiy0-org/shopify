@@ -14,6 +14,8 @@ export class MemoryAccessTokenRepository implements IAccessTokenRepository {
   put = async (shopId: ShopId, token: AccessToken): Promise<void> => {
     const entry = this.store.find((_) => _.shopId == shopId);
 
+    console.log(token);
+
     if (entry) {
       entry.accessToken = token;
     } else {
