@@ -8,8 +8,7 @@ import {
 import { GqlWebhookService } from "@tsukiy0/shopify-app-infrastructure";
 import { ShopifyGraphQlClientSetup } from "../../testing";
 
-// @TODO update permissions for test account
-describe.skip("GqlWebhookService", () => {
+describe("GqlWebhookService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);
   let sut: IWebhookService;
 
@@ -23,13 +22,11 @@ describe.skip("GqlWebhookService", () => {
 
   describe("create", () => {
     it("does it", async () => {
-      const actual = await sut.create(
+      await sut.create(
         shopId,
         WebhookSubscriptionTopic.OrdersCreate,
-        Url.check("https://google.com"),
+        Url.check(`https://google.com/${Math.random() * 1000000}`),
       );
-
-      expect(actual).toBeDefined();
     });
   });
 });

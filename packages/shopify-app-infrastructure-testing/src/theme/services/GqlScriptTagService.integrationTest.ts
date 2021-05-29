@@ -8,8 +8,7 @@ import {
 import { GqlScriptTagService } from "@tsukiy0/shopify-app-infrastructure";
 import { ShopifyGraphQlClientSetup } from "../../testing";
 
-// @TODO update permissions for test account
-describe.skip("GqlScriptTagService", () => {
+describe("GqlScriptTagService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);
   let sut: IScriptTagService;
 
