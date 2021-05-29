@@ -67,24 +67,41 @@ export class App {
     );
 
     app.use(
-      new AuthRouter(authHandler, {
-        hostUrl: Url.check(process.env.HOST_URL),
-        appUrl: Url.check("https://google.com"),
-        apiSecretKey,
-      }).build(),
+      new AuthRouter(
+        () => {
+          return { authHandler };
+        },
+        {
+          hostUrl: Url.check(process.env.HOST_URL),
+          appUrl: Url.check("https://google.com"),
+          apiSecretKey,
+        },
+      ).build(),
     );
 
     app.use(
-      new WebhookRouter(webhookHandler, {
-        apiSecretKey,
-        onError: async () => console.log("error"),
-      }).build(),
+      new WebhookRouter(
+        () => {
+          return {
+            webhookHandler,
+            onError: async () => console.log("error"),
+          };
+        },
+        {
+          apiSecretKey,
+        },
+      ).build(),
     );
 
     app.use(
-      new UsageSubscriptionRouter(usageSubscriptionHandler, {
-        apiSecretKey,
-      }).build(),
+      new UsageSubscriptionRouter(
+        () => {
+          return { usageSubscriptionHandler };
+        },
+        {
+          apiSecretKey,
+        },
+      ).build(),
     );
 
     return app;

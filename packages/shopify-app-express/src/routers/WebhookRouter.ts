@@ -10,9 +10,11 @@ import { json } from "body-parser";
 
 export class WebhookRouter {
   constructor(
-    private readonly webhookHandler: IWebhookHandler,
-    private readonly config: {
-      apiSecretKey: ApiSecretKey;
+    private readonly buildDeps: (
+      req: Request,
+      res: Response,
+    ) => {
+      webhookHandler: IWebhookHandler;
       onError: (
         req: Request,
         res: Response,
@@ -21,6 +23,9 @@ export class WebhookRouter {
         data: any,
         error: Error,
       ) => Promise<void>;
+    },
+    private readonly config: {
+      apiSecretKey: ApiSecretKey;
     },
   ) {}
 
@@ -54,22 +59,16 @@ export class WebhookRouter {
         const shopId = req.header("X-Shopify-Shop-Domain");
         const topic = req.header("X-Shopify-Topic");
         const data = req.body;
+        const { webhookHandler, onError } = this.buildDeps(req, res);
 
         try {
-          await this.webhookHandler.handle(
+          await webhookHandler.handle(
             ShopId.check(shopId),
             topic as string,
             data,
           );
         } catch (e) {
-          await this.config.onError(
-            req,
-            res,
-            shopId as ShopId,
-            topic as string,
-            data,
-            e,
-          );
+          await onError(req, res, shopId as ShopId, topic as string, data, e);
         } finally {
           res.status(200);
         }

@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   StartInstallRequest,
   CompleteInstallRequest,
@@ -13,7 +13,12 @@ import { RequestVerifier } from "../utils/RequestVerifier";
 
 export class AuthRouter {
   constructor(
-    private readonly authHandler: IAuthHandler,
+    private readonly buildDeps: (
+      req: Request,
+      res: Response,
+    ) => {
+      authHandler: IAuthHandler;
+    },
     private readonly config: {
       hostUrl: Url;
       appUrl: Url;
@@ -47,8 +52,9 @@ export class AuthRouter {
           req.query as Record<string, string>,
         );
         const shopId = ShopId.check(req.query.shop);
+        const { authHandler } = this.buildDeps(req, res);
 
-        const response = await this.authHandler.startInstall(
+        const response = await authHandler.startInstall(
           StartInstallRequest.check({
             shopId,
             redirectUrl,
@@ -67,8 +73,9 @@ export class AuthRouter {
       "/shopify/auth/complete",
       promisifyHandler(async (req, res) => {
         const shopId = ShopId.check(req.query.shop);
+        const { authHandler } = this.buildDeps(req, res);
 
-        const response = await this.authHandler.completeInstall(
+        const response = await authHandler.completeInstall(
           CompleteInstallRequest.check({
             shopId,
             accessCode: req.query.code,
