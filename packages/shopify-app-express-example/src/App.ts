@@ -14,12 +14,6 @@ export class App {
 
     const accessTokenRepository = new MemoryAccessTokenRepository();
 
-    app.use("/success", (req, res) => {
-      res.status(200).json({
-        success: true,
-      });
-    });
-
     app.use(
       new AuthRouter(accessTokenRepository, {
         requiredScopes: [
@@ -28,10 +22,12 @@ export class App {
           "write_script_tags",
         ].map(AccessScope.check),
         hostUrl: Url.check(process.env.HOST_URL),
+        appUrl: Url.check("https://google.com"),
         apiKey: ApiKey.check(process.env.API_KEY),
         apiSecretKey: ApiSecretKey.check(process.env.API_SECRET_KEY),
-        onSuccess: async (_, res) => res.redirect("/success"),
-        onComplete: async (_, res) => res.redirect("/success"),
+        onComplete: async () => {
+          console.log("done");
+        },
       }).build(),
     );
 

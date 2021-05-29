@@ -1,4 +1,4 @@
-import { Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   AccessScope,
   StartInstallRequest,
@@ -25,10 +25,10 @@ export class AuthRouter {
     private readonly config: {
       requiredScopes: AccessScope[];
       hostUrl: Url;
+      appUrl: Url;
       apiKey: ApiKey;
       apiSecretKey: ApiSecretKey;
-      onSuccess: (shopId: ShopId, res: Response) => Promise<void>;
-      onComplete: (shopId: ShopId, res: Response) => Promise<void>;
+      onComplete: (shopId: ShopId) => Promise<void>;
     },
   ) {}
 
@@ -68,6 +68,7 @@ export class AuthRouter {
       "/shopify/auth/start",
       promisifyHandler(async (req, res) => {
         const redirectUrl = this.buildUrl("/shopify/auth/complete");
+        const appUrl = this.buildAppUrl(this.config.appUrl, req.query);
         const shopId = ShopId.check(req.query.shop);
 
         const response = await handler.startInstall(
@@ -82,7 +83,7 @@ export class AuthRouter {
           return res.redirect(response.authorizeUrl);
         }
 
-        await this.config.onSuccess(shopId, res);
+        return res.redirect(appUrl);
       }),
     );
 
@@ -98,7 +99,11 @@ export class AuthRouter {
           }),
         );
 
-        await this.config.onComplete(shopId, res);
+        const url = await appInstallationService.getAppUrl(shopId);
+
+        await this.config.onComplete(shopId);
+
+        res.redirect(url);
       }),
     );
 
@@ -109,5 +114,13 @@ export class AuthRouter {
     const newUrl = new URL(this.config.hostUrl);
     newUrl.pathname = path.join(newUrl.pathname, appendPath);
     return newUrl.toString();
+  };
+
+  private buildAppUrl = (appUrl: Url, query: Request["query"]): Url => {
+    const url = new URL(appUrl);
+    Object.entries(query).forEach(([key, value]) => {
+      url.searchParams.append(key, value as string);
+    });
+    return url.toString();
   };
 }
