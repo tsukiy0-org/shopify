@@ -5,6 +5,7 @@ import {
   IUsageSubscriptionHandler,
   UpdateUsageSubscriptionCappedAmountRequest,
 } from "@tsukiy0/shopify-app-core";
+import { json } from "body-parser";
 import { Request, Response, Router } from "express";
 import { JwtAuthMiddleware } from "../middlewares/JwtAuthMiddleware";
 import { promisifyHandler } from "./utils/promisifyHandler";
@@ -29,7 +30,11 @@ export class UsageSubscriptionRouter {
       apiSecretKey: this.config.apiSecretKey,
     }).build();
 
-    router.use("/shopify/billing/usage-subscription", jwtAuthMiddleware);
+    router.use(
+      "/shopify/billing/usage-subscription",
+      json(),
+      jwtAuthMiddleware,
+    );
 
     router.post(
       "/shopify/billing/usage-subscription/create",
