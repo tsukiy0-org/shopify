@@ -31,7 +31,7 @@ export class AuthHandler implements IAuthHandler {
     const authorizeUrl = this.oAuthService.buildAuthorizeUrl(
       request.shopId,
       this.config.requiredScopes,
-      request.redirectUrl,
+      request.completeUrl,
       this.config.apiKey,
     );
 
@@ -39,7 +39,7 @@ export class AuthHandler implements IAuthHandler {
 
     if (!token) {
       return {
-        authorizeUrl,
+        redirectUrl: authorizeUrl,
       };
     }
 
@@ -50,13 +50,13 @@ export class AuthHandler implements IAuthHandler {
 
       if (!this.hasRequiredScopes(this.config.requiredScopes, scopes)) {
         return {
-          authorizeUrl,
+          redirectUrl: authorizeUrl,
         };
       }
     } catch (e) {
       if (e instanceof UnauthorizedError) {
         return {
-          authorizeUrl,
+          redirectUrl: authorizeUrl,
         };
       }
 
@@ -64,7 +64,7 @@ export class AuthHandler implements IAuthHandler {
     }
 
     return {
-      authorizeUrl: undefined,
+      redirectUrl: request.appUrl,
     };
   };
 

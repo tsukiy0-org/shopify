@@ -45,7 +45,8 @@ describe("AuthHandler", () => {
   describe("startInstall", () => {
     const request: StartInstallRequest = {
       shopId: ShopId.check("test.myshopify.com"),
-      redirectUrl: "https://success.com",
+      completeUrl: Url.check("https://complete.com"),
+      appUrl: Url.check("https://app.com"),
     };
     const authorizeUrl = Url.check("https://install.com");
 
@@ -63,11 +64,11 @@ describe("AuthHandler", () => {
       expect(oAuthService.buildAuthorizeUrl).toHaveBeenCalledWith(
         request.shopId,
         requiredScopes,
-        request.redirectUrl,
+        request.completeUrl,
         apiKey,
       );
       expect(actual).toEqual({
-        authorizeUrl,
+        redirectUrl: authorizeUrl,
       });
     });
 
@@ -86,7 +87,7 @@ describe("AuthHandler", () => {
         const actual = await sut.startInstall(request);
 
         expect(actual).toEqual({
-          authorizeUrl,
+          redirectUrl: authorizeUrl,
         });
       });
 
@@ -98,7 +99,7 @@ describe("AuthHandler", () => {
         const actual = await sut.startInstall(request);
 
         expect(actual).toEqual({
-          authorizeUrl,
+          redirectUrl: authorizeUrl,
         });
       });
 
@@ -106,7 +107,7 @@ describe("AuthHandler", () => {
         ["read_orders", "write_orders"],
         ["read_orders", "write_orders", "other_access"],
       ].forEach((scopes) => {
-        it("when has scopes then return nothing", async () => {
+        it("when has scopes then return app url", async () => {
           appInstallationService.listAccessScopes = jest
             .fn()
             .mockResolvedValue(scopes.map(AccessScope.check));
@@ -114,7 +115,7 @@ describe("AuthHandler", () => {
           const actual = await sut.startInstall(request);
 
           expect(actual).toEqual({
-            authorizeUrl: undefined,
+            redirectUrl: request.appUrl,
           });
         });
       });

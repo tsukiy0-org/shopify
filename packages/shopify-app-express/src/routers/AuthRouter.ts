@@ -33,7 +33,7 @@ export class AuthRouter {
       apiSecretKey: this.config.apiSecretKey,
     });
 
-    const verifyHmacQueryMiddleware = promisifyHandler(async (req, res) => {
+    const verifyHmacQueryMiddleware = promisifyHandler(async (req) => {
       const query = req.query;
       requestVerifier.verifyHmacQuery(query);
     });
@@ -43,7 +43,7 @@ export class AuthRouter {
     router.get(
       "/shopify/auth/start",
       promisifyHandler(async (req, res) => {
-        const redirectUrl = UrlExtensions.appendPath(
+        const completeUrl = UrlExtensions.appendPath(
           this.config.hostUrl,
           "/shopify/auth/complete",
         );
@@ -52,20 +52,18 @@ export class AuthRouter {
           req.query as Record<string, string>,
         );
         const shopId = ShopId.check(req.query.shop);
+
         const { authHandler } = this.buildDeps(req, res);
 
         const response = await authHandler.startInstall(
           StartInstallRequest.check({
             shopId,
-            redirectUrl,
+            completeUrl,
+            appUrl,
           }),
         );
 
-        if (response.authorizeUrl) {
-          return res.redirect(response.authorizeUrl);
-        }
-
-        return res.redirect(appUrl);
+        return res.redirect(response.redirectUrl);
       }),
     );
 
