@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.18](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.17...v0.1.0-alpha.18) (2021-05-30)
+
+
+### Features
+
+* UsageSubscription parses json ([f596760](https://github.com/tsukiy0-org/shopify/commit/f596760a55df77abfd3fd239061c29844b99e9f0))
+
+
+
+
+
 # [0.1.0-alpha.17](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.16...v0.1.0-alpha.17) (2021-05-29)
 
 
