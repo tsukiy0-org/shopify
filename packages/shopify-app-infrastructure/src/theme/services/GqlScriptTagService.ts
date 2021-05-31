@@ -124,12 +124,12 @@ export class GqlScriptTagService implements IScriptTagService {
       gql`
         query Task($first: Int!, $src: URL!) {
           scriptTags(first: $first, src: $src) {
-            scriptTag {
-              id
-            }
-            userErrors {
-              field
-              message
+            edges {
+              node {
+                id
+                src
+                displayScope
+              }
             }
           }
         }
