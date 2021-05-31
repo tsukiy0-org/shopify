@@ -122,8 +122,8 @@ export class GqlScriptTagService implements IScriptTagService {
     >(
       shopId,
       gql`
-        query Task($first: Int!, $src: String!) {
-          scriptsTags(first: $first, src: $src) {
+        query Task($first: Int!, $src: URL!) {
+          scriptTags(first: $first, src: $src) {
             scriptTag {
               id
             }
