@@ -13,12 +13,14 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
+    "test": "jest",
     "test:integration": "jest --config jest.config.integration.js",
     "test:integration:local": "jest --config jest.config.integration.js -t GqlAppUsageSubscriptionService"
   },
   "dependencies": {
     "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.18",
     "@tsukiy0/shopify-app-core": "^0.1.0-alpha.18",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.18"
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.18",
+    "jsonwebtoken": "^8.5.1"
   }
 }
