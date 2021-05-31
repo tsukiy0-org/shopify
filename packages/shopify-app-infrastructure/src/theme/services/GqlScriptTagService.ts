@@ -88,7 +88,7 @@ export class GqlScriptTagService implements IScriptTagService {
         >(
           shopId,
           gql`
-            query Task($id: ID!) {
+            mutation Task($id: ID!) {
               scriptTagDelete(id: $id) {
                 userErrors {
                   field
