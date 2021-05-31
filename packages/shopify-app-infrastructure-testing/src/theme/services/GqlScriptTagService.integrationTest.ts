@@ -2,6 +2,8 @@ import { ScriptTagDisplayScope } from "@tsukiy0/shopify-admin-graphql-types";
 import {
   AccessToken,
   IScriptTagService,
+  ScriptTag,
+  ScriptTagNotFoundError,
   ShopId,
   Url,
 } from "@tsukiy0/shopify-app-core";
@@ -10,6 +12,13 @@ import { ShopifyGraphQlClientSetup } from "../../testing";
 
 describe("GqlScriptTagService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);
+  const scriptTag: ScriptTag = {
+    shopId,
+    url: Url.check(
+      `https://google.com/script/${Math.random() * 100000000000000000}`,
+    ),
+    scope: ScriptTagDisplayScope.OrderStatus,
+  };
   let sut: IScriptTagService;
 
   beforeEach(() => {
@@ -20,17 +29,23 @@ describe("GqlScriptTagService", () => {
     sut = new GqlScriptTagService(client);
   });
 
-  describe("create", () => {
-    it("does it", async () => {
-      const actual = await sut.create(
-        shopId,
-        Url.check(
-          "https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.11/vue.cjs.min.js",
-        ),
-        ScriptTagDisplayScope.OrderStatus,
-      );
+  it("create and get returns created", async () => {
+    await sut.create(scriptTag);
+    const actual = await sut.get(
+      scriptTag.shopId,
+      scriptTag.url,
+      scriptTag.scope,
+    );
 
-      expect(actual).toBeDefined();
-    });
+    expect(actual).toEqual(scriptTag);
+  });
+
+  it("delete and get throws not found", async () => {
+    await sut.create(scriptTag);
+    await sut.delete(scriptTag.shopId, scriptTag.url, scriptTag.scope);
+
+    await expect(
+      sut.get(scriptTag.shopId, scriptTag.url, scriptTag.scope),
+    ).rejects.toThrowError(ScriptTagNotFoundError);
   });
 });

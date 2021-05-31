@@ -1,11 +1,17 @@
 import { ScriptTagDisplayScope } from "@tsukiy0/shopify-admin-graphql-types";
-import { ShopId, Url } from "../../shared";
-import { ScriptTagId } from "../models/ScriptTagId";
+import { ShopId, ShopifyAppError, Url } from "../../shared";
+import { ScriptTag } from "../models/ScriptTag";
 
 export interface IScriptTagService {
-  create(
+  create(scriptTag: ScriptTag): Promise<void>;
+
+  get(
     shopId: ShopId,
     url: Url,
     scope: ScriptTagDisplayScope,
-  ): Promise<ScriptTagId>;
+  ): Promise<ScriptTag>;
+
+  delete(shopId: ShopId, url: Url, scope: ScriptTagDisplayScope): Promise<void>;
 }
+
+export class ScriptTagNotFoundError extends ShopifyAppError {}

@@ -3,3 +3,4 @@ export * from "./models/ShopifyAppError";
 export * from "./models/UnauthorizedError";
 export * from "./models/Url";
 export * from "./models/PageCursor";
+export * from "./models/Enum";
