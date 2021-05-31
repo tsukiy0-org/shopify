@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.19](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.18...v0.1.0-alpha.19) (2021-05-31)
+
+
+### Bug Fixes
+
+* bad query fields ([817150d](https://github.com/tsukiy0-org/shopify/commit/817150d909226fa036563735c8558c88e78b4376))
+* delete is a mutation ([87e240f](https://github.com/tsukiy0-org/shopify/commit/87e240ff84d01cb2a99bb81e58756918bde36990))
+* typo in script tag delete ([86f94dd](https://github.com/tsukiy0-org/shopify/commit/86f94dd5c898082a3ae5457527065f8ffb15eb7e))
+* typo in script tag query ([39f3f41](https://github.com/tsukiy0-org/shopify/commit/39f3f41ec6c4ff72e3400ce6114fcdce20606b1e))
+
+
+### Features
+
+* add get and delete to ScriptTagService ([3602893](https://github.com/tsukiy0-org/shopify/commit/3602893785336fa3f7b7e5d3f4e002beef2eb5eb))
+
+
+
+
+
 # [0.1.0-alpha.18](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.17...v0.1.0-alpha.18) (2021-05-30)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-infrastructure

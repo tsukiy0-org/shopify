@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.19](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.18...v0.1.0-alpha.19) (2021-05-31)
+
+
+### Features
+
+* add get and delete to ScriptTagService ([3602893](https://github.com/tsukiy0-org/shopify/commit/3602893785336fa3f7b7e5d3f4e002beef2eb5eb))
+* add PageCursor ([729448c](https://github.com/tsukiy0-org/shopify/commit/729448c09bf5eb4f829dc8c474b1d00dc58e0270))
+* AuthHandler create request now decides which url to redirect to ([88b5844](https://github.com/tsukiy0-org/shopify/commit/88b5844228cb0eacb1ed9ed7a0091b608075fe14))
+
+
+
+
+
 # [0.1.0-alpha.18](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.17...v0.1.0-alpha.18) (2021-05-30)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-core

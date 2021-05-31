@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.19](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.18...v0.1.0-alpha.19) (2021-05-31)
+
+
+### Features
+
+* add AuthHelper for generate jwt for testing ([97f453f](https://github.com/tsukiy0-org/shopify/commit/97f453f71f4d324b62208ff526ceee86a759401e))
+* add get and delete to ScriptTagService ([3602893](https://github.com/tsukiy0-org/shopify/commit/3602893785336fa3f7b7e5d3f4e002beef2eb5eb))
+
+
+
+
+
 # [0.1.0-alpha.18](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.17...v0.1.0-alpha.18) (2021-05-30)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-infrastructure-testing

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.19](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.18...v0.1.0-alpha.19) (2021-05-31)
+
+
+### Features
+
+* AuthHandler create request now decides which url to redirect to ([88b5844](https://github.com/tsukiy0-org/shopify/commit/88b5844228cb0eacb1ed9ed7a0091b608075fe14))
+
+
+
+
+
 # [0.1.0-alpha.18](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.17...v0.1.0-alpha.18) (2021-05-30)
 
 
