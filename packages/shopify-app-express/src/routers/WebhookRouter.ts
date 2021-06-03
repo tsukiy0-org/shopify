@@ -70,7 +70,7 @@ export class WebhookRouter {
         } catch (e) {
           await onError(req, res, shopId as ShopId, topic as string, data, e);
         } finally {
-          res.status(200);
+          res.status(200).end();
         }
       }),
     );
