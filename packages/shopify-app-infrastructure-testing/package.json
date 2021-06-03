@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-app-infrastructure-testing",
-  "version": "0.1.0-alpha.19",
+  "version": "0.1.0-alpha.20",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,9 +18,9 @@
     "test:integration:local": "jest --config jest.config.integration.js -t GqlAppUsageSubscriptionService"
   },
   "dependencies": {
-    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.19",
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.19",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.19",
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.20",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.20",
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.20",
     "jsonwebtoken": "^8.5.1"
   }
 }
