@@ -15,11 +15,19 @@ services:
       SHOP_ID_1: ${SHOP_ID_1}
       SHOP_TOKEN_1: ${SHOP_TOKEN_1}
     command: bash ./tasks/ci/integration
-  publish:
+  publish_prerelease:
     image: node:12
     volumes:
       - ../../:/app
     working_dir: /app
     environment:
       NPM_TOKEN: ${NPM_TOKEN}
-    command: bash ./tasks/ci/publish
+    command: bash ./tasks/ci/publish_prerelease
+  publish_release:
+    image: node:12
+    volumes:
+      - ../../:/app
+    working_dir: /app
+    environment:
+      NPM_TOKEN: ${NPM_TOKEN}
+    command: bash ./tasks/ci/publish_release

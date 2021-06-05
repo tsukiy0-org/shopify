@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      publish:
+        required: true
+        default: "prerelease"
 jobs:
   pipeline:
     runs-on: ubuntu-latest
@@ -23,10 +28,19 @@ jobs:
           docker-compose -f tasks/ci/docker-compose.yml build integration
           docker-compose -f tasks/ci/docker-compose.yml run integration
           docker-compose -f tasks/ci/docker-compose.yml down
-      - name: publish
+      - name: publish_prerelease
+        if: ${{ github.event.inputs.publish == 'prerelease' }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          docker-compose -f tasks/ci/docker-compose.yml build publish
-          docker-compose -f tasks/ci/docker-compose.yml run publish
+          docker-compose -f tasks/ci/docker-compose.yml build publish_prerelease
+          docker-compose -f tasks/ci/docker-compose.yml run publish_prerelease
+          docker-compose -f tasks/ci/docker-compose.yml down
+      - name: publish_release
+        if: ${{ github.event.inputs.publish == 'release' }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          docker-compose -f tasks/ci/docker-compose.yml build publish_release
+          docker-compose -f tasks/ci/docker-compose.yml run publish_release
           docker-compose -f tasks/ci/docker-compose.yml down
