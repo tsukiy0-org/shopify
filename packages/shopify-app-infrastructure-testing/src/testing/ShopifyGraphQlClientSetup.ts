@@ -4,7 +4,7 @@ import { TestTokenRepository } from "./TestTokenRepository";
 
 export class ShopifyGraphQlClientSetup {
   static setup = (config: { token: AccessToken }): ShopifyGraphQlClient => {
-    const client = new ShopifyGraphQlClient(
+    const client = ShopifyGraphQlClient.buildPublic(
       new TestTokenRepository(config.token),
     );
 

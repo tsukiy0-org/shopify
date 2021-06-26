@@ -29,7 +29,7 @@ export class App {
     const apiSecretKey = ApiSecretKey.check(process.env.API_SECRET_KEY);
     const accessTokenRepository = new MemoryAccessTokenRepository();
     const oAuthService = new HttpOAuthService();
-    const shopifyGraphQlClient = new ShopifyGraphQlClient(
+    const shopifyGraphQlClient = ShopifyGraphQlClient.buildPublic(
       accessTokenRepository,
     );
     const appInstallationService = new GqlAppInstallationService(
