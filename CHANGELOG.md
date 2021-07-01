@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.23](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.22...v0.1.0-alpha.23) (2021-07-01)
+
+
+### Features
+
+* build ShopifyRestClient for public and private apps ([e3da48d](https://github.com/tsukiy0-org/shopify/commit/e3da48d2d7b01cb7832f90cab16a877b0a1ddb77))
+
+
+
+
+
 # [0.1.0-alpha.22](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.21...v0.1.0-alpha.22) (2021-07-01)
 
 **Note:** Version bump only for package root
