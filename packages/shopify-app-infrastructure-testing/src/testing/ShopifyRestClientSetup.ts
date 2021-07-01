@@ -4,7 +4,9 @@ import { TestTokenRepository } from "./TestTokenRepository";
 
 export class ShopifyRestClientSetup {
   static setup = (config: { token: AccessToken }): ShopifyRestClient => {
-    const client = new ShopifyRestClient(new TestTokenRepository(config.token));
+    const client = ShopifyRestClient.buildPublic(
+      new TestTokenRepository(config.token),
+    );
 
     return client;
   };
