@@ -60,6 +60,7 @@ describe("GqlAppUsageSubscriptionService", () => {
       expect(actualChargeId).toBeDefined();
       expect(actual.balanceAmount - original.balanceAmount).toBeCloseTo(
         chargeAmount,
+        1,
       );
     });
   });
