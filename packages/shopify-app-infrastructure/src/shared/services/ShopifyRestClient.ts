@@ -44,7 +44,7 @@ export class ShopifyRestClient {
       },
     });
 
-    if (r.status !== 200) {
+    if (r.status >= 400) {
       throw new ShopifyRequestError();
     }
 
