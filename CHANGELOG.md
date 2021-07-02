@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.24](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.23...v0.1.0-alpha.24) (2021-07-02)
+
+
+### Bug Fixes
+
+* 400 and above is an http error ([3403025](https://github.com/tsukiy0-org/shopify/commit/3403025f3c4a629d0abbfab1833ccf5baa8a3523))
+
+
+
+
+
 # [0.1.0-alpha.23](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.22...v0.1.0-alpha.23) (2021-07-01)
 
 
