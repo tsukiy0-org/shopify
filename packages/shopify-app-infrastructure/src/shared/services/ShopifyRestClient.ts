@@ -45,7 +45,10 @@ export class ShopifyRestClient {
     });
 
     if (r.status >= 400) {
-      throw new ShopifyRequestError();
+      throw new ShopifyRequestError({
+        status: r.status,
+        body: await r.text(),
+      });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -53,4 +56,13 @@ export class ShopifyRestClient {
   };
 }
 
-export class ShopifyRequestError extends ShopifyAppError {}
+export class ShopifyRequestError extends ShopifyAppError {
+  constructor(
+    public readonly response: {
+      status: number;
+      body: string;
+    },
+  ) {
+    super();
+  }
+}
