@@ -29,7 +29,6 @@ jobs:
           docker-compose -f tasks/ci/docker-compose.yml run integration
           docker-compose -f tasks/ci/docker-compose.yml down
       - name: publish_prerelease
-        if: ${{ github.event.inputs.publish == 'prerelease' }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
