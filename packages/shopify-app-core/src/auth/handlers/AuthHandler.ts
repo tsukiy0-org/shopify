@@ -1,4 +1,4 @@
-import { UnauthorizedError } from "../../shared";
+import { UnauthorizedError } from "@tsukiy0/extensions-core";
 import { ShopId } from "../../shared/models/ShopId";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";

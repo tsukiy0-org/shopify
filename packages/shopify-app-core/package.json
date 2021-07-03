@@ -16,6 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@tsukiy0/extensions-core": "^0.1.0-alpha.5",
     "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.25",
     "runtypes": "^5.2.0"
   }

@@ -3,12 +3,12 @@ import {
   IAccessTokenRepository,
   ShopId,
   ShopifyAppError,
-  UnauthorizedError,
 } from "@tsukiy0/shopify-app-core";
 import { UserError } from "@tsukiy0/shopify-admin-graphql-types";
 import { IGraphQlClientBuilder } from "./IGraphQlClientBuilder";
 import { ShopifyPublicAppGraphQlClientBuilder } from "./ShopifyPublicAppGraphQlClientBuilder";
 import { ShopifyPrivateAppGraphQlClientBuilder } from "./ShopifyPrivateAppGraphQlClientBuilder";
+import { UnauthorizedError } from "@tsukiy0/extensions-core";
 
 export class ShopifyGraphQlClient {
   constructor(private readonly clientBuilder: IGraphQlClientBuilder) {}
