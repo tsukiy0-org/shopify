@@ -2,11 +2,11 @@ import {
   AccessScope,
   IAppInstallationService,
   ShopId,
-  Url,
 } from "@tsukiy0/shopify-app-core";
 import { gql } from "graphql-request";
 import { AppInstallation } from "@tsukiy0/shopify-admin-graphql-types";
 import { ShopifyGraphQlClient } from "../../shared";
+import { Url } from "@tsukiy0/extensions-core";
 
 export class GqlAppInstallationService implements IAppInstallationService {
   constructor(private readonly client: ShopifyGraphQlClient) {}

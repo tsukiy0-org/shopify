@@ -1,5 +1,6 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { WebhookSubscriptionTopic } from "@tsukiy0/shopify-admin-graphql-types";
-import { ShopId, Url } from "../../shared";
+import { ShopId } from "../../shared";
 
 export interface IWebhookService {
   create(

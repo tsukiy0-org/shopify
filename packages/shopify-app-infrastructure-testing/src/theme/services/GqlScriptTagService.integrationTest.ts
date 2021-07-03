@@ -1,3 +1,4 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { ScriptTagDisplayScope } from "@tsukiy0/shopify-admin-graphql-types";
 import {
   AccessToken,
@@ -5,7 +6,6 @@ import {
   ScriptTag,
   ScriptTagNotFoundError,
   ShopId,
-  Url,
 } from "@tsukiy0/shopify-app-core";
 import { GqlScriptTagService } from "@tsukiy0/shopify-app-infrastructure";
 import { ShopifyGraphQlClientSetup } from "../../testing";

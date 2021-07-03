@@ -1,4 +1,5 @@
-import { ShopId, Url } from "../../shared";
+import { Url } from "@tsukiy0/extensions-core";
+import { ShopId } from "../../shared";
 import { AccessScope } from "../models/AccessScope";
 import { AccessToken } from "../models/AccessToken";
 import { ApiKey } from "../models/ApiKey";

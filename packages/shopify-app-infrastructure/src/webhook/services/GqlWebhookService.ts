@@ -5,8 +5,9 @@ import {
   WebhookSubscriptionTopic,
 } from "@tsukiy0/shopify-admin-graphql-types";
 import { gql } from "graphql-request";
-import { IWebhookService, ShopId, Url } from "@tsukiy0/shopify-app-core";
+import { IWebhookService, ShopId } from "@tsukiy0/shopify-app-core";
 import { ShopifyGraphQlClient, ShopifyUserError } from "../../shared";
+import { Url } from "@tsukiy0/extensions-core";
 
 export class GqlWebhookService implements IWebhookService {
   constructor(private readonly client: ShopifyGraphQlClient) {}

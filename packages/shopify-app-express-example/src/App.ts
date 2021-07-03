@@ -10,7 +10,6 @@ import {
   ApiKey,
   ApiSecretKey,
   AuthHandler,
-  Url,
   UsageSubscriptionHandler,
   WebhookHandler,
 } from "@tsukiy0/shopify-app-core";
@@ -20,6 +19,7 @@ import {
   HttpOAuthService,
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
+import { Url } from "@tsukiy0/extensions-core";
 
 export class App {
   static build = (): Application => {

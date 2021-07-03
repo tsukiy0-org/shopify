@@ -1,5 +1,5 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { Record, Static } from "runtypes";
-import { Url } from "../../../shared";
 
 export const CompleteInstallResponse = Record({
   appUrl: Url,

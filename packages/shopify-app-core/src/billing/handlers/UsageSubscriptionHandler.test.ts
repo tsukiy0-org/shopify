@@ -1,5 +1,6 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { IAppInstallationService } from "../../auth";
-import { ShopId, Url } from "../../shared";
+import { ShopId } from "../../shared";
 import { AppSubscriptionId } from "../models/AppSubscriptionId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";

@@ -1,5 +1,6 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { ScriptTagDisplayScope } from "@tsukiy0/shopify-admin-graphql-types";
-import { ShopId, ShopifyAppError, Url } from "../../shared";
+import { ShopId, ShopifyAppError } from "../../shared";
 import { ScriptTag } from "../models/ScriptTag";
 
 export interface IScriptTagService {

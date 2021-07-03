@@ -1,3 +1,4 @@
+import { Url, UrlExtensions } from "@tsukiy0/extensions-core";
 import {
   AccessScope,
   AccessToken,
@@ -6,7 +7,6 @@ import {
   ApiKey,
   ApiSecretKey,
   ShopifyAppError,
-  Url,
 } from "@tsukiy0/shopify-app-core";
 import fetch from "cross-fetch";
 
@@ -22,7 +22,7 @@ export class HttpOAuthService implements IOAuthService {
     url.searchParams.append("scope", scopes.sort().join(","));
     url.searchParams.append("redirect_uri", redirectUrl);
 
-    return url.toString();
+    return UrlExtensions.fromURL(url);
   };
 
   getAccessToken = async (

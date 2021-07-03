@@ -1,6 +1,7 @@
-import { Enum, ShopId, Url } from "../../shared";
+import { Enum, ShopId } from "../../shared";
 import { Record, Static } from "runtypes";
 import { ScriptTagDisplayScope } from "@tsukiy0/shopify-admin-graphql-types";
+import { Url } from "@tsukiy0/extensions-core";
 
 export const ScriptTag = Record({
   shopId: ShopId,

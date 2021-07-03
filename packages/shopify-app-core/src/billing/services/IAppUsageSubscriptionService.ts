@@ -1,4 +1,5 @@
-import { ShopId, ShopifyAppError, Url } from "../../shared";
+import { Url } from "@tsukiy0/extensions-core";
+import { ShopId, ShopifyAppError } from "../../shared";
 import { AppUsageRecordId } from "../models/AppUsageRecordId";
 import { BillingMoney } from "../models/BillingMoney";
 import { UsageSubscription } from "../models/UsageSubscription";

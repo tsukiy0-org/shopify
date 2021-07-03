@@ -1,5 +1,5 @@
-import { ShopId } from "@tsukiy0/shopify-app-core";
 import { CompleteInstallRequest } from "./CompleteInstallRequest";
+import { ShopId } from "../../../shared";
 
 describe("CompleteInstallRequest", () => {
   const request = CompleteInstallRequest.check({

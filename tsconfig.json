@@ -3,7 +3,12 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@tsukiy0/*": ["packages/*/src"]
+            "@tsukiy0/shopify-admin-graphql-types": ["packages/shopify-admin-graphql-types/src"],
+            "@tsukiy0/shopify-app-core": ["packages/shopify-app-core/src"],
+            "@tsukiy0/shopify-app-express": ["packages/shopify-app-express/src"],
+            "@tsukiy0/shopify-app-express-example": ["packages/shopify-app-express-example/src"],
+            "@tsukiy0/shopify-app-infrastructure": ["packages/shopify-app-infrastructure/src"],
+            "@tsukiy0/shopify-app-infrastructure-testing": ["packages/shopify-app-infrastructure-testing/src"]
         }
     }
 }

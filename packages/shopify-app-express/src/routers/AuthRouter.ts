@@ -4,12 +4,11 @@ import {
   CompleteInstallRequest,
   ApiSecretKey,
   ShopId,
-  Url,
-  UrlExtensions,
   IAuthHandler,
 } from "@tsukiy0/shopify-app-core";
 import { promisifyHandler } from "./utils/promisifyHandler";
 import { RequestVerifier } from "../utils/RequestVerifier";
+import { Url, UrlExtensions } from "@tsukiy0/extensions-core";
 
 export class AuthRouter {
   constructor(

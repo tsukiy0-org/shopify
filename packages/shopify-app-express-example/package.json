@@ -11,6 +11,7 @@
     "tsconfig-paths": "^3.9.0"
   },
   "dependencies": {
+    "@tsukiy0/extensions-core": "^0.1.0-alpha.5",
     "@tsukiy0/shopify-app-core": "^0.1.0-alpha.25",
     "@tsukiy0/shopify-app-express": "^0.1.0-alpha.25",
     "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.25",

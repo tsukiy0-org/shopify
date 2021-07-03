@@ -13,9 +13,9 @@ import {
   ScriptTag,
   ScriptTagNotFoundError,
   ShopId,
-  Url,
 } from "@tsukiy0/shopify-app-core";
 import { ShopifyGraphQlClient, ShopifyUserError } from "../../shared";
+import { Url } from "@tsukiy0/extensions-core";
 
 export class GqlScriptTagService implements IScriptTagService {
   constructor(private readonly client: ShopifyGraphQlClient) {}

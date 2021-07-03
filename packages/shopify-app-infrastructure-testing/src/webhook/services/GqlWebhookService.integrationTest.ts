@@ -1,9 +1,9 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { WebhookSubscriptionTopic } from "@tsukiy0/shopify-admin-graphql-types";
 import {
   AccessToken,
   IWebhookService,
   ShopId,
-  Url,
 } from "@tsukiy0/shopify-app-core";
 import { GqlWebhookService } from "@tsukiy0/shopify-app-infrastructure";
 import { ShopifyGraphQlClientSetup } from "../../testing";

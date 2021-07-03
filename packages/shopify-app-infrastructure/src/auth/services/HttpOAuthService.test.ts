@@ -1,3 +1,4 @@
+import { Url } from "@tsukiy0/extensions-core";
 import { ShopId, ApiKey, AccessScope } from "@tsukiy0/shopify-app-core";
 import { HttpOAuthService } from "./HttpOAuthService";
 
@@ -18,7 +19,7 @@ describe("HttpOAuthService", () => {
       const actual = sut.buildAuthorizeUrl(
         shopId,
         requiredScopes,
-        "https://google.com/auth/end",
+        Url.check("https://google.com/auth/end"),
         apiKey,
       );
 
