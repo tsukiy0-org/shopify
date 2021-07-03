@@ -1,3 +1,4 @@
+import { Url } from "@tsukiy0/extensions-core";
 import {
   AccessToken,
   BillingMoney,
@@ -26,7 +27,7 @@ describe("GqlAppUsageSubscriptionService", () => {
         "order verify",
         "terms",
         BillingMoney.check(120),
-        "https://google.com",
+        Url.check("https://google.com"),
         true,
       );
 
