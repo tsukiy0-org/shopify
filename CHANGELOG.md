@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.25](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.24...v0.1.0-alpha.25) (2021-07-03)
+
+
+### Features
+
+* request error container status and body as text ([621b532](https://github.com/tsukiy0-org/shopify/commit/621b53280a30cd44ed4ea1e94013477055f9aa8b))
+
+
+
+
+
 # [0.1.0-alpha.24](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.23...v0.1.0-alpha.24) (2021-07-02)
 
 
