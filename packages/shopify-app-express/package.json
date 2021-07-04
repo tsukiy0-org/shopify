@@ -16,7 +16,8 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@tsukiy0/extensions-core": "^0.1.0-alpha.5",
+    "@tsukiy0/extensions-core": "^0.1.0-alpha.7",
+    "@tsukiy0/extensions-express": "^0.1.0-alpha.7",
     "@tsukiy0/shopify-app-core": "^0.1.0-alpha.26",
     "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.26",
     "body-parser": "^1.19.0",

@@ -80,17 +80,9 @@ export class App {
     );
 
     app.use(
-      new WebhookRouter(
-        () => {
-          return {
-            webhookHandler,
-            onError: async () => console.log("error"),
-          };
-        },
-        {
-          apiSecretKey,
-        },
-      ).build(),
+      new WebhookRouter(webhookHandler, {
+        apiSecretKey,
+      }).build(),
     );
 
     app.use(
