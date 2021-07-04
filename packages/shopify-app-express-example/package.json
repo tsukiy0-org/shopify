@@ -1,7 +1,7 @@
 {
   "name": "@tsukiy0/shopify-app-express-example",
   "private": true,
-  "version": "0.1.0-alpha.26",
+  "version": "0.1.0-alpha.27",
   "license": "MIT",
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@tsukiy0/extensions-core": "^0.1.0-alpha.7",
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.26",
-    "@tsukiy0/shopify-app-express": "^0.1.0-alpha.26",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.26",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.27",
+    "@tsukiy0/shopify-app-express": "^0.1.0-alpha.27",
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.27",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
