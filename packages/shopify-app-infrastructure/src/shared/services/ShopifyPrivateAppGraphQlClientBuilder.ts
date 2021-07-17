@@ -4,7 +4,8 @@ import { API_VERSION } from "./constants";
 import { IGraphQlClientBuilder } from "./IGraphQlClientBuilder";
 
 export class ShopifyPrivateAppGraphQlClientBuilder
-  implements IGraphQlClientBuilder {
+  implements IGraphQlClientBuilder
+{
   constructor(
     private readonly apiKey: string,
     private readonly password: string,

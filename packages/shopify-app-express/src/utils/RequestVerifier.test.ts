@@ -43,8 +43,7 @@ describe("RequestVerifier", () => {
       expect(() =>
         sut.verifyHmacQuery({
           shop: "tsukiy0-org-dev-1.myshopify.com",
-          hmac:
-            "fd9b0fcffccd55768d79ddcb8cc4143d4ab800a4b175b1d5c68a493a450730a9",
+          hmac: "fd9b0fcffccd55768d79ddcb8cc4143d4ab800a4b175b1d5c68a493a450730a9",
           timestamp: "1620433564",
         }),
       ).not.toThrow();

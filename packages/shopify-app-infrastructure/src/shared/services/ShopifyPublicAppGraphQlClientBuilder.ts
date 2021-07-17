@@ -4,7 +4,8 @@ import { API_VERSION } from "./constants";
 import { IGraphQlClientBuilder } from "./IGraphQlClientBuilder";
 
 export class ShopifyPublicAppGraphQlClientBuilder
-  implements IGraphQlClientBuilder {
+  implements IGraphQlClientBuilder
+{
   constructor(private readonly accessTokenRepository: IAccessTokenRepository) {}
 
   build = async (shopId: ShopId): Promise<GraphQLClient> => {

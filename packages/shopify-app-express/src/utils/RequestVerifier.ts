@@ -41,9 +41,9 @@ export class RequestVerifier {
   };
 
   verifyJwt = (jwt: string): ShopId => {
-    const o = (verify(jwt, this.config.apiSecretKey, {
+    const o = verify(jwt, this.config.apiSecretKey, {
       algorithms: ["HS256"],
-    }) as unknown) as {
+    }) as unknown as {
       dest: string;
     };
 

@@ -68,10 +68,11 @@ export class UsageSubscriptionHandler implements IUsageSubscriptionHandler {
   ): Promise<UpdateUsageSubscriptionCappedAmountResponse> => {
     const sub = await this.appUsageSubscriptionService.get(request.shopId);
 
-    const authorizeUrl = await this.appUsageSubscriptionService.updateCappedAmount(
-      request.shopId,
-      BillingMoneyExtensions.add(sub.cappedAmount, request.addAmount),
-    );
+    const authorizeUrl =
+      await this.appUsageSubscriptionService.updateCappedAmount(
+        request.shopId,
+        BillingMoneyExtensions.add(sub.cappedAmount, request.addAmount),
+      );
 
     return {
       authorizeUrl,

@@ -24,7 +24,8 @@ import { ShopifyGraphQlClient, ShopifyUserError } from "../../shared";
 import { Url } from "@tsukiy0/extensions-core";
 
 export class GqlAppUsageSubscriptionService
-  implements IAppUsageSubscriptionService {
+  implements IAppUsageSubscriptionService
+{
   constructor(private readonly client: ShopifyGraphQlClient) {}
 
   create = async (
