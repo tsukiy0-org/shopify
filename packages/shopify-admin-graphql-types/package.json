@@ -11,10 +11,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.21.2",
-    "@graphql-codegen/typescript": "^1.21.1",
-    "graphql": "^15.5.0",
-    "graphql-introspection-json-to-sdl": "^1.0.3"
+    "@graphql-codegen/cli": "1.21.7",
+    "@graphql-codegen/typescript": "1.23.0",
+    "graphql": "15.5.1",
+    "graphql-introspection-json-to-sdl": "1.0.3"
   },
   "scripts": {
     "sdl": "graphql-introspection-json-to-sdl graphql.schema.json > schema.graphql",
