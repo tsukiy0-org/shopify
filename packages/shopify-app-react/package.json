@@ -16,9 +16,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "@shopify/app-bridge-react": "^2.0.3",
+    "@shopify/app-bridge-utils": "^2.0.3",
     "@tsukiy0/extensions-core": "0.1.0-alpha.13",
     "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.29",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.29",
     "react": "^17.0.2",
     "runtypes": "6.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.14"
   }
 }
