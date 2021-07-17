@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.29](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.28...v0.1.0-alpha.29) (2021-07-17)
+
+
+### Features
+
+* add AuthRouterV2 ([42269f8](https://github.com/tsukiy0-org/shopify/commit/42269f899f53e53d6789ce6a73aeb8ab6cf44bd3))
+* add getShopId to JwtAuthMiddleware ([ff02a4f](https://github.com/tsukiy0-org/shopify/commit/ff02a4f4b2450d0311f43b40e22c1d5ce19e984a))
+* add VerifyHmacQueryMiddleware ([f0e2917](https://github.com/tsukiy0-org/shopify/commit/f0e2917fec8ebf561700f8de93f0f3e385f0303e))
+
+
+
+
+
 # [0.1.0-alpha.28](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.27...v0.1.0-alpha.28) (2021-07-17)
 
 

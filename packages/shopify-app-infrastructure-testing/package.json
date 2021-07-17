@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-app-infrastructure-testing",
-  "version": "0.1.0-alpha.28",
+  "version": "0.1.0-alpha.29",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "@tsukiy0/extensions-core": "0.1.0-alpha.13",
-    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.28",
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.28",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.28",
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.29",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.29",
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.29",
     "jsonwebtoken": "8.5.1"
   }
 }
