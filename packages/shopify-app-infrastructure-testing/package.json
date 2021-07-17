@@ -13,7 +13,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:integration": "jest --config jest.config.integration.js",
     "test:integration:local": "jest --config jest.config.integration.js -t GqlAppUsageSubscriptionService"
   },
