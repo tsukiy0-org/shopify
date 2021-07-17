@@ -1,9 +1,9 @@
 import { ApiSecretKey, ShopId } from "@tsukiy0/shopify-app-core";
 import { RequestHandler } from "express";
-import { promisifyHandler } from "packages/shopify-app-express/dist/routers/utils/promisifyHandler";
 import { RequestVerifier } from "../utils/RequestVerifier";
 import { Response } from "express";
 import { GuidExtensions } from "@tsukiy0/extensions-core";
+import { promisifyHandler } from "@tsukiy0/extensions-express";
 
 export class VerifyHmacQueryMiddleware {
   private readonly requestVerifier: RequestVerifier;

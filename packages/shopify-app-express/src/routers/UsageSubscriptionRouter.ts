@@ -28,18 +28,18 @@ export class UsageSubscriptionRouter {
 
     const jwtAuthMiddleware = new JwtAuthMiddleware({
       apiSecretKey: this.config.apiSecretKey,
-    }).build();
+    });
 
     router.use(
       "/shopify/billing/usage-subscription",
       json(),
-      jwtAuthMiddleware,
+      jwtAuthMiddleware.handler,
     );
 
     router.post(
       "/shopify/billing/usage-subscription/create",
       promisifyHandler(async (req, res) => {
-        const shopId = res.locals.shopId;
+        const shopId = jwtAuthMiddleware.getShopId(res);
         const { usageSubscriptionHandler } = this.buildDeps(req, res);
 
         const response = await usageSubscriptionHandler.create(
@@ -56,7 +56,7 @@ export class UsageSubscriptionRouter {
     router.post(
       "/shopify/billing/usage-subscription/update-capped-amount",
       promisifyHandler(async (req, res) => {
-        const shopId = res.locals.shopId;
+        const shopId = jwtAuthMiddleware.getShopId(res);
         const { usageSubscriptionHandler } = this.buildDeps(req, res);
 
         const response = await usageSubscriptionHandler.updateCappedAmount(
@@ -73,7 +73,7 @@ export class UsageSubscriptionRouter {
     router.post(
       "/shopify/billing/usage-subscription/get",
       promisifyHandler(async (req, res) => {
-        const shopId = res.locals.shopId;
+        const shopId = jwtAuthMiddleware.getShopId(res);
         const { usageSubscriptionHandler } = this.buildDeps(req, res);
 
         const response = await usageSubscriptionHandler.get(
