@@ -15,8 +15,8 @@ import {
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
 import { promisifyHandler } from "./utils/promisifyHandler";
-import { RequestVerifier } from "../utils/RequestVerifier";
 import { Url, UrlExtensions } from "@tsukiy0/extensions-core";
+import { VerifyHmacQueryMiddleware } from "../middlewares/VerifyHmacQueryMiddleware";
 
 export class AuthRouterV2 {
   constructor(
@@ -53,18 +53,13 @@ export class AuthRouterV2 {
       },
     );
 
-    const requestVerifier = new RequestVerifier({
+    const verifyHmacQueryMiddleware = new VerifyHmacQueryMiddleware({
       apiSecretKey: this.config.apiSecretKey,
-    });
-
-    const verifyHmacQueryMiddleware = promisifyHandler(async (req) => {
-      const query = req.query;
-      requestVerifier.verifyHmacQuery(query);
     });
 
     router.get(
       "/shopify/auth/start",
-      verifyHmacQueryMiddleware,
+      verifyHmacQueryMiddleware.handler,
       promisifyHandler(async (req, res) => {
         const completeUrl = UrlExtensions.appendPath(
           this.config.hostUrl,
@@ -74,7 +69,7 @@ export class AuthRouterV2 {
           this.config.appUrl,
           req.query as Record<string, string>,
         );
-        const shopId = ShopId.check(req.query.shop);
+        const shopId = verifyHmacQueryMiddleware.getShopId(res);
 
         const response = await authHandler.startInstall(
           StartInstallRequest.check({
@@ -90,9 +85,9 @@ export class AuthRouterV2 {
 
     router.get(
       "/shopify/auth/complete",
-      verifyHmacQueryMiddleware,
+      verifyHmacQueryMiddleware.handler,
       promisifyHandler(async (req, res) => {
-        const shopId = ShopId.check(req.query.shop);
+        const shopId = verifyHmacQueryMiddleware.getShopId(res);
 
         const response = await authHandler.completeInstall(
           CompleteInstallRequest.check({
