@@ -1,19 +1,29 @@
-import { ApiKey, ShopId } from "@tsukiy0/shopify-app-core";
+import { ApiKey, ApiSecretKey, ShopId } from "@tsukiy0/shopify-app-core";
 import { Provider } from "@shopify/app-bridge-react";
 import React from "react";
 import { ShopifyContext } from "./ShopifyContext";
+import { sign } from "jsonwebtoken";
 
 export const DevShopifyContextProvider: React.FC<{
-  token: string;
   shopId: ShopId;
-  shopifyApiKey: ApiKey;
-}> = ({ children, shopId, token, shopifyApiKey }) => {
+  apiKey: ApiKey;
+  apiSecretKey: ApiSecretKey;
+}> = ({ children, shopId, apiKey, apiSecretKey }) => {
   const shopHost = btoa(`${shopId}/admin`);
+  const token = sign(
+    {
+      dest: `https://${shopId}`,
+    },
+    apiSecretKey,
+    {
+      algorithm: "HS256",
+    },
+  );
 
   return (
     <Provider
       config={{
-        apiKey: shopifyApiKey,
+        apiKey,
         host: shopHost,
         forceRedirect: false,
       }}

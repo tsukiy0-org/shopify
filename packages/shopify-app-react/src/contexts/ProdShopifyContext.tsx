@@ -27,8 +27,8 @@ const ShopifyContextInnerProvider: React.FC<{ shopId: ShopId }> = ({
 };
 
 export const ProdShopifyContextProvider: React.FC<{
-  shopifyApiKey: ApiKey;
-}> = ({ children, shopifyApiKey }) => {
+  apiKey: ApiKey;
+}> = ({ children, apiKey }) => {
   const [shopId, setShopId] = useState<ShopId>();
   const query = new URLSearchParams(window.location.search);
 
@@ -43,7 +43,7 @@ export const ProdShopifyContextProvider: React.FC<{
   return (
     <Provider
       config={{
-        apiKey: shopifyApiKey,
+        apiKey,
         host: query.get("host")!,
         forceRedirect: true,
       }}

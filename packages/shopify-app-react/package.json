@@ -21,6 +21,7 @@
     "@tsukiy0/extensions-core": "0.1.0-alpha.13",
     "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.30",
     "@tsukiy0/shopify-app-core": "^0.1.0-alpha.30",
+    "jsonwebtoken": "^8.5.1",
     "react": "^17.0.2",
     "runtypes": "6.3.1"
   },

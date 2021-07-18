@@ -1,34 +1,32 @@
 import React, { useContext } from "react";
 import { DevShopifyContextProvider } from "./DevShopifyContext";
 import { ProdShopifyContextProvider } from "./ProdShopifyContext";
-import { ApiKey, ShopId } from "@tsukiy0/shopify-app-core";
+import { ApiKey, ApiSecretKey, ShopId } from "@tsukiy0/shopify-app-core";
 
 type Value = {
   getToken: () => Promise<string>;
   shopId: ShopId;
 };
 
-const isDevelopment = process.env.NODE_ENV === "development";
-
 export const ShopifyContext = React.createContext<Value>({} as any);
 
 export const ShopifyContextProvider: React.FC<{
-  getDev: () => {
+  apiKey: ApiKey;
+  dev?: {
+    apiSecretKey: ApiSecretKey;
     shopId: ShopId;
-    token: string;
   };
-  shopifyApiKey: ApiKey;
-}> = ({ getDev, shopifyApiKey, children }) => {
-  if (isDevelopment) {
+}> = ({ dev, apiKey, children }) => {
+  if (dev) {
     return (
-      <DevShopifyContextProvider {...getDev()} shopifyApiKey={shopifyApiKey}>
+      <DevShopifyContextProvider {...dev} apiKey={apiKey}>
         {children}
       </DevShopifyContextProvider>
     );
   }
 
   return (
-    <ProdShopifyContextProvider shopifyApiKey={shopifyApiKey}>
+    <ProdShopifyContextProvider apiKey={apiKey}>
       {children}
     </ProdShopifyContextProvider>
   );
