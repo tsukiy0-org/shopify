@@ -9,14 +9,12 @@ import {
   AccessScope,
   ApiKey,
   ApiSecretKey,
-  AuthHandler,
   UsageSubscriptionHandler,
   WebhookHandler,
 } from "@tsukiy0/shopify-app-core";
 import {
   GqlAppInstallationService,
   GqlAppUsageSubscriptionService,
-  HttpOAuthService,
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
 import { Url } from "@tsukiy0/extensions-core";
@@ -28,7 +26,6 @@ export class App {
     const apiKey = ApiKey.check(process.env.API_KEY);
     const apiSecretKey = ApiSecretKey.check(process.env.API_SECRET_KEY);
     const accessTokenRepository = new MemoryAccessTokenRepository();
-    const oAuthService = new HttpOAuthService();
     const shopifyGraphQlClient = ShopifyGraphQlClient.buildPublic(
       accessTokenRepository,
     );
@@ -37,23 +34,6 @@ export class App {
     );
     const appUsageSubscriptionService = new GqlAppUsageSubscriptionService(
       shopifyGraphQlClient,
-    );
-    const authHandler = new AuthHandler(
-      accessTokenRepository,
-      oAuthService,
-      appInstallationService,
-      {
-        apiKey,
-        apiSecretKey,
-        requiredScopes: [
-          "read_orders",
-          "read_script_tags",
-          "write_script_tags",
-        ].map(AccessScope.check),
-        onComplete: async () => {
-          console.log("done");
-        },
-      },
     );
     const webhookHandler = new WebhookHandler({});
     const usageSubscriptionHandler = new UsageSubscriptionHandler(
@@ -67,16 +47,19 @@ export class App {
     );
 
     app.use(
-      new AuthRouter(
-        () => {
-          return { authHandler };
-        },
-        {
-          hostUrl: Url.check(process.env.HOST_URL),
-          appUrl: Url.check("https://google.com"),
-          apiSecretKey,
-        },
-      ).build(),
+      new AuthRouter({
+        accessTokenRepository,
+        apiKey,
+        apiSecretKey,
+        hostUrl: Url.check(process.env.HOST_URL),
+        appUrl: Url.check("https://google.com"),
+        requiredScopes: [
+          "read_orders",
+          "read_script_tags",
+          "write_script_tags",
+        ].map(AccessScope.check),
+        onComplete: async (_) => console.log(_),
+      }).build(),
     );
 
     app.use(
