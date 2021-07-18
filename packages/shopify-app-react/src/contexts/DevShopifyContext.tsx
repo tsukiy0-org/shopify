@@ -10,12 +10,15 @@ export const DevShopifyContextProvider: React.FC<{
   apiSecretKey: ApiSecretKey;
 }> = ({ children, shopId, apiKey, apiSecretKey }) => {
   const shopHost = btoa(`${shopId}/admin`);
+  const issuer = `https://${shopId}`;
   const token = sign(
     {
-      dest: `https://${shopId}`,
+      dest: issuer,
     },
     apiSecretKey,
     {
+      issuer,
+      expiresIn: "1h",
       algorithm: "HS256",
     },
   );
