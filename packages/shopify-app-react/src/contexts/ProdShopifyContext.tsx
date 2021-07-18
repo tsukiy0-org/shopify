@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { ApiKey, ShopId } from "@tsukiy0/shopify-app-core";
 import { ShopifyContext } from "./ShopifyContext";
-import { useQuery } from "./useQuery";
 
 const ShopifyContextInnerProvider: React.FC<{ shopId: ShopId }> = ({
   shopId,
@@ -31,7 +30,7 @@ export const ProdShopifyContextProvider: React.FC<{
   shopifyApiKey: ApiKey;
 }> = ({ children, shopifyApiKey }) => {
   const [shopId, setShopId] = useState<ShopId>();
-  const query = useQuery();
+  const query = new URLSearchParams(window.location.search);
 
   useEffect(() => {
     setShopId(ShopId.check(query.get("shop")));
