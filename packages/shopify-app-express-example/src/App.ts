@@ -9,14 +9,8 @@ import {
   AccessScope,
   ApiKey,
   ApiSecretKey,
-  UsageSubscriptionHandler,
   WebhookHandler,
 } from "@tsukiy0/shopify-app-core";
-import {
-  GqlAppInstallationService,
-  GqlAppUsageSubscriptionService,
-  ShopifyGraphQlClient,
-} from "@tsukiy0/shopify-app-infrastructure";
 import { Url } from "@tsukiy0/extensions-core";
 
 export class App {
@@ -26,28 +20,10 @@ export class App {
     const apiKey = ApiKey.check(process.env.API_KEY);
     const apiSecretKey = ApiSecretKey.check(process.env.API_SECRET_KEY);
     const accessTokenRepository = new MemoryAccessTokenRepository();
-    const shopifyGraphQlClient = ShopifyGraphQlClient.buildPublic(
-      accessTokenRepository,
-    );
-    const appInstallationService = new GqlAppInstallationService(
-      shopifyGraphQlClient,
-    );
-    const appUsageSubscriptionService = new GqlAppUsageSubscriptionService(
-      shopifyGraphQlClient,
-    );
     const webhookHandler = new WebhookHandler({});
-    const usageSubscriptionHandler = new UsageSubscriptionHandler(
-      appUsageSubscriptionService,
-      appInstallationService,
-      {
-        name: "test name",
-        terms: "test terms",
-        test: true,
-      },
-    );
 
     app.use(
-      new AuthRouter({
+      new AuthRouter(async () => ({
         accessTokenRepository,
         apiKey,
         apiSecretKey,
@@ -59,7 +35,7 @@ export class App {
           "write_script_tags",
         ].map(AccessScope.check),
         onComplete: async (_) => console.log(_),
-      }).build(),
+      })).build(),
     );
 
     app.use(
@@ -69,14 +45,16 @@ export class App {
     );
 
     app.use(
-      new UsageSubscriptionRouter(
-        () => {
-          return { usageSubscriptionHandler };
-        },
-        {
+      new UsageSubscriptionRouter(async () => {
+        return {
+          apiKey,
           apiSecretKey,
-        },
-      ).build(),
+          accessTokenRepository,
+          name: "test name",
+          terms: "test terms",
+          test: true,
+        };
+      }).build(),
     );
 
     return app;
