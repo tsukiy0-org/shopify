@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.32](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.31...v0.1.0-alpha.32) (2021-07-20)
+
+
+### Features
+
+* bump @tsukiy0/extensions ([e00f986](https://github.com/tsukiy0-org/shopify/commit/e00f98680ba11f2dd439a08d2ea3ae0c029d2ce3))
+
+
+
+
+
 # [0.1.0-alpha.31](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.30...v0.1.0-alpha.31) (2021-07-18)
 
 

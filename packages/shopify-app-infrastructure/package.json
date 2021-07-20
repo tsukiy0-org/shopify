@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-app-infrastructure",
-  "version": "0.1.0-alpha.31",
+  "version": "0.1.0-alpha.32",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@tsukiy0/extensions-core": "0.1.0-alpha.14",
-    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.31",
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.31",
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.32",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.32",
     "cross-fetch": "3.1.4",
     "graphql-request": "3.4.0",
     "runtypes": "6.3.1"

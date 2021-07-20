@@ -1,6 +1,6 @@
 {
   "name": "@tsukiy0/shopify-app-react",
-  "version": "0.1.0-alpha.31",
+  "version": "0.1.0-alpha.32",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,8 +19,8 @@
     "@shopify/app-bridge-react": "^2.0.3",
     "@shopify/app-bridge-utils": "^2.0.3",
     "@tsukiy0/extensions-core": "0.1.0-alpha.14",
-    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.31",
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.31",
+    "@tsukiy0/shopify-admin-graphql-types": "^0.1.0-alpha.32",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.32",
     "jsonwebtoken": "^8.5.1",
     "react": "^17.0.2",
     "runtypes": "6.3.1"
