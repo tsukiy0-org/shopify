@@ -39,9 +39,10 @@ export class App {
     );
 
     app.use(
-      new WebhookRouter(webhookHandler, {
+      new WebhookRouter(async () => ({
+        webhookHandler,
         apiSecretKey,
-      }).build(),
+      })).build(),
     );
 
     app.use(

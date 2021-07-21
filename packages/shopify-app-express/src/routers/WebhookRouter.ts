@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   ApiSecretKey,
   IWebhookHandler,
@@ -9,12 +9,17 @@ import { RequestVerifier } from "../utils/RequestVerifier";
 import { json } from "body-parser";
 import { LoggerMiddleware } from "@tsukiy0/extensions-express";
 
+type Props = {
+  webhookHandler: IWebhookHandler;
+  apiSecretKey: ApiSecretKey;
+};
+
 export class WebhookRouter {
   constructor(
-    private readonly webhookHandler: IWebhookHandler,
-    private readonly config: {
-      apiSecretKey: ApiSecretKey;
-    },
+    private readonly getProps: (
+      request: Request,
+      response: Response,
+    ) => Promise<Props>,
   ) {}
 
   build = (): Router => {
@@ -24,10 +29,6 @@ export class WebhookRouter {
       "@tsukiy0/shopify-app-express",
     );
 
-    const requestVerifier = new RequestVerifier({
-      apiSecretKey: this.config.apiSecretKey,
-    });
-
     const bodyParser = json({
       verify: (req: any, res, buf) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -36,6 +37,12 @@ export class WebhookRouter {
     });
 
     const verifyHandler = promisifyHandler(async (req, res) => {
+      const { apiSecretKey } = await this.getProps(req, res);
+
+      const requestVerifier = new RequestVerifier({
+        apiSecretKey,
+      });
+
       requestVerifier.verifyWebhook(
         req.header("X-Shopify-Hmac-Sha256") as string,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -53,13 +60,14 @@ export class WebhookRouter {
     router.post(
       "/shopify/webhook",
       promisifyHandler(async (req, res) => {
-        const shopId = req.header("X-Shopify-Shop-Domain");
+        const { webhookHandler } = await this.getProps(req, res);
+        const shopId = ShopId.check(req.header("X-Shopify-Shop-Domain"));
         const topic = req.header("X-Shopify-Topic");
         const data = req.body;
         const logger = loggerMiddleware.getLogger(res);
 
         try {
-          await this.webhookHandler.handle(
+          await webhookHandler.handle(
             ShopId.check(shopId),
             topic as string,
             data,
