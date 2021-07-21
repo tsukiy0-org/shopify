@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.33](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.32...v0.1.0-alpha.33) (2021-07-21)
+
+
+### Features
+
+* add 2021-07 graphql types ([0f2c180](https://github.com/tsukiy0-org/shopify/commit/0f2c180f4e9f3f23b3614051c7a331a965f79f9b))
+* bump API_VERSION to 2021-07 ([b7dd3b5](https://github.com/tsukiy0-org/shopify/commit/b7dd3b5798bdce76c44ee54b79328d243b004867))
+* update AuthRouter to follow getProps pattern to get from res ([cb7d22d](https://github.com/tsukiy0-org/shopify/commit/cb7d22d952cdf643580582805890ac63a91952d1))
+* update JwtAuthMiddleware to use getProps ([251e463](https://github.com/tsukiy0-org/shopify/commit/251e463dbfd5d9e44048211630f6e0d46c806891))
+* update UsageSubscriptionRouter to use getProps ([8e702f3](https://github.com/tsukiy0-org/shopify/commit/8e702f3eebc3c37ceb32cf72ae2be79fbd47fcb2))
+* update WebhookRouter to use getRouter ([2de953b](https://github.com/tsukiy0-org/shopify/commit/2de953b6468dcfd860c4907b712d281e8f352fab))
+
+
+
+
+
 # [0.1.0-alpha.32](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.31...v0.1.0-alpha.32) (2021-07-20)
 
 
