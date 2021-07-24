@@ -15,9 +15,9 @@ import {
   HttpOAuthService,
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
-import { promisifyHandler } from "./utils/promisifyHandler";
 import { Url, UrlExtensions } from "@tsukiy0/extensions-core";
 import { VerifyHmacQueryMiddleware } from "../middlewares/VerifyHmacQueryMiddleware";
+import { promisifyHandler } from "@tsukiy0/extensions-express";
 
 type Props = {
   accessTokenRepository: IAccessTokenRepository;

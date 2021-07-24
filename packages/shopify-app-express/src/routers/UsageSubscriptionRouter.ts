@@ -1,3 +1,4 @@
+import { promisifyHandler } from "@tsukiy0/extensions-express";
 import {
   ApiKey,
   ApiSecretKey,
@@ -16,7 +17,6 @@ import {
 import { json } from "body-parser";
 import { Request, Response, Router } from "express";
 import { JwtAuthMiddleware } from "../middlewares/JwtAuthMiddleware";
-import { promisifyHandler } from "./utils/promisifyHandler";
 
 type Props = {
   apiKey: ApiKey;

@@ -4,10 +4,12 @@ import {
   IWebhookHandler,
   ShopId,
 } from "@tsukiy0/shopify-app-core";
-import { promisifyHandler } from "./utils/promisifyHandler";
 import { RequestVerifier } from "../utils/RequestVerifier";
 import { json } from "body-parser";
-import { LoggerMiddleware } from "@tsukiy0/extensions-express";
+import {
+  LoggerMiddleware,
+  promisifyHandler,
+} from "@tsukiy0/extensions-express";
 
 type Props = {
   webhookHandler: IWebhookHandler;
