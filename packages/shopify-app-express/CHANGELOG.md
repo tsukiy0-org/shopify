@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.35](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.34...v0.1.0-alpha.35) (2021-07-24)
+
+
+### Features
+
+* move webhook middleware right onto the endpoint ([8522d16](https://github.com/tsukiy0-org/shopify/commit/8522d1654e01dd608269d749bf78f03b0065bed4))
+
+
+
+
+
 # [0.1.0-alpha.34](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.33...v0.1.0-alpha.34) (2021-07-24)
 
 
