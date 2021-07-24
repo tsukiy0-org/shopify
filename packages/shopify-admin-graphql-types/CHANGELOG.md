@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.34](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.33...v0.1.0-alpha.34) (2021-07-24)
+
+**Note:** Version bump only for package @tsukiy0/shopify-admin-graphql-types
+
+
+
+
+
 # [0.1.0-alpha.33](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.32...v0.1.0-alpha.33) (2021-07-21)
 
 
