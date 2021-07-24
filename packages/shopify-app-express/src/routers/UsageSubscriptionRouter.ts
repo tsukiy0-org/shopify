@@ -38,13 +38,13 @@ export class UsageSubscriptionRouter {
     const jwtAuthMiddleware = new JwtAuthMiddleware(this.getProps);
 
     router.use(
-      "/shopify/billing/usage-subscription",
+      "/shopify/v1/billing/usage-subscription",
       json(),
       jwtAuthMiddleware.handler,
     );
 
     router.post(
-      "/shopify/billing/usage-subscription/create",
+      "/shopify/v1/billing/usage-subscription/create",
       promisifyHandler(async (req, res) => {
         const shopId = jwtAuthMiddleware.getShopId(res);
         const props = await this.getProps(req, res);
@@ -62,7 +62,7 @@ export class UsageSubscriptionRouter {
     );
 
     router.post(
-      "/shopify/billing/usage-subscription/update-capped-amount",
+      "/shopify/v1/billing/usage-subscription/update-capped-amount",
       promisifyHandler(async (req, res) => {
         const shopId = jwtAuthMiddleware.getShopId(res);
         const props = await this.getProps(req, res);
@@ -80,7 +80,7 @@ export class UsageSubscriptionRouter {
     );
 
     router.post(
-      "/shopify/billing/usage-subscription/get",
+      "/shopify/v1/billing/usage-subscription/get",
       promisifyHandler(async (req, res) => {
         const shopId = jwtAuthMiddleware.getShopId(res);
         const props = await this.getProps(req, res);

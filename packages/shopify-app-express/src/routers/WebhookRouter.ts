@@ -51,14 +51,14 @@ export class WebhookRouter {
     });
 
     router.use(
-      "/shopify/webhook",
+      "/shopify/v1/webhook",
       loggerMiddleware.handler,
       bodyParser,
       verifyHandler,
     );
 
     router.post(
-      "/shopify/webhook",
+      "/shopify/v1/webhook",
       promisifyHandler(async (req, res) => {
         const { webhookHandler } = await this.getProps(req, res);
         const shopId = ShopId.check(req.header("X-Shopify-Shop-Domain"));
