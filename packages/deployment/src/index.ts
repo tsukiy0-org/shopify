@@ -7,14 +7,14 @@ const app = new App();
 
 const configuration = new SystemConfiguration();
 
-new ExternalStack(app, "External", {
+new ExternalStack(app, "ShopifyExternal", {
   env: {
     account: configuration.get("CDK_DEFAULT_ACCOUNT"),
     region: "us-east-1",
   },
 });
 
-new AppStack(app, "AppUsEast1", {
+new AppStack(app, "ShopifyAppUsEast1", {
   env: {
     account: configuration.get("CDK_DEFAULT_ACCOUNT"),
     region: "us-east-1",
