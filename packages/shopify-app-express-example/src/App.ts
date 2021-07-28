@@ -1,5 +1,4 @@
 import express, { Application } from "express";
-import { MemoryAccessTokenRepository } from "./utils/MemoryAccessTokenRepository";
 import {
   AuthRouter,
   UsageSubscriptionRouter,
@@ -11,15 +10,19 @@ import {
   ApiSecretKey,
   WebhookHandler,
 } from "@tsukiy0/shopify-app-core";
-import { Url } from "@tsukiy0/extensions-core";
+import { SystemConfiguration, Url } from "@tsukiy0/extensions-core";
+import { DynamoAccessTokenRepository } from "./services/DynamoAccessTokenRepository";
 
 export class App {
   static build = (): Application => {
     const app = express();
 
-    const apiKey = ApiKey.check(process.env.API_KEY);
-    const apiSecretKey = ApiSecretKey.check(process.env.API_SECRET_KEY);
-    const accessTokenRepository = new MemoryAccessTokenRepository();
+    const config = new SystemConfiguration();
+    const apiKey = ApiKey.check(config.get("API_KEY"));
+    const apiSecretKey = ApiSecretKey.check(config.get("API_SECRET_KEY"));
+    const accessTokenRepository = DynamoAccessTokenRepository.build(
+      config.get("TABLE_NAME"),
+    );
     const webhookHandler = new WebhookHandler({});
 
     app.use(
