@@ -7,6 +7,7 @@ import {
 import { RequestVerifier } from "../utils/RequestVerifier";
 import { json } from "body-parser";
 import {
+  CorrelationMiddleware,
   LoggerMiddleware,
   promisifyHandler,
 } from "@tsukiy0/extensions-express";
@@ -27,8 +28,10 @@ export class WebhookRouter {
   build = (): Router => {
     const router = Router();
 
+    const correlationMiddleware = new CorrelationMiddleware();
     const loggerMiddleware = new LoggerMiddleware(
       "@tsukiy0/shopify-app-express",
+      correlationMiddleware,
     );
 
     const bodyParser = json({
