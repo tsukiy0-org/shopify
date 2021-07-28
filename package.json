@@ -23,7 +23,9 @@
   },
   "scripts": {
     "clean": "lerna run clean",
+    "typecheck": "lerna run typecheck",
     "build": "lerna run build",
+    "build:publish": "lerna run build:publish",
     "test": "lerna run test",
     "test:integration": "lerna run test:integration",
     "lint": "eslint packages --ext .ts,.tsx",

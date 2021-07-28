@@ -20,6 +20,7 @@
     "sdl": "graphql-introspection-json-to-sdl graphql.schema.json > schema.graphql",
     "generate": "node generate.js",
     "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.build.json"
   }
 }

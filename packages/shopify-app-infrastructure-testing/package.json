@@ -12,6 +12,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.build.json",
     "test": "jest --passWithNoTests",
     "test:integration": "jest --config jest.config.integration.js",
