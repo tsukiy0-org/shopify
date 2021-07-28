@@ -1,10 +1,8 @@
+import "source-map-support/register";
 import { App } from "./App";
-import dotenv from "dotenv-flow";
+import { APIGatewayProxyHandler } from "aws-lambda";
+import { ExpressLambdaRuntime } from "@tsukiy0/extensions-aws";
 
-dotenv.config();
+const runtime = new ExpressLambdaRuntime(App.build());
 
-const app = App.build();
-
-app.listen(9000, () => {
-  console.log("started!");
-});
+export const handler: APIGatewayProxyHandler = runtime.handler;
