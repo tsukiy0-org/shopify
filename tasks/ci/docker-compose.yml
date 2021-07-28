@@ -1,13 +1,17 @@
 version: '3'
 services:
   build:
-    image: node:12
+    build:
+      context: .
+      dockerfile: build.Dockerfile
     volumes:
       - ../../:/app
     working_dir: /app
     command: bash ./tasks/ci/build
   integration:
-    image: node:12
+    build:
+      context: .
+      dockerfile: integration.Dockerfile
     volumes:
       - ../../:/app
     working_dir: /app
@@ -16,7 +20,9 @@ services:
       SHOP_TOKEN_1: ${SHOP_TOKEN_1}
     command: bash ./tasks/ci/integration
   publish_prerelease:
-    image: node:12
+    build:
+      context: .
+      dockerfile: publish_prerelease.Dockerfile
     volumes:
       - ../../:/app
     working_dir: /app
@@ -24,7 +30,9 @@ services:
       NPM_TOKEN: ${NPM_TOKEN}
     command: bash ./tasks/ci/publish_prerelease
   publish_release:
-    image: node:12
+    build:
+      context: .
+      dockerfile: publish_release.Dockerfile
     volumes:
       - ../../:/app
     working_dir: /app
