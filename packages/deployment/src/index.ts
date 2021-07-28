@@ -9,6 +9,7 @@ const config = new SystemConfiguration();
 const tableName = "ShopifyTable";
 const shopifyApiKey = config.get("SHOPIFY_API_KEY");
 const shopifyApiSecretKey = config.get("SHOPIFY_API_SECRET_KEY");
+const hostUrl = config.get("HOST_URL");
 
 new ExternalStack(app, "ShopifyExternal", {
   env: {
@@ -24,6 +25,7 @@ new AppStack(app, "ShopifyAppUsEast1", {
     region: "us-east-1",
   },
   tableName,
+  hostUrl,
   shopifyApiKey,
   shopifyApiSecretKey,
 });

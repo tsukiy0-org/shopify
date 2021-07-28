@@ -15,6 +15,7 @@ export class Api extends Construct {
     id: string,
     props: {
       external: External;
+      hostUrl: string;
       shopifyApiKey: string;
       shopifyApiSecretKey: string;
     },
@@ -30,6 +31,7 @@ export class Api extends Construct {
       handler: "index.handler",
       environment: {
         TABLE_NAME: props.external.table.tableName,
+        HOST_URL: props.hostUrl,
         SHOPIFY_API_KEY: props.shopifyApiKey,
         SHOPIFY_API_SECRET_KEY: props.shopifyApiSecretKey,
       },

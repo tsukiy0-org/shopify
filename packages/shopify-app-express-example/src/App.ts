@@ -22,6 +22,7 @@ export class App {
     const apiSecretKey = ApiSecretKey.check(
       config.get("SHOPIFY_API_SECRET_KEY"),
     );
+    const hostUrl = Url.check(config.get("HOST_URL"));
     const accessTokenRepository = DynamoAccessTokenRepository.build(
       config.get("TABLE_NAME"),
     );
@@ -32,7 +33,7 @@ export class App {
         accessTokenRepository,
         apiKey,
         apiSecretKey,
-        hostUrl: Url.check(process.env.HOST_URL),
+        hostUrl,
         appUrl: Url.check("https://google.com"),
         requiredScopes: [
           "read_orders",
