@@ -28,6 +28,7 @@
     "build:publish": "lerna run build:publish",
     "test": "lerna run test",
     "test:integration": "lerna run test:integration",
+    "deploy": "lerna run deploy",
     "lint": "eslint packages --ext .ts,.tsx",
     "version:prerelease": "lerna version --force-publish --conventional-commits --conventional-prerelease -m \"chore: version\"",
     "version:release": "lerna version --force-publish --conventional-commits --conventional-graduate -m \"chore: version\"",
