@@ -29,23 +29,13 @@ services:
       SHOP_ID_1: ${SHOP_ID_1}
       SHOP_TOKEN_1: ${SHOP_TOKEN_1}
     command: bash ./tasks/ci/integration
-  publish_prerelease:
+  publish:
     build:
       context: .
-      dockerfile: publish_prerelease.Dockerfile
+      dockerfile: publish.Dockerfile
     volumes:
       - ../../:/app
     working_dir: /app
     environment:
       NPM_TOKEN: ${NPM_TOKEN}
-    command: bash ./tasks/ci/publish_prerelease
-  publish_release:
-    build:
-      context: .
-      dockerfile: publish_release.Dockerfile
-    volumes:
-      - ../../:/app
-    working_dir: /app
-    environment:
-      NPM_TOKEN: ${NPM_TOKEN}
-    command: bash ./tasks/ci/publish_release
+    command: bash ./tasks/ci/publish
