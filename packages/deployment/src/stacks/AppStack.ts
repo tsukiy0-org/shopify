@@ -9,6 +9,8 @@ export class AppStack extends Stack {
     id: string,
     props: StackProps & {
       tableName: string;
+      shopifyApiKey: string;
+      shopifyApiSecretKey: string;
     },
   ) {
     super(scope, id, props);
@@ -16,7 +18,11 @@ export class AppStack extends Stack {
     const external = new External(this, "External", {
       tableName: props.tableName,
     });
-    const api = new Api(this, "Api", { external });
+    const api = new Api(this, "Api", {
+      external,
+      shopifyApiKey: props.shopifyApiKey,
+      shopifyApiSecretKey: props.shopifyApiSecretKey,
+    });
 
     new CfnOutput(this, "ApiUrl", {
       value: api.url,

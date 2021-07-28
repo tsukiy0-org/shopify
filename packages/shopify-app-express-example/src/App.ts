@@ -18,8 +18,10 @@ export class App {
     const app = express();
 
     const config = new SystemConfiguration();
-    const apiKey = ApiKey.check(config.get("API_KEY"));
-    const apiSecretKey = ApiSecretKey.check(config.get("API_SECRET_KEY"));
+    const apiKey = ApiKey.check(config.get("SHOPIFY_API_KEY"));
+    const apiSecretKey = ApiSecretKey.check(
+      config.get("SHOPIFY_API_SECRET_KEY"),
+    );
     const accessTokenRepository = DynamoAccessTokenRepository.build(
       config.get("TABLE_NAME"),
     );

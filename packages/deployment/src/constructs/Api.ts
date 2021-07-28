@@ -15,6 +15,8 @@ export class Api extends Construct {
     id: string,
     props: {
       external: External;
+      shopifyApiKey: string;
+      shopifyApiSecretKey: string;
     },
   ) {
     super(scope, id);
@@ -28,6 +30,8 @@ export class Api extends Construct {
       handler: "index.handler",
       environment: {
         TABLE_NAME: props.external.table.tableName,
+        SHOPIFY_API_KEY: props.shopifyApiKey,
+        SHOPIFY_API_SECRET_KEY: props.shopifyApiSecretKey,
       },
     });
     props.external.table.grantReadWriteData(fn);

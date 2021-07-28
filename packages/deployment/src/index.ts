@@ -5,12 +5,14 @@ import { App } from "aws-cdk-lib";
 
 const app = new App();
 
-const configuration = new SystemConfiguration();
+const config = new SystemConfiguration();
 const tableName = "ShopifyTable";
+const shopifyApiKey = config.get("SHOPIFY_API_KEY");
+const shopifyApiSecretKey = config.get("SHOPIFY_API_SECRET_KEY");
 
 new ExternalStack(app, "ShopifyExternal", {
   env: {
-    account: configuration.get("CDK_DEFAULT_ACCOUNT"),
+    account: config.get("CDK_DEFAULT_ACCOUNT"),
     region: "us-east-1",
   },
   tableName,
@@ -18,8 +20,10 @@ new ExternalStack(app, "ShopifyExternal", {
 
 new AppStack(app, "ShopifyAppUsEast1", {
   env: {
-    account: configuration.get("CDK_DEFAULT_ACCOUNT"),
+    account: config.get("CDK_DEFAULT_ACCOUNT"),
     region: "us-east-1",
   },
   tableName,
+  shopifyApiKey,
+  shopifyApiSecretKey,
 });
