@@ -24,6 +24,7 @@ export class Api extends Construct {
       code: Code.fromAsset(
         path.resolve(__dirname, "../../../shopify-app-express-example/dist"),
       ),
+      memorySize: 256,
       handler: "index.handler",
       environment: {
         TABLE_NAME: props.external.table.tableName,
