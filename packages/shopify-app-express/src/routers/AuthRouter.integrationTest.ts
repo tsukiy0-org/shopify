@@ -36,17 +36,19 @@ describe("AuthRouter", () => {
       .digest("hex");
 
     return UrlExtensions.appendQuery(startUrlWithoutQuery, {
-      shopId,
+      shop: shopId,
       hmac,
     });
   };
 
-  it("", async () => {
+  it("should redirec to app", async () => {
     const url = createAuthStartUrl();
     const res = await fetch(url, {
       method: "GET",
+      redirect: "manual",
     });
 
-    console.log(res);
+    expect(res.status).toEqual(302);
+    expect(res.headers.get("location")).toContain("https://google.com");
   });
 });
