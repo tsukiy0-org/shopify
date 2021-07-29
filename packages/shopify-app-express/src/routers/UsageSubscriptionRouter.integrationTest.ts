@@ -24,7 +24,7 @@ describe("UsageSubscriptionRouter", () => {
     const shopifyApiSecretKey = ApiSecretKey.check(
       config.get("SHOPIFY_API_SECRET_KEY"),
     );
-    shopId = ShopId.check(config.get("SHOP_ID"));
+    shopId = ShopId.check(config.get("SHOP_ID_1"));
     token = AuthHelper.generateJwt(shopId, shopifyApiSecretKey);
   });
 

@@ -18,7 +18,7 @@ describe("JwtAuthMiddleware", () => {
     const shopifyApiSecretKey = ApiSecretKey.check(
       config.get("SHOPIFY_API_SECRET_KEY"),
     );
-    const shopId = ShopId.check(config.get("SHOP_ID"));
+    const shopId = ShopId.check(config.get("SHOP_ID_1"));
     token = AuthHelper.generateJwt(shopId, shopifyApiSecretKey);
   });
 
