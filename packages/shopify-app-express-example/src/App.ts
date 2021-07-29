@@ -72,7 +72,7 @@ export class App {
       },
     ).build();
 
-    const jwtAuthRouter = new PrivateRouter(servicesMiddleware);
+    const jwtAuthRouter = new PrivateRouter(servicesMiddleware).build();
 
     app.use(correlationMiddleware.handler);
     app.use(loggerMiddleware.handler);
