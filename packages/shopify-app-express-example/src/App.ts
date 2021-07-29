@@ -11,6 +11,7 @@ import {
   LoggerMiddleware,
 } from "@tsukiy0/extensions-express";
 import { ServicesMiddleware } from "./middlewares/ServicesMiddleware";
+import { PrivateRouter } from "./routers/PrivateRouter";
 
 export class App {
   static build = (): Application => {
@@ -71,12 +72,15 @@ export class App {
       },
     ).build();
 
+    const jwtAuthRouter = new PrivateRouter(servicesMiddleware);
+
     app.use(correlationMiddleware.handler);
     app.use(loggerMiddleware.handler);
     app.use(servicesMiddleware.handler);
     app.use(authRouter);
     app.use(webhookRouter);
     app.use(usageSubscriptionRouter);
+    app.use(jwtAuthRouter);
 
     return app;
   };
