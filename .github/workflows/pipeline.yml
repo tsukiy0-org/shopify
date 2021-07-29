@@ -35,6 +35,7 @@ jobs:
         env:
           SHOP_ID_1: ${{ secrets.SHOP_ID_1 }}
           SHOP_TOKEN_1: ${{ secrets.SHOP_TOKEN_1 }}
+          API_URL: ${{ secrets.HOST_URL }}
         run: |
           docker-compose -f tasks/ci/docker-compose.yml build integration
           docker-compose -f tasks/ci/docker-compose.yml run integration
