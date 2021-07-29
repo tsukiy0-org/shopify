@@ -39,6 +39,7 @@ describe("UsageSubscriptionRouter", () => {
         cappedAmount: BillingMoney.check(20),
       };
       const res = await fetch(url, {
+        method: "POST",
         body: JSON.stringify(request),
         headers: {
           Authorization: `Bearer ${token}`,
