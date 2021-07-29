@@ -21,7 +21,7 @@ describe("AuthRouter", () => {
     const apiSecretKey = ApiSecretKey.check(
       config.get("SHOPIFY_API_SECRET_KEY"),
     );
-    const shopId = ShopId.check(config.get("SHOP_ID"));
+    const shopId = ShopId.check(config.get("SHOP_ID_1"));
     const startUrlWithoutQuery = UrlExtensions.appendPath(
       apiUrl,
       "/shopify/v1/auth/start",

@@ -32,6 +32,7 @@ services:
     environment:
       SHOP_ID_1: ${SHOP_ID_1}
       SHOP_TOKEN_1: ${SHOP_TOKEN_1}
+      SHOPIFY_API_SECRET_KEY: ${SHOPIFY_API_SECRET_KEY}
       API_URL: ${API_URL}
     command: bash ./tasks/ci/integration
   publish:
