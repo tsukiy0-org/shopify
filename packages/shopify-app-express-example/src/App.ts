@@ -4,35 +4,36 @@ import {
   UsageSubscriptionRouter,
   WebhookRouter,
 } from "@tsukiy0/shopify-app-express";
+import { AccessScope } from "@tsukiy0/shopify-app-core";
+import { Url } from "@tsukiy0/extensions-core";
 import {
-  AccessScope,
-  ApiKey,
-  ApiSecretKey,
-  WebhookHandler,
-} from "@tsukiy0/shopify-app-core";
-import { SystemConfiguration, Url } from "@tsukiy0/extensions-core";
-import { DynamoAccessTokenRepository } from "./services/DynamoAccessTokenRepository";
+  CorrelationMiddleware,
+  LoggerMiddleware,
+} from "@tsukiy0/extensions-express";
+import { ServicesMiddleware } from "./middlewares/ServicesMiddleware";
 
 export class App {
   static build = (): Application => {
     const app = express();
 
-    const config = new SystemConfiguration();
-    const apiKey = ApiKey.check(config.get("SHOPIFY_API_KEY"));
-    const apiSecretKey = ApiSecretKey.check(
-      config.get("SHOPIFY_API_SECRET_KEY"),
+    const correlationMiddleware = new CorrelationMiddleware();
+    const loggerMiddleware = new LoggerMiddleware(
+      "shopify-app-express-example",
+      correlationMiddleware,
     );
-    const hostUrl = Url.check(config.get("HOST_URL"));
-    const accessTokenRepository = DynamoAccessTokenRepository.build(
-      config.get("TABLE_NAME"),
-    );
-    const webhookHandler = new WebhookHandler({});
-
-    app.use(
-      new AuthRouter(async () => ({
+    const servicesMiddleware = new ServicesMiddleware();
+    const authRouter = new AuthRouter(async (_, res) => {
+      const {
+        shopifyApiKey,
+        shopifyApiSecretKey,
+        hostUrl,
         accessTokenRepository,
-        apiKey,
-        apiSecretKey,
+      } = servicesMiddleware.getServices(res);
+
+      return {
+        accessTokenRepository,
+        apiKey: shopifyApiKey,
+        apiSecretKey: shopifyApiSecretKey,
         hostUrl,
         appUrl: Url.check("https://google.com"),
         requiredScopes: [
@@ -41,28 +42,41 @@ export class App {
           "write_script_tags",
         ].map(AccessScope.check),
         onComplete: async (_) => console.log(_),
-      })).build(),
-    );
+      };
+    }).build();
 
-    app.use(
-      new WebhookRouter(async () => ({
+    const webhookRouter = new WebhookRouter(async (_, res) => {
+      const { shopifyApiSecretKey, webhookHandler } =
+        servicesMiddleware.getServices(res);
+
+      return {
         webhookHandler,
-        apiSecretKey,
-      })).build(),
-    );
+        apiSecretKey: shopifyApiSecretKey,
+      };
+    }).build();
 
-    app.use(
-      new UsageSubscriptionRouter(async () => {
+    const usageSubscriptionRouter = new UsageSubscriptionRouter(
+      async (_, res) => {
+        const { shopifyApiKey, shopifyApiSecretKey, accessTokenRepository } =
+          servicesMiddleware.getServices(res);
+
         return {
-          apiKey,
-          apiSecretKey,
+          apiKey: shopifyApiKey,
+          apiSecretKey: shopifyApiSecretKey,
           accessTokenRepository,
           name: "test name",
           terms: "test terms",
           test: true,
         };
-      }).build(),
-    );
+      },
+    ).build();
+
+    app.use(correlationMiddleware.handler);
+    app.use(loggerMiddleware.handler);
+    app.use(servicesMiddleware.handler);
+    app.use(authRouter);
+    app.use(webhookRouter);
+    app.use(usageSubscriptionRouter);
 
     return app;
   };
