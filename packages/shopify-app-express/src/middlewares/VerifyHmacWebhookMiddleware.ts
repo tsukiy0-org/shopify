@@ -41,7 +41,8 @@ export class VerifyHmacWebhookMiddleware {
     });
 
     try {
-      requestVerifier.verifyWebhook(body, apiSecretKey);
+      const hmac = req.header("X-Shopify-Hmac-Sha256") as string;
+      requestVerifier.verifyWebhook(hmac, body);
       const data: Data = {
         shopId: ShopId.check(req.header("X-Shopify-Shop-Domain")),
         topic: req.header("X-Shopify-Topic") as string,
