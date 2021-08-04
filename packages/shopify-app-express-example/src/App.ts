@@ -45,6 +45,8 @@ export class App {
           "read_orders",
           "read_script_tags",
           "write_script_tags",
+          "read_products",
+          "write_products",
         ].map(AccessScope.check),
         onComplete: async (shopId) => {
           await webhookService.create(
