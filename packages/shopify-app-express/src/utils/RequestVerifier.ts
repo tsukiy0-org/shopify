@@ -34,6 +34,8 @@ export class RequestVerifier {
       .createHmac("SHA256", this.config.apiSecretKey)
       .update(body, "utf-8")
       .digest("base64");
+    console.log("local", localHmac);
+    console.log("remote", hmac);
 
     if (hmac !== localHmac) {
       throw new InvalidWebhookRequestError();
