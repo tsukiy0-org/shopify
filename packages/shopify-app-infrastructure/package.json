@@ -14,9 +14,7 @@
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest --passWithNoTests",
-    "test:integration": "jest --config jest.config.integration.js",
-    "test:integration:local": "jest --config jest.config.integration.js -t GqlAppUsageSubscriptionService"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@tsukiy0/extensions-core": "0.1.0-alpha.17",
@@ -25,8 +23,5 @@
     "cross-fetch": "3.1.4",
     "graphql-request": "3.5.0",
     "runtypes": "6.3.1"
-  },
-  "devDependencies": {
-    "@tsukiy0/shopify-app-infrastructure-testing": "^0.1.0-alpha.38"
   }
 }

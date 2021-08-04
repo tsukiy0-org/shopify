@@ -6,7 +6,7 @@ import {
   ShopId,
 } from "@tsukiy0/shopify-app-core";
 import { GqlWebhookService } from "@tsukiy0/shopify-app-infrastructure";
-import { ShopifyGraphQlClientSetup } from "@tsukiy0/shopify-app-infrastructure-testing";
+import { ShopifyGraphQlClientSetup } from "../../testing";
 
 describe("GqlWebhookService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);
