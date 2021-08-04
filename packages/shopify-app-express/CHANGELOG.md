@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.37](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.36...v0.1.0-alpha.37) (2021-08-04)
+
+
+### Bug Fixes
+
+* give req instead of req.body ([5359fc2](https://github.com/tsukiy0-org/shopify/commit/5359fc2f896615f4176c99f2f2795c7ff8926037))
+
+
+
+
+
 # [0.1.0-alpha.36](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.35...v0.1.0-alpha.36) (2021-08-04)
 
 
