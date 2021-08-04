@@ -35,7 +35,6 @@ export class WebhookRouter {
 
     const verifyHmacWebhookMiddleware = new VerifyHmacWebhookMiddleware(
       this.getProps,
-      loggerMiddleware,
     );
 
     router.post(
