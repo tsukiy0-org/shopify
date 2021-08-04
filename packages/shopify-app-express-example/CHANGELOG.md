@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.36](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.35...v0.1.0-alpha.36) (2021-08-04)
+
+
+### Features
+
+* bump extensions-js version ([4ff033d](https://github.com/tsukiy0-org/shopify/commit/4ff033df44fcc8e0d24f6dac73395a5a2188d2b2))
+
+
+
+
+
 # [0.1.0-alpha.35](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.34...v0.1.0-alpha.35) (2021-07-24)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-express-example
