@@ -4,9 +4,11 @@ import {
   SystemConfiguration,
   TimespanExtensions,
 } from "@tsukiy0/extensions-core";
-import { ApiKey, ShopId } from "@tsukiy0/shopify-app-core";
-import { ApiSecretKey } from "@tsukiy0/shopify-app-core";
-import { DynamoWebhookTestRepository } from "@tsukiy0/shopify-app-infrastructure-testing";
+import { ShopId } from "@tsukiy0/shopify-app-core";
+import {
+  DynamoAccessTokenRepository,
+  DynamoWebhookTestRepository,
+} from "@tsukiy0/shopify-app-infrastructure-testing";
 import {
   CollectionCreatePayload,
   MutationCollectionCreateArgs,
@@ -59,13 +61,11 @@ describe("WebhookRouter", () => {
 
   beforeEach(() => {
     const config = new SystemConfiguration();
-    const shopifyApiKey = ApiKey.check(config.get("SHOPIFY_API_KEY"));
-    const shopifyApiSecretKey = ApiSecretKey.check(
-      config.get("SHOPIFY_API_SECRET_KEY"),
+    const accessTokenRepository = DynamoAccessTokenRepository.build(
+      config.get("TABLE_NAME"),
     );
-    const shopifyGraphQlClient = ShopifyGraphQlClient.buildPrivate(
-      shopifyApiKey,
-      shopifyApiSecretKey,
+    const shopifyGraphQlClient = ShopifyGraphQlClient.buildPublic(
+      accessTokenRepository,
     );
     shopId = ShopId.check(config.get("SHOP_ID_1"));
     collectionService = new GqlCollectionService(shopifyGraphQlClient);

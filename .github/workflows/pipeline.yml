@@ -39,7 +39,6 @@ jobs:
           AWS_REGION: us-east-1
           SHOP_ID_1: ${{ secrets.SHOP_ID_1 }}
           SHOP_TOKEN_1: ${{ secrets.SHOP_TOKEN_1 }}
-          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
           SHOPIFY_API_SECRET_KEY: ${{ secrets.SHOPIFY_API_SECRET_KEY }}
           API_URL: ${{ secrets.HOST_URL }}
           TABLE_NAME: ShopifyTable
