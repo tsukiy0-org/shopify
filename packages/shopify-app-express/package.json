@@ -16,7 +16,7 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "jest --passWithNoTests",
     "test:integration": "jest --config jest.config.integration.js",
-    "test:integration:local": "jest --config jest.config.integration.js -t AuthRouter"
+    "test:integration:local": "jest --config jest.config.integration.js -t WebhookRouter"
   },
   "dependencies": {
     "@tsukiy0/extensions-core": "0.1.0-alpha.17",

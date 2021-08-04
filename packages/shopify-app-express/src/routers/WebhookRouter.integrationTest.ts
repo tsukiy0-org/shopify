@@ -32,11 +32,15 @@ class GqlCollectionService {
     >(
       shopId,
       gql`
-        mutation Test {
-          collectionCreate(input: { title: "test" }) {
+        mutation Test($input: CollectionInput!) {
+          collectionCreate(input: $input) {
             collection {
               id
               title
+            }
+            userErrors {
+              field
+              message
             }
           }
         }
@@ -74,15 +78,13 @@ describe("WebhookRouter", () => {
     );
   });
 
-  describe("/shopify/v1/webhook", () => {
-    it("triggers webhook", async () => {
-      const title = GuidExtensions.generate();
-      await collectionService.create(shopId, title);
-      await PromiseExtensions.sleep(TimespanExtensions.seconds(10));
+  it("triggers webhook", async () => {
+    const title = GuidExtensions.generate();
+    await collectionService.create(shopId, title);
+    await PromiseExtensions.sleep(TimespanExtensions.seconds(10));
 
-      const actual = await webhookTestRepository.exists(shopId, title);
+    const actual = await webhookTestRepository.exists(shopId, title);
 
-      expect(actual).toBeTruthy();
-    });
+    expect(actual).toBeTruthy();
   });
 });
