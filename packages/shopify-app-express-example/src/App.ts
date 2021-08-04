@@ -9,6 +9,7 @@ import { Url, UrlExtensions } from "@tsukiy0/extensions-core";
 import {
   CorrelationMiddleware,
   LoggerMiddleware,
+  ErrorMiddleware,
 } from "@tsukiy0/extensions-express";
 import { ServicesMiddleware } from "./middlewares/ServicesMiddleware";
 import { PrivateRouter } from "./routers/PrivateRouter";
@@ -23,6 +24,7 @@ export class App {
       "shopify-app-express-example",
       correlationMiddleware,
     );
+    const errorMiddleware = new ErrorMiddleware(loggerMiddleware);
     const servicesMiddleware = new ServicesMiddleware();
     const authRouter = new AuthRouter(async (_, res) => {
       const {
@@ -89,6 +91,7 @@ export class App {
     app.use(webhookRouter);
     app.use(usageSubscriptionRouter);
     app.use(jwtAuthRouter);
+    app.use(errorMiddleware.handler);
 
     return app;
   };
