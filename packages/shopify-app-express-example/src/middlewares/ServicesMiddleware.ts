@@ -9,13 +9,15 @@ import {
 } from "@tsukiy0/shopify-app-core";
 import { AbstractServicesMiddleware } from "@tsukiy0/extensions-express";
 import { Guid, SystemConfiguration, Url } from "@tsukiy0/extensions-core";
-import { DynamoAccessTokenRepository } from "../services/DynamoAccessTokenRepository";
-import { DynamoWebhookTestRepository } from "../services/DynamoWebhookTestRepository";
 import {
   GqlWebhookService,
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
 import { GqlCollectionService } from "../services/GqlCollectionService";
+import {
+  DynamoAccessTokenRepository,
+  DynamoWebhookTestRepository,
+} from "@tsukiy0/shopify-app-infrastructure-testing";
 
 type Services = {
   shopifyApiKey: ApiKey;
