@@ -29,7 +29,7 @@ export class VerifyHmacWebhookMiddleware {
   handler: RequestHandler = promisifyHandler(async (req, res) => {
     const { apiSecretKey } = await this.getProps(req, res);
     const requestVerifier = new RequestVerifier({ apiSecretKey });
-    const body = (await rawBody(req.body)).toString();
+    const body = (await rawBody(req)).toString();
 
     try {
       requestVerifier.verifyWebhook(body, apiSecretKey);
