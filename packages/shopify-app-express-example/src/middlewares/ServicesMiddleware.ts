@@ -13,7 +13,6 @@ import {
   GqlWebhookService,
   ShopifyGraphQlClient,
 } from "@tsukiy0/shopify-app-infrastructure";
-import { GqlCollectionService } from "../services/GqlCollectionService";
 import {
   DynamoAccessTokenRepository,
   DynamoWebhookTestRepository,
@@ -25,7 +24,6 @@ type Services = {
   accessTokenRepository: IAccessTokenRepository;
   hostUrl: Url;
   webhookHandler: IWebhookHandler;
-  collectionService: GqlCollectionService;
   webhookService: IWebhookService;
 };
 
@@ -45,7 +43,6 @@ export class ServicesMiddleware extends AbstractServicesMiddleware<Services> {
       shopifyApiKey,
       shopifyApiSecretKey,
     );
-    const collectionService = new GqlCollectionService(shopifyGraphQlClient);
     const webhookService = new GqlWebhookService(shopifyGraphQlClient);
     const webhookHandler = new WebhookHandler({
       "collections/create": async (shopId, data) => {
@@ -62,7 +59,6 @@ export class ServicesMiddleware extends AbstractServicesMiddleware<Services> {
       hostUrl,
       accessTokenRepository,
       webhookHandler,
-      collectionService,
       webhookService,
     };
   };
