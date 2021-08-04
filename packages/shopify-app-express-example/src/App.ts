@@ -5,13 +5,14 @@ import {
   WebhookRouter,
 } from "@tsukiy0/shopify-app-express";
 import { AccessScope } from "@tsukiy0/shopify-app-core";
-import { Url } from "@tsukiy0/extensions-core";
+import { Url, UrlExtensions } from "@tsukiy0/extensions-core";
 import {
   CorrelationMiddleware,
   LoggerMiddleware,
 } from "@tsukiy0/extensions-express";
 import { ServicesMiddleware } from "./middlewares/ServicesMiddleware";
 import { PrivateRouter } from "./routers/PrivateRouter";
+import { WebhookSubscriptionTopic } from "@tsukiy0/shopify-admin-graphql-types";
 
 export class App {
   static build = (): Application => {
@@ -29,6 +30,7 @@ export class App {
         shopifyApiSecretKey,
         hostUrl,
         accessTokenRepository,
+        webhookService,
       } = servicesMiddleware.getServices(res);
 
       return {
@@ -42,7 +44,13 @@ export class App {
           "read_script_tags",
           "write_script_tags",
         ].map(AccessScope.check),
-        onComplete: async (_) => console.log(_),
+        onComplete: async (shopId) => {
+          await webhookService.create(
+            shopId,
+            WebhookSubscriptionTopic.CollectionsCreate,
+            UrlExtensions.appendPath(hostUrl, "/shopify/v1/webhook"),
+          );
+        },
       };
     }).build();
 
