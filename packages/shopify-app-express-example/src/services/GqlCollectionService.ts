@@ -10,7 +10,7 @@ import {
   ShopifyUserError,
 } from "@tsukiy0/shopify-app-infrastructure";
 
-export class GqlCollectionServicew {
+export class GqlCollectionService {
   constructor(private readonly client: ShopifyGraphQlClient) {}
 
   create = async (shopId: ShopId, title: Guid): Promise<void> => {
