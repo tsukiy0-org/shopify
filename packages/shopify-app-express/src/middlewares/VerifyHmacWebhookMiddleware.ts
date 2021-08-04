@@ -17,7 +17,8 @@ type Data = {
 };
 
 export class VerifyHmacWebhookMiddleware {
-  private readonly key = `data__${GuidExtensions.generate()}`;
+  // private readonly key = `data__${GuidExtensions.generate()}`;
+  private readonly key = `data1`;
 
   constructor(
     private readonly getProps: (
