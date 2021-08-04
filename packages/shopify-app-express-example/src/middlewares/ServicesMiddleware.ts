@@ -39,9 +39,8 @@ export class ServicesMiddleware extends AbstractServicesMiddleware<Services> {
     const hostUrl = Url.check(config.get("HOST_URL"));
     const accessTokenRepository = DynamoAccessTokenRepository.build(tableName);
     const webhookTestRepository = DynamoWebhookTestRepository.build(tableName);
-    const shopifyGraphQlClient = ShopifyGraphQlClient.buildPrivate(
-      shopifyApiKey,
-      shopifyApiSecretKey,
+    const shopifyGraphQlClient = ShopifyGraphQlClient.buildPublic(
+      accessTokenRepository,
     );
     const webhookService = new GqlWebhookService(shopifyGraphQlClient);
     const webhookHandler = new WebhookHandler({
