@@ -1,6 +1,6 @@
 import { DynamoDB } from "aws-sdk";
 import { ShopId } from "@tsukiy0/shopify-app-core";
-import { Guid, NotFoundError } from "@tsukiy0/extensions-core";
+import { Guid } from "@tsukiy0/extensions-core";
 
 export class DynamoWebhookTestRepository {
   constructor(
@@ -21,29 +21,24 @@ export class DynamoWebhookTestRepository {
         TableName: this.tableName,
         Item: {
           PK: shopId,
-          SK: "WEBHOOK_TEST",
-          CONTENT: id,
+          SK: `WEBHOOK_TEST##${id}`,
           VERSION: 1,
         },
       })
       .promise();
   };
 
-  get = async (shopId: ShopId): Promise<Guid> => {
+  exists = async (shopId: ShopId, id: Guid): Promise<boolean> => {
     const res = await this.client
       .get({
         TableName: this.tableName,
         Key: {
           PK: shopId,
-          SK: "WEBHOOK_TEST",
+          SK: `WEBHOOK_TEST##${id}`,
         },
       })
       .promise();
 
-    if (!res.Item?.CONTENT) {
-      throw new NotFoundError();
-    }
-
-    return Guid.check(res.Item.CONTENT);
+    return Boolean(res.Item);
   };
 }

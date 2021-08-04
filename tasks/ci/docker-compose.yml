@@ -30,10 +30,15 @@ services:
       - ../../:/app
     working_dir: /app
     environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
       SHOP_ID_1: ${SHOP_ID_1}
       SHOP_TOKEN_1: ${SHOP_TOKEN_1}
+      SHOPIFY_API_KEY: ${SHOPIFY_API_KEY}
       SHOPIFY_API_SECRET_KEY: ${SHOPIFY_API_SECRET_KEY}
       API_URL: ${API_URL}
+      TABLE_NAME: ${TABLE_NAME}
     command: bash ./tasks/ci/integration
   publish:
     build:
