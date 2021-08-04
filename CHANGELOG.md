@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.38](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.37...v0.1.0-alpha.38) (2021-08-04)
+
+
+### Features
+
+* export VerifyHmacWebhookMiddleware ([7c67af2](https://github.com/tsukiy0-org/shopify/commit/7c67af211377327f4210b9d11d1fa989d7c704de))
+
+
+
+
+
 # [0.1.0-alpha.37](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.36...v0.1.0-alpha.37) (2021-08-04)
 
 
