@@ -39,6 +39,7 @@ export class VerifyHmacWebhookMiddleware {
         topic: req.header("X-Shopify-Topic") as string,
         data: JSON.parse(body),
       };
+      console.log(data);
       res.locals[this.key] = data;
     } catch {
       return res.status(400);
