@@ -4,13 +4,12 @@ import {
   IWebhookHandler,
   ShopId,
 } from "@tsukiy0/shopify-app-core";
-import { RequestVerifier } from "../utils/RequestVerifier";
-import { json } from "body-parser";
 import {
   CorrelationMiddleware,
   LoggerMiddleware,
   promisifyHandler,
 } from "@tsukiy0/extensions-express";
+import { VerifyHmacWebhookMiddleware } from "../middlewares/VerifyHmacWebhookMiddleware";
 
 type Props = {
   webhookHandler: IWebhookHandler;
@@ -34,45 +33,22 @@ export class WebhookRouter {
       correlationMiddleware,
     );
 
-    const bodyParser = json({
-      verify: (req: any, res, buf) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        req.rawBody = buf.toString("utf-8");
-      },
-    });
-
-    const verifyHandler = promisifyHandler(async (req, res) => {
-      const { apiSecretKey } = await this.getProps(req, res);
-
-      const requestVerifier = new RequestVerifier({
-        apiSecretKey,
-      });
-
-      requestVerifier.verifyWebhook(
-        req.header("X-Shopify-Hmac-Sha256") as string,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        (req as any).rawBody,
-      );
-    });
+    const verifyHmacWebhookMiddleware = new VerifyHmacWebhookMiddleware(
+      this.getProps,
+    );
 
     router.post(
       "/shopify/v1/webhook",
       loggerMiddleware.handler,
-      bodyParser,
-      verifyHandler,
+      verifyHmacWebhookMiddleware.handler,
       promisifyHandler(async (req, res) => {
         const { webhookHandler } = await this.getProps(req, res);
-        const shopId = ShopId.check(req.header("X-Shopify-Shop-Domain"));
-        const topic = req.header("X-Shopify-Topic");
-        const data = req.body;
+        const { shopId, topic, data } =
+          verifyHmacWebhookMiddleware.getData(res);
         const logger = loggerMiddleware.getLogger(res);
 
         try {
-          await webhookHandler.handle(
-            ShopId.check(shopId),
-            topic as string,
-            data,
-          );
+          await webhookHandler.handle(ShopId.check(shopId), topic, data);
         } catch (e) {
           logger.error(e, "Failed to handle webhook", {
             shopId,
