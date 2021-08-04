@@ -27,6 +27,7 @@ jobs:
           HOST_URL: ${{ secrets.HOST_URL }}
           SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
           SHOPIFY_API_SECRET_KEY: ${{ secrets.SHOPIFY_API_SECRET_KEY }}
+          TABLE_NAME: ShopifyTable
         run: |
           docker-compose -f tasks/ci/docker-compose.yml build deploy
           docker-compose -f tasks/ci/docker-compose.yml run deploy

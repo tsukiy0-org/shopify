@@ -6,7 +6,7 @@ import { App } from "aws-cdk-lib";
 const app = new App();
 
 const config = new SystemConfiguration();
-const tableName = "ShopifyTable";
+const tableName = config.get("TABLE_NAME");
 const shopifyApiKey = config.get("SHOPIFY_API_KEY");
 const shopifyApiSecretKey = config.get("SHOPIFY_API_SECRET_KEY");
 const hostUrl = config.get("HOST_URL");
