@@ -41,7 +41,7 @@ export class VerifyHmacWebhookMiddleware {
       };
       res.locals[this.key] = data;
     } catch {
-      return res.status(400);
+      return res.status(401).end();
     }
   });
 

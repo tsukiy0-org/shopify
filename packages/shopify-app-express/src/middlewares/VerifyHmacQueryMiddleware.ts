@@ -28,7 +28,7 @@ export class VerifyHmacQueryMiddleware {
       requestVerifier.verifyHmacQuery(query);
       res.locals[this.key] = ShopId.check(req.query.shop);
     } catch {
-      return res.status(400);
+      return res.status(401).end();
     }
   });
 
