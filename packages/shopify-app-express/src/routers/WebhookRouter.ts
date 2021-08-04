@@ -42,10 +42,11 @@ export class WebhookRouter {
       loggerMiddleware.handler,
       verifyHmacWebhookMiddleware.handler,
       promisifyHandler(async (req, res) => {
+        const logger = loggerMiddleware.getLogger(res);
+        logger.info("debug res.locals", res.locals);
         const { webhookHandler } = await this.getProps(req, res);
         const { shopId, topic, data } =
           verifyHmacWebhookMiddleware.getData(res);
-        const logger = loggerMiddleware.getLogger(res);
 
         try {
           await webhookHandler.handle(ShopId.check(shopId), topic, data);
