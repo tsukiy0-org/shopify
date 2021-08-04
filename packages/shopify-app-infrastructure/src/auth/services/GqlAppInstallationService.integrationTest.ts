@@ -4,7 +4,7 @@ import {
   ShopId,
 } from "@tsukiy0/shopify-app-core";
 import { GqlAppInstallationService } from "@tsukiy0/shopify-app-infrastructure";
-import { ShopifyGraphQlClientSetup } from "../../testing/ShopifyGraphQlClientSetup";
+import { ShopifyGraphQlClientSetup } from "@tsukiy0/shopify-app-infrastructure-testing";
 
 describe("GqlAppInstallationService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);

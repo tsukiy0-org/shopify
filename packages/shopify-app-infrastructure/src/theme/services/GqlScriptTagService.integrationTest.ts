@@ -8,7 +8,7 @@ import {
   ShopId,
 } from "@tsukiy0/shopify-app-core";
 import { GqlScriptTagService } from "@tsukiy0/shopify-app-infrastructure";
-import { ShopifyGraphQlClientSetup } from "../../testing";
+import { ShopifyGraphQlClientSetup } from "@tsukiy0/shopify-app-infrastructure-testing";
 
 describe("GqlScriptTagService", () => {
   const shopId = ShopId.check(process.env.SHOP_ID_1);
