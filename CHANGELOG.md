@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.40](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.39...v0.1.0-alpha.40) (2021-08-05)
+
+
+### Features
+
+* hook onto existing logger to avoid uncorrelated logs ([248d43b](https://github.com/tsukiy0-org/shopify/commit/248d43ba002a09e4c6d1c2016a91a02959143465))
+* throw error to avoid continue ([ee668db](https://github.com/tsukiy0-org/shopify/commit/ee668db85ecc2632688f7d3afe9eb371dc81aefc))
+
+
+
+
+
 # [0.1.0-alpha.39](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.38...v0.1.0-alpha.39) (2021-08-05)
 
 
