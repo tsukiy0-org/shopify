@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.39](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.38...v0.1.0-alpha.39) (2021-08-05)
+
+
+### Bug Fixes
+
+* build public gql client ([da8bdfc](https://github.com/tsukiy0-org/shopify/commit/da8bdfcb6e7dca3034a292e0f178b49ea97a8754))
+
+
+### Features
+
+* add error middleware ([94eaa81](https://github.com/tsukiy0-org/shopify/commit/94eaa81239ec761cb45c121742c93896adc8bfb0))
+
+
+
+
+
 # [0.1.0-alpha.38](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.37...v0.1.0-alpha.38) (2021-08-04)
 
 **Note:** Version bump only for package @tsukiy0/shopify-app-express-example

@@ -1,7 +1,7 @@
 {
   "name": "@tsukiy0/shopify-app-express-example",
   "private": true,
-  "version": "0.1.0-alpha.38",
+  "version": "0.1.0-alpha.39",
   "license": "MIT",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.81",
@@ -18,10 +18,10 @@
   "dependencies": {
     "@tsukiy0/extensions-aws": "^0.1.0-alpha.17",
     "@tsukiy0/extensions-core": "0.1.0-alpha.17",
-    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.38",
-    "@tsukiy0/shopify-app-express": "^0.1.0-alpha.38",
-    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.38",
-    "@tsukiy0/shopify-app-infrastructure-testing": "^0.1.0-alpha.38",
+    "@tsukiy0/shopify-app-core": "^0.1.0-alpha.39",
+    "@tsukiy0/shopify-app-express": "^0.1.0-alpha.39",
+    "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.39",
+    "@tsukiy0/shopify-app-infrastructure-testing": "^0.1.0-alpha.39",
     "aws-sdk": "^2.955.0",
     "body-parser": "1.19.0",
     "cors": "2.8.5",

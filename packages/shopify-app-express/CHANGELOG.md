@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.39](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.38...v0.1.0-alpha.39) (2021-08-05)
+
+
+### Bug Fixes
+
+* pass hmac from header ([6ecb17e](https://github.com/tsukiy0-org/shopify/commit/6ecb17ecd4e65f5123e11c3ca2ab2ed60f9fce1d))
+* stop processing when failed to verify hmac ([4cb8c8e](https://github.com/tsukiy0-org/shopify/commit/4cb8c8e4f9693a4252464c3e4fce9707fd33fa5a))
+
+
+### Features
+
+* use randomized key ([7c34caa](https://github.com/tsukiy0-org/shopify/commit/7c34caa54826ed513ff8d411877dad01c7c9c651))
+
+
+
+
+
 # [0.1.0-alpha.38](https://github.com/tsukiy0-org/shopify/compare/v0.1.0-alpha.37...v0.1.0-alpha.38) (2021-08-04)
 
 
