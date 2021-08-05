@@ -4,6 +4,7 @@ import { RequestVerifier } from "../utils/RequestVerifier";
 import { Response } from "express";
 import { promisifyHandler } from "@tsukiy0/extensions-express";
 import rawBody from "raw-body";
+import { GuidExtensions } from "@tsukiy0/extensions-core";
 
 type Props = {
   apiSecretKey: ApiSecretKey;
@@ -16,8 +17,7 @@ type Data = {
 };
 
 export class VerifyHmacWebhookMiddleware {
-  // private readonly key = `data__${GuidExtensions.generate()}`;
-  private readonly key = `data1`;
+  private readonly key = `data__${GuidExtensions.generate()}`;
 
   constructor(
     private readonly getProps: (
