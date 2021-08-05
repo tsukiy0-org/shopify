@@ -22,16 +22,11 @@ export class WebhookRouter {
       request: Request,
       response: Response,
     ) => Promise<Props>,
+    private readonly loggerMiddleware: LoggerMiddleware,
   ) {}
 
   build = (): Router => {
     const router = Router();
-
-    const correlationMiddleware = new CorrelationMiddleware();
-    const loggerMiddleware = new LoggerMiddleware(
-      "@tsukiy0/shopify-app-express",
-      correlationMiddleware,
-    );
 
     const verifyHmacWebhookMiddleware = new VerifyHmacWebhookMiddleware(
       this.getProps,
@@ -39,11 +34,9 @@ export class WebhookRouter {
 
     router.post(
       "/shopify/v1/webhook",
-      correlationMiddleware.handler,
-      loggerMiddleware.handler,
       verifyHmacWebhookMiddleware.handler,
       promisifyHandler(async (req, res) => {
-        const logger = loggerMiddleware.getLogger(res);
+        const logger = this.loggerMiddleware.getLogger(res);
         const { webhookHandler } = await this.getProps(req, res);
         const { shopId, topic, data } =
           verifyHmacWebhookMiddleware.getData(res);

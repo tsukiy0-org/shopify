@@ -66,7 +66,7 @@ export class App {
         webhookHandler,
         apiSecretKey: shopifyApiSecretKey,
       };
-    }).build();
+    }, loggerMiddleware).build();
 
     const usageSubscriptionRouter = new UsageSubscriptionRouter(
       async (_, res) => {
