@@ -40,8 +40,9 @@ export class VerifyHmacWebhookMiddleware {
         data: JSON.parse(body),
       };
       res.locals[this.key] = data;
-    } catch {
-      return res.status(401).end();
+    } catch (e) {
+      res.status(401).end();
+      throw e;
     }
   });
 

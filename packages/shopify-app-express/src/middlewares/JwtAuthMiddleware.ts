@@ -32,8 +32,9 @@ export class JwtAuthMiddleware {
       const jwt = authHeader.replace("Bearer ", "");
       const shopId = requestVerifier.verifyJwt(jwt);
       res.locals[this.key] = ShopId.check(shopId);
-    } catch {
-      return res.status(401).end();
+    } catch (e) {
+      res.status(401).end();
+      throw e;
     }
   });
 

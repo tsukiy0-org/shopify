@@ -39,6 +39,7 @@ export class WebhookRouter {
 
     router.post(
       "/shopify/v1/webhook",
+      correlationMiddleware.handler,
       loggerMiddleware.handler,
       verifyHmacWebhookMiddleware.handler,
       promisifyHandler(async (req, res) => {
