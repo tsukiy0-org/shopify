@@ -13,9 +13,9 @@
     "deploy": "cdk deploy --require-approval never --all"
   },
   "dependencies": {
-    "@tsukiy0/extensions-aws-cdk": "^0.1.0-alpha.17",
-    "@tsukiy0/extensions-core": "^0.1.0-alpha.17",
-    "aws-cdk-lib": "2.0.0-rc.15",
+    "@tsukiy0/extensions-aws-cdk": "^0.1.0-alpha.19",
+    "@tsukiy0/extensions-core": "^0.1.0-alpha.19",
+    "aws-cdk-lib": "2.0.0-rc.16",
     "constructs": "10.0.5"
   },
   "devDependencies": {

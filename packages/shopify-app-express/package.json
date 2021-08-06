@@ -19,8 +19,8 @@
     "test:integration:local": "jest --config jest.config.integration.js -t WebhookRouter"
   },
   "dependencies": {
-    "@tsukiy0/extensions-core": "0.1.0-alpha.17",
-    "@tsukiy0/extensions-express": "0.1.0-alpha.17",
+    "@tsukiy0/extensions-core": "0.1.0-alpha.19",
+    "@tsukiy0/extensions-express": "0.1.0-alpha.19",
     "@tsukiy0/shopify-app-core": "^0.1.0-alpha.40",
     "@tsukiy0/shopify-app-infrastructure": "^0.1.0-alpha.40",
     "body-parser": "1.19.0",
